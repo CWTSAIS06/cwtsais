@@ -1,0 +1,56 @@
+Data Buildup
+- CRUD ng dentists
+- CRUD ng mga Dental Procedure na ibinibigay ng dental clinic
+- CRUD ng Dental Conditions
+- CRUD ng Disease Medical Conditions
+- CRUD ng Medical Allergies
+- CRUD ng Medicine Stocks
+- CRUD ng Medicine
+- CRUD ng Supplies Stocks
+- CRUD ng Supplies
+
+Profiling (for new Patients)
+1. Kukunin muna ang Patients information
+2. Ilalagay ang Medical History ng patients
+
+Consultation
+1. Gagawan ng Consultation record ang patient (dental chart ito)
+2. After ng consultation gagawan ng Treatment record ang patient
+3. Yong total amount ng lahat ng procedure na ginawa sa consultation ay ilalagay sa consultations.total_amount
+
+note: sa user interface, ipapakita ng system ang charged amount per procedure at ang total charged amount.
+pero may text box pa rin sa tabi ng total charged amount kung sakaling gustong lagyan ng ibang total charged amount
+si patient
+
+4. Base sa consultations.total_amount, iinput ang Payments
+
+note: isama sa interface ang payment history ng patient sa consultation
+
+Inventory
+1. Irerecord ng desk officer ang Used Medicines at Used Supplies
+
+note: (interface)
+Consultation ID: 12345
+Procedure Done      Used Medicines    Item Count    Used Supplies     Item Count
+
+2. Imiminus ng system ang item count sa medicine_stocks at sa supply_stocks
+3. Kapag equal or less that na ang unit_on_stocks sa reorder_level ay
+magnonotify na ang system sa admin na kailangan nya nang bumili ng Supplies
+4. (Replenish) kapag nakabili na ang user ng medicine at supply, irerecord ito sa medicine_stocks at sa supply_stocks
+note: paghiwahiwalayin ang gamot at supply based sa pangalan, brand, at expiration date
+
+Reports:
+Base sa date range (date start, date end)
+1. Clinic Profit
+2. Frequency report of Procedure Done
+
+Anytime Report
+3. Payment Record of Patient Consultation
+4. Inventory Report
+
+Scheduling (sa mga old patients)
+1. Pwedeng maglogin at magrequest ng Consultation Schedule
+2. Magnonotify sa admin ang schedule request
+3. gagawan ng admin ng schedule date at time at itatag ang dentist na haharap sa schedule
+(use JS Full Calendar para dito)
+4. Magnonotify sa patient at i-aaprove nya ang ibinigay na schedule ng admin para sa confirmation 
