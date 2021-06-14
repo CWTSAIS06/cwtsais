@@ -7,10 +7,10 @@ class StudentModel extends \CodeIgniter\Model
 {
      protected $table = 'student';
 
-     protected $allowedFields = ['stud_num','serial_num','lastname','firstname','middlename','gender','birthdate','age','address','course_id','schyear_id','section','guardian_name','guardian_contactnum','email','status', 'created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['stud_num','user_id','serial_num','lastname','firstname','middlename','gender','contact_no','birthdate','age','address','course_id','year_id','section_id','schyear_id','section','guardian_name','guardian_contactnum','email','status', 'created_at','updated_at', 'deleted_at'];
 
     public function getStudentById($id){
-      $this->select('student.id, student.firstname, student.lastname, student.middlename, course.course, student.address');
+      $this->select('student.id,student.course_id, student.firstname, student.lastname, student.middlename, course.course, student.address');
       $this->join('course', 'student.course_id = course.id');
       $this->where('student.id', $id);
       return $this->findAll();
@@ -77,10 +77,12 @@ class StudentModel extends \CodeIgniter\Model
 	  return $this->save($val_array);
 	}
 
-    public function editStudent($val_array = [], $id)
+    public function editStudent($val_array = [], $id, $year_id, $section_id)
 	{
 		$val_array['updated_at'] = (new \DateTime())->format('Y-m-d H:i:s');
 		$val_array['status'] = 'a';
+		$val_array['year_id'] = $year_id;
+    $val_array['section_id'] = $section_id;
 		return $this->update($id, $val_array);
 	}
 
@@ -95,5 +97,20 @@ class StudentModel extends \CodeIgniter\Model
     $this->select('id');
     $this->where('stud_num', $id);
     return $this->findAll();
+  }
+
+  public function addRegisteredStudent($val_array, $user_id){
+		unset($val_array['username']);
+    unset($val_array['password']);
+    
+    $val_array['user_id'] = $user_id;
+    $val_array['status'] = 'a';
+    $val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+
+    return $this->save($val_array);
+  }
+  public function getStudentByUserId($id){
+    $this->where('user_id', $id);
+    return $this->first();
   }
 }

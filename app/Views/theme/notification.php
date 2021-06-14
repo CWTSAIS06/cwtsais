@@ -15,3 +15,9 @@
 	    alert_success('<?= $_SESSION['error']; ?>');
 	</script>
 <?php endif; ?>
+
+<?php if(isset($_SESSION['error1'])): ?>
+	<script type="text/javascript">
+	    alert_error1('<?= $_SESSION['error1']; ?>');
+	</script>
+<?php endif; ?>

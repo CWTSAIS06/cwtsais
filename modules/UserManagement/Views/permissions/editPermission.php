@@ -5,7 +5,7 @@
     <div class="row">
        <div class="col-md-2 offset-md-10">
          <?php if(user_link('edit-role-permissions', $_SESSION['userPermmissions'])): ?>
-          <a href="<?= base_url() ?>permission/edit" class="btn btn-sm btn-primary btn-block float-right">Edit Permissions</a>
+          <a href="<?= base_url("Permission/edit_permission") ?>" class="btn btn-sm btn-primary btn-block float-right">Edit Permissions</a>
         <?php endif; ?>
        </div>
      </div>

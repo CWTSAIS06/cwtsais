@@ -26,7 +26,7 @@ class Enroll extends BaseController
     	$this->hasPermissionRedirect('list-student');
 
     	$model = new EnrollModel();
-		 		$data['students'] = $model->getStudents();
+		$data['students'] = $model->getStudents();
         $data['function_title'] = "Enrolled Student List";
         $data['viewName'] = 'Modules\StudentManagement\Views\enroll\index';
         echo view('App\Views\theme\index', $data);
@@ -91,11 +91,71 @@ class Enroll extends BaseController
 	       echo view('App\Views\theme\index', $data);
     	}
     }
-		public function delete_student($id)
-	    {
-				$this->hasPermissionRedirect('delete-student');
-	    	$model = new EnrollModel();
-	    	$model->deleteStudent($id);
-	    }
+	public function delete_student($id)
+	{
+			$this->hasPermissionRedirect('delete-student');
+		$model = new EnrollModel();
+		$model->deleteStudent($id);
+	}
+
+	public function enroll_student(){
+		
+		$permissions_model = new PermissionsModel();
+    	$course_model = new CourseModel();
+    	$schyear_model = new SchoolyearModel();
+		$model = new EnrollModel();
+		$student_model = new StudentModel();
+		$subject_model = new SubjectModel();
+
+    	$data['permissions'] = $this->permissions;
+    	$data['course'] = $this->course;
+    	$data['schyear'] = $schyear_model->getCurrentSchoolYear(date('Y'));
+		$data['subjects'] = $subject_model->getSubjectWithCondition(['status' => 'a']);
+		$data['students'] = $student_model->getStudentByUserId($_SESSION['uid']);
+		
+    	helper(['form', 'url']);
+		
+		
+    	if(!empty($_POST))
+    	{
+			
+	    	if (!$this->validate('enroll'))
+		    {
+		    	$data['errors'] = \Config\Services::validation()->getErrors();
+		       $data['function_title'] = "Enrollment";
+		       $data['viewName'] = 'Modules\StudentManagement\Views\enroll\enroll_student';
+		       echo view('App\Views\theme\index', $data);
+		    }
+		    else
+		    {
+				$isEnrolled = $model->selectStudent($_POST['student_id']);	
+				//next step check if already complete to previous subject 
+		        if (!isset($isEnrolled)){
+					if($model->addStudentEnroll($_POST))
+					{
+						$_SESSION['success'] = 'You are now enrolled!';
+						$this->session->markAsFlashdata('success');
+						return redirect()->to(base_url('enroll/enrollStudent'));
+					}
+					else
+					{
+						$_SESSION['error1'] = 'You have an error in adding a new record';
+						$this->session->markAsFlashdata('error1');
+						return redirect()->to(base_url('enroll/enrollStudent'));
+					}
+		        } else {
+					$_SESSION['error1'] = 'You are currently enrolled or not incomplete';
+					$this->session->markAsFlashdata('error1');
+					return redirect()->to(base_url('enroll/enrollStudent'));
+				}
+		    }
+    	}
+    	else
+    	{
+		   $data['function_title'] = "Enrollment";
+	       $data['viewName'] = 'Modules\StudentManagement\Views\enroll\enroll_student';
+	       echo view('App\Views\theme\index', $data);
+    	}
+	}
 
 }

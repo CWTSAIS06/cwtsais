@@ -7,6 +7,7 @@ use Modules\PenaltyManagement\Models\PenaltyModel;
 use Modules\Attendance\Models\AttendanceModel;
 use App\Libraries\Pdf;
 use Modules\TableManagement\Models\CourseModel;
+use Modules\Maintenances\Models\YearsModel;
 use Modules\TableManagement\Models\SchoolyearModel;
 use Modules\UserManagement\Models\PermissionsModel;
 use App\Controllers\BaseController;
@@ -28,12 +29,12 @@ class Student extends BaseController
     	$this->hasPermissionRedirect('list-student');
 			// die($_SESSION['uid']);
     	$model = new StudentModel();
-		 		$data['student'] = $model->getStudent();
-			 	// $data['student'] = $model->getStudentWithSchyear(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
+		$data['student'] = $model->getStudent();
+		// $data['student'] = $model->getStudentWithSchyear(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
         $data['function_title'] = "Student List";
         $data['viewName'] = 'Modules\StudentManagement\Views\students\index';
         echo view('App\Views\theme\index', $data);
-    }
+	}
 
     public function show_student($id)
 	{
@@ -55,6 +56,90 @@ class Student extends BaseController
     $data['viewName'] = 'Modules\StudentManagement\Views\students\studentDetails';
     echo view('App\Views\theme\index', $data);
 	}
+
+	public function profile_student(){
+
+    	helper(['form', 'url']);
+
+		$id = $_SESSION['uid'];
+		$model = new StudentModel();
+		$permissions_model = new PermissionsModel();
+		$course_model = new CourseModel();
+		$schyear_model = new SchoolyearModel();
+		$year_model = new YearsModel();
+
+		$data['course'] = $this->course;
+		$data['schyear'] = $this->schyear;
+		$data['student'] = $model->where('user_id', $id)->first();
+
+		$data['sections'] = $year_model->getYearAndSectionByCourse($data['student']['course_id']);
+
+		$data['function_title'] = "Student Profile";
+        $data['viewName'] = 'Modules\StudentManagement\Views\students\profileStudent';
+        return view('App\Views\theme\index', $data);
+	}
+
+	public function get_sections(){
+
+		$course_id = $_GET['course_id'];
+		$course_model = new CourseModel();
+		$year_model = new YearsModel();
+
+		$sections = $year_model->getYearAndSectionByCourse($course_id);
+
+		return json_encode($sections);
+	}
+	
+	public function edit_profile_student($id)
+    {
+    	helper(['form', 'url']);
+    	$model = new StudentModel();
+    	$data['student'] = $model->find($id);
+
+    	$permissions_model = new PermissionsModel();
+			$course_model = new CourseModel();
+			$schyear_model = new SchoolyearModel();
+
+			$data['course'] = $this->course;
+			$data['schyear'] = $this->schyear;
+			$data['permissions'] = $this->permissions;
+
+    	if(!empty($_POST))
+    	{
+	    	if (!$this->validate('edit_students'))
+		    {
+				//die("here");
+				$data['errors'] = \Config\Services::validation()->getErrors();
+		        $data['function_title'] = "Edit Student Information";
+		        $data['viewName'] = 'Modules\StudentManagement\Views\students\profileStudent';
+		        echo view('App\Views\theme\index', $data);
+		    }
+		    else
+		    {
+				$yearAndSection = explode('-',$_POST['section']);
+				$year = $yearAndSection[0];
+				$section = $yearAndSection[1];
+		    	if($model->editStudent($_POST, $id, $year, $section))
+		        {
+		        	$_SESSION['success'] = 'You have updated a record';
+					$this->session->markAsFlashdata('success');
+		        	return redirect()->to(base_url('student/profileStudent'));
+		        }
+		        else
+		        {
+		        	$_SESSION['error'] = 'You an error in updating a record';
+					$this->session->markAsFlashdata('error');
+		        	return redirect()->to( base_url('student/profileStudent'));
+		        }
+		    }
+    	}
+    	else
+    	{
+	    	$data['function_title'] = "Student Profile";
+	        $data['viewName'] = 'Modules\StudentManagement\Views\students\profileStudent';
+	        echo view('App\Views\theme\index', $data);
+    	}
+    }
 
     public function add_student()
     {

@@ -70,4 +70,26 @@ class UsersModel extends \CodeIgniter\Model
 		$val_array['status'] = 'd';
 		return $this->update($id, $val_array);
 	}
+
+	public function addStudentAccount($val_array = [])
+	{
+		unset($val_array['stud_num']);
+		$val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+		$val_array['status'] = 'a';
+		$val_array['role_id'] = 3;
+		$val_array['password'] = password_hash($val_array['password'], PASSWORD_DEFAULT);
+
+	    return $this->save($val_array);
+	}
+
+	public function getLandingPage($role_id){
+		$this->select('*');
+		$this->from('users u');
+		$this->join('roles r', 'u.role_id = r.id', 'inner');
+		$this->join('permissions p', 'r.function_id = p.id', 'inner');
+		$this->where('r.id', $role_id);
+		$query = $this->first();
+
+		return $query;
+	}
 }

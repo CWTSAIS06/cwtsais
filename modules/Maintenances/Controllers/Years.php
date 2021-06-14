@@ -2,6 +2,8 @@
 namespace Modules\Maintenances\Controllers;
 
 use Modules\Maintenances\Models\YearsModel;
+use Modules\Maintenances\Models\SectionsModel;
+use Modules\TableManagement\Models\CourseModel;
 use Modules\UserManagement\Models\PermissionsModel;
 use App\Controllers\BaseController;
 
@@ -18,13 +20,12 @@ class Years extends BaseController
 
   public function index()
   {
-  	$this->hasPermissionRedirect('list-year');
+  	$this->hasPermissionRedirect('year-and-section');
 
   	$model = new YearsModel();
+    $data['years'] = $model->getYear();
 
-    $data['year'] = $model->getYear();
-
-    $data['function_title'] = "Year List";
+    $data['function_title'] = "Year & Section List";
     $data['viewName'] = 'Modules\Maintenances\Views\years\index';
     echo view('App\Views\theme\index', $data);
   }
@@ -36,13 +37,16 @@ class Years extends BaseController
 
   	helper(['form', 'url']);
   	$model = new YearsModel();
+	$course = new CourseModel();
+	$section = new SectionsModel();
 
   	if(!empty($_POST))
   	{
     	if (!$this->validate('year'))
 	    {
-	    	$data['errors'] = \Config\Services::validation()->getErrors();
-	      $data['function_title'] = "Adding Year";
+	      $data['errors'] = \Config\Services::validation()->getErrors();
+		  $data['function_title'] = "Adding Year & Section";
+		  $data['courses'] = $course->getCourse();
 	      $data['viewName'] = 'Modules\Maintenances\Views\years\frmYear';
 	      echo view('App\Views\theme\index', $data);
 	    }
@@ -50,71 +54,46 @@ class Years extends BaseController
 	    {
 	        if($model->add_maintenance($_POST))
 	        {
+				$id = $model->insertID();
+				$sections = $_POST['section'];
+				for($i=1; $i <= $sections; $i++){
+					$_POST['section'] = $i;
+					$section->add_maintenance($_POST, $id);
+				}
 	        	$_SESSION['success'] = 'You have added a new record';
-						$this->session->markAsFlashdata('success');
+				$this->session->markAsFlashdata('success');
 	        	return redirect()->to(base_url('years'));
 	        }
 	        else
 	        {
 	        	$_SESSION['error'] = 'You have an error in adding a new record';
-						$this->session->markAsFlashdata('error');
+				$this->session->markAsFlashdata('error');
 	        	return redirect()->to(base_url('years'));
 	        }
 	    }
   	}
   	else
   	{
-    	$data['function_title'] = "Adding Year";
+	  $data['function_title'] = "Adding Year & Section";
+	  $data['courses'] = $course->getCourse();
       $data['viewName'] = 'Modules\Maintenances\Views\years\frmYear';
       echo view('App\Views\theme\index', $data);
   	}
   }
 
-  public function edit_year($id)
-  {
-  	$this->hasPermissionRedirect('edit-year');
-  	helper(['form', 'url']);
-  	$model = new YearsModel();
-  	$data['rec'] = $model->find($id);
-
-		// die($_POST['status']);
-
-  	if(!empty($_POST))
-  	{
-			if (!$this->validate('year'))
-			{
-				$data['errors'] = \Config\Services::validation()->getErrors();
-					$data['function_title'] = "Edit of Year";
-					$data['viewName'] = 'Modules\Maintenances\Views\years\frmYear';
-					echo view('App\Views\theme\index', $data);
-			}
-			else
-			{
-				if($model->edit_maintenance($_POST, $id))
-					{
-						$_SESSION['success'] = 'You have updated a record';
-						$this->session->markAsFlashdata('success');
-						return redirect()->to(base_url('years'));
-					}
-					else
-					{
-						$_SESSION['error'] = 'You an error in updating a record';
-						$this->session->markAsFlashdata('error');
-						return redirect()->to( base_url('years'));
-					}
-			}
-  	}
-  	else
-  	{
-			$data['function_title'] = "Edit of Year";
-			$data['viewName'] = 'Modules\Maintenances\Views\years\frmYear';
-			echo view('App\Views\theme\index', $data);
-  	}
-  }
 	public function delete_year($id)
 	{
-		$this->hasPermissionRedirect('delete-year');
 		$model = new YearsModel();
-		$model->delete_maintenance($id);
+		$section = new SectionsModel();
+
+		// $model->delete_maintenance($id);
+		$section->delete_sections($id);
 	}
+
+	public function activate_year($id){
+		$section = new SectionsModel();
+		$section->active_sections($id);
+	}
+
+	
 }

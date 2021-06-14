@@ -61,4 +61,10 @@ class SchoolyearModel extends \CodeIgniter\Model
 		$val_array['status'] = 'd';
 		return $this->update($id, $val_array);
 	}
+
+	public function getCurrentSchoolYear($date){
+		$this->like("schyear", "%".$date."%");
+		$this->where('status', 'a');
+		return $this->first();
+	}
 }

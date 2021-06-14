@@ -34,22 +34,22 @@ class AttendanceModel extends \CodeIgniter\Model
 
   public function getAttendances(){
     $this->select('attendance.id as id, student.stud_num,student.firstname, student.lastname, student.middlename, attendance.timein, attendance.timeout, attendance.date, subjects.subject');
-    $this->join('current', 'current.id = attendance.enroll_id');
-    $this->join('subjects', 'current.subject = subjects.id');
-    $this->join('student', 'current.stud_id = student.id');
+    $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
+    $this->join('subjects', 'enrollment.subject_id = subjects.id');
+    $this->join('student', 'enrollment.student_id = student.id');
     $this->join('course', 'course.id = student.course_id');
     return $this->findAll();
   }
   public function getAttendancesById($id){
     // SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(attendance.timeout, attendance.timein) ) ) ) as completed_time
-    $this->select('current.id, attendance.timein, attendance.timeout');
-    $this->join('current', 'current.id = attendance.enroll_id');
-    $this->join('subjects', 'current.subject = subjects.id');
-    $this->join('student', 'current.stud_id = student.id');
+    $this->select('enrollment.id, attendance.timein, attendance.timeout');
+    $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
+    $this->join('subjects', 'enrollment.subject_id = subjects.id');
+    $this->join('student', 'enrollment.student_id = student.id');
     $this->join('course', 'course.id = student.course_id');
     $this->where('student.id', $id);
     $this->where('attendance.timeout IS NOT NULL', null, false);
-    // $this->groupBy('current.id');
+    // $this->groupBy('enrollment.id');
     // print_r($this->findAll());
     // die();
     return $this->findAll();
@@ -57,14 +57,14 @@ class AttendanceModel extends \CodeIgniter\Model
 
   public function getAttendancesByEnrollId($id){
     // SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(attendance.timeout, attendance.timein) ) ) ) as completed_time
-    $this->select('current.id, attendance.timein, attendance.timeout');
-    $this->join('current', 'current.id = attendance.enroll_id');
-    $this->join('subjects', 'current.subject = subjects.id');
-    $this->join('student', 'current.stud_id = student.id');
+    $this->select('enrollment.id, attendance.timein, attendance.timeout');
+    $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
+    $this->join('subjects', 'enrollment.subject_id = subjects.id');
+    $this->join('student', 'enrollment.student_id = student.id');
     $this->join('course', 'course.id = student.course_id');
-    $this->where('current.id', $id);
+    $this->where('enrollment.id', $id);
     $this->where('attendance.timeout IS NOT NULL', null, false);
-    // $this->groupBy('current.id');
+    // $this->groupBy('enrollment.id');
     // print_r($this->findAll());
     // die();
     return $this->findAll();

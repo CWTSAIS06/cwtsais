@@ -5,6 +5,7 @@ $routes->group('years', ['namespace' => 'Modules\Maintenances\Controllers'], fun
     $routes->match(['get', 'post'], 'add', 'Years::add_year');
     $routes->match(['get', 'post'], 'edit/(:num)', 'Years::edit_year/$1');
     $routes->delete('delete/(:num)', 'Years::delete_year/$1');
+    $routes->delete('active/(:num)', 'Years::activate_year/$1');
 });
 
 $routes->group('sections', ['namespace' => 'Modules\Maintenances\Controllers'], function($routes)

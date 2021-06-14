@@ -7,9 +7,9 @@
   </div>
   <div class="col-md-2 offset-md-10">
     <br>
-    <?php if(user_link('add-student', $_SESSION['userPermmissions'])): ?>
+    <!-- <?php if(user_link('add-student', $_SESSION['userPermmissions'])): ?>
     <a href="<?= base_url() ?>enroll/add" class="btn btn-sm btn-success btn-block float-right">Enroll Student</a>
-  <?php endif; ?>
+  <?php endif; ?> -->
   </div>
 </div>
 <br>

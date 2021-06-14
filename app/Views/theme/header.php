@@ -15,8 +15,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/jqvmap/jqvmap.min.css">
+ 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>/public/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->

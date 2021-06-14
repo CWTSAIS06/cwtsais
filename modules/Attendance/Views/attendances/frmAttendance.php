@@ -13,11 +13,14 @@
         </div>
       </div>
       <div class="col-md-12">
+      <?php if($_SESSION['rid'] !== '3'):?> 
         <center>
-          <button type="submit" class="btn btn-success m-3">TIME IN / TIME OUT</button>
+          <button name="time_in" id="time_in" class="btn btn-success m-3">TIME IN</button>
+          <button name="time_out" id="time_out" class="btn btn-success m-3"> TIME OUT</button>
         </center>
+      <?php endif;?>
       </div>
-    </form>
+    <!-- </form> -->
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -58,3 +61,7 @@
     </div>
   </div>
 </div>
+<script>
+
+console.log('')
+</script>

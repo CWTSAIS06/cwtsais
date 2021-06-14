@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://localhost/cwtsis/';
+	public $baseURL = 'http://localhost/CWTS-AIS/';
 	// public $baseURL = 'http://localhost:8080';
 
 	/*

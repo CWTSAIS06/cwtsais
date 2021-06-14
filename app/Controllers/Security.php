@@ -39,10 +39,15 @@ class Security extends BaseController
 			//checking if user is user credential is valid
 			if($loginOK == 1)
 			{
+				$landing_page = $model->getLandingPage($_SESSION['rid']);
 				// die('logged in');
 				$_SESSION['success_login'] = 'Welcome '.$user['username'].'!';
 				$this->session->markAsFlashdata('success_login');
-	        	return redirect()->to(base_url('student'));
+				if($landing_page['role_name'] == 'Student'){
+					return redirect()->to(base_url('student/profileStudent'));
+				}else{
+					return redirect()->to(base_url('student'));
+				}
 			}
 			else
 			{

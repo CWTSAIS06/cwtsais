@@ -5,10 +5,10 @@ $(document).ready( function () {
 function display_ct6() {
 var x = new Date()
 var ampm = x.getHours( ) >= 12 ? ' PM' : ' AM';
-hours = x.getHours( ) % 12;
-hours = hours ? hours : 12;
+// hours = x.getHours( ) % 12;
+// hours = hours ? hours : 12; //for 12hours 
 var x1=x.getMonth() + 1+ "/" + x.getDate() + "/" + x.getFullYear();
-x1 = x1 + " - " +  hours + ":" +  x.getMinutes() + ":" +  x.getSeconds() + " " + ampm;
+x1 = x1 + " - " + x.getHours() + ":" +  x.getMinutes() + ":" +  x.getSeconds() + " " + ampm;
 document.getElementById('ct6').innerHTML = x1;
 display_c6();
  }

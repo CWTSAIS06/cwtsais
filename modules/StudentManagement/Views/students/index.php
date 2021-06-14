@@ -8,7 +8,7 @@
   <div class="col-md-2 offset-md-10">
     <br>
     <?php if(user_link('add-student', $_SESSION['userPermmissions'])): ?>
-    <a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">Add Student</a>
+    <!-- <a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">Add Student</a> -->
   <?php endif; ?>
   </div>
 </div>
@@ -23,7 +23,7 @@
        <th>Name</th>
        <th>Course</th>
        <th>School Year</th>
-       <th>Action</th>
+       <!-- <th>Action</th> -->
      </tr>
    </thead>
    <tbody>
@@ -36,7 +36,7 @@
        <td><?= ucwords($student['course']) ?></td>
        <td><?= ucwords($student['schyear']) ?></td>
        <td class="text-center">
-      <?php  users_action('student', $_SESSION['userPermmissions'], $student['id']); ?>
+      <!-- <?php  users_action('student', $_SESSION['userPermmissions'], $student['id']); ?> -->
        </td>
      </tr>
      <?php endforeach; ?>

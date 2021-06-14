@@ -7,7 +7,7 @@ class SectionsModel extends \CodeIgniter\Model
 {
     protected $table = 'sections';
 
-    protected $allowedFields = ['id','section','status', 'created_date','updated_date', 'deleted_date'];
+    protected $allowedFields = ['id','course_id','year_id','section','status', 'created_date','updated_date', 'deleted_date'];
 
     public function getSectionWithCondition($conditions = [])
     {
@@ -28,9 +28,12 @@ class SectionsModel extends \CodeIgniter\Model
         return $query->getResultArray();
         }
 
-        public function add_maintenance($val_array = [])
+        public function add_maintenance($val_array = [], $id)
       {
+
         $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'a';
+        $val_array['year_id'] = $id;
         return $this->save($val_array);
       }
       public function edit_maintenance($val_array = [], $id)
@@ -45,5 +48,21 @@ class SectionsModel extends \CodeIgniter\Model
         $val_array['status'] = 'd';
 
         return $this->update($id, $val_array);
+      }
+
+      public function delete_sections($id)
+      {
+        $val_array['deleted_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'd';
+
+        return $this->update(array('year_id' => $id), $val_array);
+      }
+
+      public function active_sections($id)
+      {
+        $val_array['deleted_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'a';
+
+        return $this->update(array('year_id' => $id), $val_array);
       }
 }

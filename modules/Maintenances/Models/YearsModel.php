@@ -1,36 +1,49 @@
 <?php
 namespace Modules\Maintenances\Models;
+
 use CodeIgniter\Model;
 
 class YearsModel extends \CodeIgniter\Model
 {
     protected $table = 'years';
 
-    protected $allowedFields = ['id','year','status', 'created_date','updated_date', 'deleted_date'];
+    protected $allowedFields = ['id','course_id','year','status', 'created_date','updated_date', 'deleted_date'];
 
 
         public function getYearWithCondition($conditions = [])
         {
-        foreach($conditions as $field => $value)
-        {
-          $this->where($field, $value);
-        }
+          foreach($conditions as $field => $value)
+          {
+            $this->where($field, $value);
+          }
           return $this->findAll();
         }
 
-            public function getYear(){
+      public function getYear(){
+        $this->select('*');
+        $this->join('course c', 'years.course_id = c.id', 'inner');
+        $this->join('sections s', 's.year_id = years.id', 'inner');
+        // $this->where('years.status', 'a');
+        return $this->findAll();
+        
+      }
 
-            $db = \Config\Database::connect();
+      public function getYearAndSectionByCourse($id){
+        $this->select('years.*,c.id, s.*');
+        $this->join('course c', 'years.course_id = c.id', 'inner');
+        $this->join('sections s', 's.year_id = years.id', 'inner');
+        $this->where('years.status', 'a');
+        $this->where('c.id', $id);
 
-            $str = "SELECT p.* FROM years p WHERE p.status = 'a' order by p.created_date desc";
 
-            $query = $db->query($str);
-
-            return $query->getResultArray();
-            }
-        public function add_maintenance($val_array = [])
+        return $this->findAll();
+        
+      }
+  
+      public function add_maintenance($val_array = [])
       {
         $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'a';
         return $this->save($val_array);
       }
       public function edit_maintenance($val_array = [], $id)

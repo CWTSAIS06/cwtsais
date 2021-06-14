@@ -54,20 +54,34 @@ class Validation
 				 		'gender' => [
 				 				'label'  => 'Gender',
 				 				'rules'  => 'required',
-				 			  'errors' => [
-				 				'required' => 'Gender field is required.',
+				 			  	'errors' => [
+				 					'required' => 'Gender field is required.',
 				 				]
 				 			],
 				  ];
 
 		public $year = [
-				 		'year' => [
-				 		'label'  => 'Year',
-				 		'rules'  => 'required',
-				 		'errors' => [
-				 		'required' => 'Year field is required.',
-				 			]
-				 		],
+					'course_id' => [
+						'label'  => 'Course',
+						'rules'  => 'required',
+						'errors' => [
+							'required' => 'Course field is required.',
+							]
+						],
+					'year' => [
+						'label'  => 'Year',
+						'rules'  => 'required',
+						'errors' => [
+							'required' => 'Year field is required.',
+							]
+						],
+					'section' => [
+						'label'  => 'Section',
+						'rules'  => 'required|numeric',
+						'errors' => [
+							'required' => 'Section field is required.',
+						]
+					],
 				 ];
 
 		public $section = [
@@ -122,11 +136,7 @@ class Validation
 				 ];
 
 		public $enroll = [
-			'stud_id' => [
-				'label' => 'Student',
-				'rules' => 'required'
-			],
-			'subject' => [
+			'subject_id' => [
 				'label' => 'Subject',
 				'rules' => 'required'
 			]
@@ -456,7 +466,7 @@ class Validation
 					]
 			],
 
-			'contact_num' => [
+			'contact_no' => [
 					'label'  => 'Contact #',
 					'rules'  => 'required|regex_match[((^(\+)(\d){12}$)|(^\d{11}$))]|is_unique[student.contact_num]',
 					'errors' => [
@@ -513,17 +523,8 @@ class Validation
 					]
 			],
 		];
-		public $edit_students = [
-			'stud_num' => [
-					'label'  => 'Student number',
-					'rules'  => 'required|min_length[14]|max_length[15]',
-					'errors' => [
-							'required' => 'Student Number field is required.',
-						 	'min_length' => 'Minimum Length is 14 Characters',
-						 	'max_length' => 'Minimum Length is 15 Characters',
-					]
-			],
 
+		public $edit_students = [
 			'lastname' => [
 					'label'  => 'Last Name',
 					'rules'  => 'required',
@@ -534,10 +535,9 @@ class Validation
 
 			'firstname' => [
 					'label'  => 'First Name',
-					'rules'  => 'required|alpha',
+					'rules'  => 'required',
 					'errors' => [
 							'required' => 'First Name field is required.',
-							'alpha' => 'Alphabetical Only.',
 					]
 			],
 
@@ -565,9 +565,9 @@ class Validation
 					]
 			],
 
-			'contact_num' => [
+			'contact_no' => [
 					'label'  => 'Contact #',
-					'rules'  => 'required|regex_match[((^(\+)(\d){12}$)|(^\d{11}$))]',
+					'rules'  => 'required',
 					'errors' => [
 							'required' => 'Contact Number field is required.',
 					]
@@ -580,30 +580,7 @@ class Validation
 							'required' => 'Email Address field is required.',
 					]
 			],
-
-			'guardian_name' => [
-					'label'  => 'Guardian/Parent Name',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'Guardian/Parent Name field is required.',
-					]
-			],
-
-			'guardian_contactnum' => [
-					'label'  => 'Guardian/Parent Contact #',
-					'rules'  => 'required|regex_match[((^(\+)(\d){12}$)|(^\d{11}$))]',
-					'errors' => [
-							'required' => 'Guardian/Parent # field is required.',
-					]
-			],
-
-			'section' => [
-					'label'  => 'section',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'Year & Section field is required.',
-					]
-			],
+		
 
 			'course_id' => [
 					'label'  => 'Course',
@@ -612,14 +589,48 @@ class Validation
 							'required' => 'Course field is required.',
 					]
 			],
-			'schyear_id' => [
-					'label'  => 'School Year',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'School Year field is required.',
-					]
-			],
+			
 		];
+
+
+	public $registration = [
+		'stud_num' => [
+			'label'  => 'Student number',
+			'rules'  => 'required|min_length[14]|max_length[15]',
+			'errors' => [
+					'required' => 'Student Number field is required.',
+					 'min_length' => 'Minimum Length is 14 Characters',
+					 'max_length' => 'Minimum Length is 15 Characters',
+			]
+		],
+
+		'lastname' => [
+				'label'  => 'Last Name',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Last Name field is required.',
+				]
+		],
+
+		'firstname' => [
+				'label'  => 'First Name',
+				'rules'  => 'required|alpha',
+				'errors' => [
+						'required' => 'First Name field is required.',
+						'alpha' => 'Alphabetical Only.',
+				]
+		],
+
+		'email' => [
+			'label'  => 'Email Address',
+			'rules'  => 'required',
+			'errors' => [
+					'required' => 'Email Address field is required.',
+			]
+		],
+
+
+	];
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------

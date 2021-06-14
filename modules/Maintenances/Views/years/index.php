@@ -7,10 +7,10 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-              <h5><?= $function_title?></h5>
+              <h5> Year & Section</h5>
             </div>
             <div class="col-md-6">
-              <?php maintenance_detail_add_link('years', $_SESSION['userPermmissions']) ?>
+            <a href="<?= base_url(); ?>years/add" class="btn btn-sm btn-success btn-block float-left">Add Year & Section</a>
             </div>
           </div>
           <br>
@@ -19,21 +19,32 @@
               <thead class="thead-dark">
                 <tr class="text-center">
                   <th>#</th>
-                  <th>Year</th>
+                  <th>Course</th>
+                  <th>Year & Section</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php $cnt = 1; ?>
-                <?php foreach($year as $years): ?>
+                <?php foreach($years as $year): ?>
                 <tr class="text-center">
                   <th scope="row"><?= $cnt++ ?></th>
-                  <td><?= $years['year'] ?></td>
+
+                  <td><?= $year['course']?></td>
+                  <td><?= $year['year']?> - <?= $year['section']?></td>
+                  <td><?= ($year['status'] == 'a') ? 'active':'deactivated'?></td>
+
 
                   <td class="text-center">
-                    <?php
+                    <!-- <?php
                       maintenance_action('years', $_SESSION['userPermmissions'], $years['id']);
-                    ?>
+                    ?> -->
+                    <?php if($year['status'] == 'a'):?>
+                      <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('years/delete/')?>',<?=$year['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
+                    <?php else:?>
+                      <a class="btn btn-info btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('years/active/')?>',<?=$year['id']?>,'a')" title="activate"><i class="fas fa-archive"></i></a>
+                    <?php endif;?>
                   </td>
                 </tr>
                 <?php endforeach; ?>
@@ -44,3 +55,6 @@
        </div>
     </div>
   </div>
+<script>
+
+</script>

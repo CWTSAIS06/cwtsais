@@ -87,6 +87,22 @@ class StudentPermissionSeeder extends \CodeIgniter\Database\Seeder
                   'status' => 'a',
                   'created_at' => date('Y-m-d H:i:s')
                 ],
+                [
+                  'function_name' => 'profile student details',
+                  'function_description' => 'profile student details',
+                  'slugs' => 'profile-student',
+                  'name_on_class' => 'profile_student',
+                  'page_title' => 'profile student details',
+                  'module_id' => '5',
+                  'link_icon' => '<i class="far fa-circle"></i>',
+                  'order' => '6',
+                  'table_name' => 'student',
+                  'func_action' => 'link',
+                  'func_type' => 1,
+                  'allowed_roles' => "[3]",
+                  'status' => 'a',
+                  'created_at' => date('Y-m-d H:i:s')
+                ],
                 ];
                 //print_r($data); die();
                 $db      = \Config\Database::connect();
