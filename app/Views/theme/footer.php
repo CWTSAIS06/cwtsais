@@ -33,7 +33,9 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- ChartJS -->
 <script src="<?= base_url() ?>/public/plugins/chart.js/Chart.min.js"></script>
 
-
+<!-- JQVMap -->
+<script src="<?= base_url() ?>/public/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="<?= base_url() ?>/public/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
 <script src="<?= base_url() ?>/public/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -60,14 +62,14 @@ $.widget.bridge('uibutton', $.ui.button)
     <script src="<?= base_url() ?>/public/js/side.js"></script>
     <script src="<?= base_url() ?>/public/js/table.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-
-<script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    <?php if(base_url(uri_string()) == base_url("penalty")): ?>
+    <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
+    <?php endif;?>
 </body>
 </html>

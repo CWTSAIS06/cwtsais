@@ -33,6 +33,7 @@ class YearsModel extends \CodeIgniter\Model
         $this->join('course c', 'years.course_id = c.id', 'inner');
         $this->join('sections s', 's.year_id = years.id', 'inner');
         $this->where('years.status', 'a');
+        $this->where('s.status', 'a');
         $this->where('c.id', $id);
 
 

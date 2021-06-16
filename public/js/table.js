@@ -1,15 +1,5 @@
 $(document).ready( function () {
-    $('#myTable').DataTable({
-        'paging'      : true,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        dom: 'lft<"#space">Bip',
-        buttons: [
-            'copy', 'csv', 'excel', 'print'
-        ]
-    });
+    $('#myTable').DataTable();
 } );
 
 function display_ct6() {

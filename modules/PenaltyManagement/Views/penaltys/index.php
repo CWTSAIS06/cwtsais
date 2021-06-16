@@ -51,6 +51,8 @@
 </div>
 <hr>
 <script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
 
 <script>
 $(document).ready( function () {
