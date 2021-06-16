@@ -45,8 +45,11 @@
 </div>
   <div class="col-md-10 offset-md-1">
     <div class="table-responsive">
+    <?php if($_SESSION['rid'] == '3'):?> 
+
       <table class="table table-bordered" id="myTable">
         <thead class="thead-dark text-center">
+
           <tr>
             <th>Student Number</th>
             <th>Name</th>
@@ -73,6 +76,8 @@
          
         </tbody>
       </table>
+      <?php endif;?>
+
     </div>
   </div>
   <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>

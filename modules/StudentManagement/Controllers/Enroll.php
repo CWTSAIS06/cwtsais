@@ -144,7 +144,7 @@ class Enroll extends BaseController
 						return redirect()->to(base_url('enroll/enrollStudent'));
 					}
 		        } else {
-					$_SESSION['error1'] = 'You are currently enrolled or not incomplete';
+					$_SESSION['error1'] = 'You are currently enrolled or not complete';
 					$this->session->markAsFlashdata('error1');
 					return redirect()->to(base_url('enroll/enrollStudent'));
 				}

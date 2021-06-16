@@ -23,7 +23,7 @@
        <th>Full Name</th>
        <th>Course</th>
        <th>Subject</th>
-       <th>Action</th>
+       <th>required hours</th>
      </tr>
    </thead>
    <tbody>
@@ -35,10 +35,7 @@
        <td><?= ucwords($student['lastname']) . ', ' . ucwords($student['firstname']) ?></td>
        <td><?= ucwords($student['course']) ?></td>
        <td><?= ucwords($student['subject']) ?></td>
-       <td class="text-center">
-      <?php  users_action('current', $_SESSION['userPermmissions'], $student['id']); ?>
-      <!-- <a href="<?= base_url() ?>enroll/delete" class="btn btn-sm btn-danger btn-sm"><i class="far fa-trash-alt"></i></a> -->
-       </td>
+       <td><?= ucwords($student['required_hrs'])?> </td>
      </tr>
      <?php endforeach; ?>
    </tbody>

@@ -17,7 +17,7 @@ class EnrollModel extends \CodeIgniter\Model
      }
 
      public function getStudents(){
-       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject');
+       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, subjects.required_hrs');
        $this->join('student', 'student.id = enrollment.student_id');
        $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
        $this->join('course', 'student.course_id = course.id');

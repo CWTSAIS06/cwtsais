@@ -19,7 +19,7 @@
 <br>
  <?php $uri = new \CodeIgniter\HTTP\URI(current_url()); ?>
 <div class="table-responsive">
-  <table class="table table-bordered" id="myTable">
+  <table class="table table-bordered" id="penaltyTable">
    <thead class="thead-dark">
      <tr class="text-center">
        <th>#</th>
@@ -50,3 +50,22 @@
  </table>
 </div>
 <hr>
+<script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready( function () {
+// $('#penaltyTable').DataTable();
+$('#penaltyTable').DataTable( {
+  "bInfo": false,
+  dom: 'lft<"#space">Bip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+} );
+
+
+</script>

@@ -55,15 +55,15 @@ class Penalty extends BaseController
 
     	if(!empty($_POST))
     	{
-	    	// if (!$this->validate('penaltys'))
-		    // {
-			// 	$data['errors'] = \Config\Services::validation()->getErrors();
-		    //     $data['function_title'] = "Adding Penalty";
-		    //     $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
-		    //     echo view('App\Views\theme\index', $data);
-		    // }
-		    // else
-		    // {
+	    	if (!$this->validate('penaltys'))
+		    {
+				$data['errors'] = \Config\Services::validation()->getErrors();
+		        $data['function_title'] = "Adding Penalty";
+		        $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
+		        echo view('App\Views\theme\index', $data);
+		    }
+		    else
+		    {
 		        if($model->addPenalty($_POST))
 		        {
 		        	//$role_id = $model->insertID();
@@ -78,7 +78,7 @@ class Penalty extends BaseController
 					$this->session->markAsFlashdata('error');
 		        	return redirect()->to(base_url('penalty'));
 		        }
-		    // }
+		    }
     	}
     	else
     	{
