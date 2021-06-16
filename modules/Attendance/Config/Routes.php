@@ -8,4 +8,5 @@ $routes->group('attendance', ['namespace' => 'Modules\Attendance\Controllers'], 
     $routes->get('show/(:num)', 'Attendance::show_attendance/$1');
     $routes->match(['get', 'post'], 'add', 'Attendance::add_attendance');
     $routes->match(['get', 'post'], 'verify', 'Attendance::verify');
+    $routes->match(['get', 'post'], 'attendanceTimeOut', 'Attendance::attendance_time_out');
 });

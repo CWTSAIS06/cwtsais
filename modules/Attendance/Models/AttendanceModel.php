@@ -17,16 +17,19 @@ class AttendanceModel extends \CodeIgniter\Model
   $data['timeout'] = null;
   $data['user_id'] = $_SESSION['uid'];
   $data['status'] = 'a';
+  $data['created_at'] = date('y-m-d H:i:s');
 
   return $this->insert($data);
 }
   public function getAttendance($student_id){
-
+    date_default_timezone_set('Asia/Singapore');
     $this->where('enroll_id', $student_id);
+    $this->where('date', date('y-m-d'));
     $this->orderBy('id','DESC');
     return $this->findAll();
   }
   public function timeOut($student_id){
+  date_default_timezone_set('Asia/Singapore');
   return $this->where('id', $student_id)
   ->set(['timeout' => date('H:i:s')])
   ->update();
@@ -69,4 +72,20 @@ class AttendanceModel extends \CodeIgniter\Model
     // die();
     return $this->findAll();
   }
+
+  public function getAttendancesAndPenaltyByUserId($id){
+    // SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(attendance.timeout, attendance.timein) ) ) ) as completed_time
+    // $this->select('enrollment.id, attendance.timein, attendance.timeout');
+    $this->select('attendance.id as id, enrollment.id as enrollment_id, student.stud_num,student.firstname, student.lastname, student.middlename, attendance.timein, attendance.timeout, attendance.date, subjects.subject');
+    $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
+    $this->join('subjects', 'enrollment.subject_id = subjects.id');
+    $this->join('student', 'enrollment.student_id = student.id');
+    $this->where('student.user_id', $id);
+    $this->where('attendance.timeout IS NOT NULL', null, false);
+    // $this->groupBy('enrollment.id');
+    // print_r($this->findAll());
+    // die();
+    return $this->findAll();
+  }
+
 }

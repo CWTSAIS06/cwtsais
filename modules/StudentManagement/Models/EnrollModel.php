@@ -52,7 +52,7 @@ class EnrollModel extends \CodeIgniter\Model
        $this->join('student', 'student.id = enrollment.student_id');
        $this->join('subjects', 'subjects.id = enrollment.subject_id');
        $this->where('enrollment.status', 'i');
-       $this->where('stud_num', $data);
+       $this->where('enrollment.stud_num', $data);
        return $this->findAll();
      }
 

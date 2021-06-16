@@ -298,7 +298,7 @@ class Validation
     ];
 
 		public $penaltys = [
-			'current_id' => [
+			'enrollment_id' => [
 					'label'  => 'Student',
 					'rules'  => 'required',
 					'errors' => [
@@ -592,45 +592,6 @@ class Validation
 			
 		];
 
-
-	public $registration = [
-		'stud_num' => [
-			'label'  => 'Student number',
-			'rules'  => 'required|min_length[14]|max_length[15]',
-			'errors' => [
-					'required' => 'Student Number field is required.',
-					 'min_length' => 'Minimum Length is 14 Characters',
-					 'max_length' => 'Minimum Length is 15 Characters',
-			]
-		],
-
-		'lastname' => [
-				'label'  => 'Last Name',
-				'rules'  => 'required',
-				'errors' => [
-						'required' => 'Last Name field is required.',
-				]
-		],
-
-		'firstname' => [
-				'label'  => 'First Name',
-				'rules'  => 'required|alpha',
-				'errors' => [
-						'required' => 'First Name field is required.',
-						'alpha' => 'Alphabetical Only.',
-				]
-		],
-
-		'email' => [
-			'label'  => 'Email Address',
-			'rules'  => 'required',
-			'errors' => [
-					'required' => 'Email Address field is required.',
-			]
-		],
-
-
-	];
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------

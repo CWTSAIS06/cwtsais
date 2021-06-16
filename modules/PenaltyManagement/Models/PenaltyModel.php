@@ -7,7 +7,7 @@ class PenaltyModel extends \CodeIgniter\Model
 {
      protected $table = 'penalty';
 
-     protected $allowedFields = ['current_id','date', 'hours','user_id','reason','created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['enrollment_id','date', 'hours','user_id','reason','created_at','updated_at', 'deleted_at'];
 
     public function getPenaltyWithCondition($conditions = [])
 	{
@@ -16,9 +16,9 @@ class PenaltyModel extends \CodeIgniter\Model
 		{
 			$this->where($field, $value);
 		}
-      $this->join('current', 'current.id = penalty.current_id');
-      $this->join('subjects', 'subjects.id = current.subject');
-      $this->join('student', 'student.id = current.stud_id');
+      $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->join('student', 'student.id = enrollment.student_id');
 	    return $this->findAll();
 	}
 
@@ -47,18 +47,27 @@ class PenaltyModel extends \CodeIgniter\Model
 	}
 
   public function getPenaltyById($id){
-    $this->select('current.id as id, SUM(hours) as hours');
-    $this->join('current', 'current.id = penalty.current_id');
-    $this->join('student', 'student.id = current.stud_id');
+    $this->select('enrollment.id as id, SUM(hours) as hours');
+    $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
+    $this->join('student', 'student.id = enrollment.student_id');
     $this->where('student.id', $id);
-    $this->groupBy('current.id');
+    $this->groupBy('enrollment.id');
     return $this->findAll();
   }
   public function getPenaltyByEnrollId($id){
-    $this->select('current.id as id, SUM(hours) as hours');
-    $this->join('current', 'current.id = penalty.current_id');
-    $this->join('student', 'student.id = current.stud_id');
-    $this->where('current.id', $id);
+    $this->select('enrollment.id as id, SUM(hours) as hours');
+    $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
+    $this->join('student', 'student.id = enrollment.student_id');
+    $this->where('enrollment.id', $id);
+    return $this->findAll();
+  }
+
+  public function getPenaltyByEnrolled($id){
+    // $this->select('enrollment.id as id, SUM(hours) as hours');
+    // $this->select('student.stud_num');
+    $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
+    // $this->join('student', 'student.id = enrollment.student_id');
+    $this->where('enrollment.id', $id);
     return $this->findAll();
   }
 }

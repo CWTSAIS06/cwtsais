@@ -48,43 +48,43 @@ class Penalty extends BaseController
     	$permissions_model = new PermissionsModel();
 
     	$data['permissions'] = $this->permissions;
-			$eModel = new EnrollModel();
-			$data['students'] = $eModel->getStudentsForm();
+		$eModel = new EnrollModel();
+		$data['students'] = $eModel->getStudentsForm();
     	helper(['form', 'url']);
     	$model = new PenaltyModel();
 
     	if(!empty($_POST))
     	{
-	    	if (!$this->validate('penaltys'))
-		    {
-		    		$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Adding Penalty";
-		        $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
-		        echo view('App\Views\theme\index', $data);
-		    }
-		    else
-		    {
+	    	// if (!$this->validate('penaltys'))
+		    // {
+			// 	$data['errors'] = \Config\Services::validation()->getErrors();
+		    //     $data['function_title'] = "Adding Penalty";
+		    //     $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
+		    //     echo view('App\Views\theme\index', $data);
+		    // }
+		    // else
+		    // {
 		        if($model->addPenalty($_POST))
 		        {
 		        	//$role_id = $model->insertID();
 		        	//$permissions_model->update_permitted_role($role_id, $_POST['function_id']);
 		        	$_SESSION['success'] = 'You have added a new record';
-							$this->session->markAsFlashdata('success');
+					$this->session->markAsFlashdata('success');
 		        	return redirect()->to(base_url('penalty'));
 		        }
 		        else
 		        {
 		        	$_SESSION['error'] = 'You have an error in adding a new record';
-							$this->session->markAsFlashdata('error');
+					$this->session->markAsFlashdata('error');
 		        	return redirect()->to(base_url('penalty'));
 		        }
-		    }
+		    // }
     	}
     	else
     	{
 
 	    	$data['function_title'] = "Adding Penalty";
-	      $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
+			$data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\frmPenalty';
 	     	echo view('App\Views\theme\index', $data);
     	}
     }

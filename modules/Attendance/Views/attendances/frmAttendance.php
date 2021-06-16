@@ -3,24 +3,38 @@
   </div>
 </div>
 <br>
+<?php  if($_SESSION['rid'] !== '3'):?>
+<a type="button" href="<?= base_url("student") ?>" class="btn btn-primary m-3">Back</a>
+<?php else:?>
+  <a type="button" href="<?= base_url("student/profileStudent") ?>" class="btn btn-primary m-3">Back</a>
+<?php endif;?>
+
 <div class="row mt-5">
   <div class="col-md-4 offset-md-4">
-    <form action="<?= base_url() ?>attendance/verify" method="post">
+    <!-- <form action="<?= base_url() ?>attendance/verify" method="post"> -->
+    <form >
+
       <div class="form-group">
-        <label for="attendance" class="form-label">Student Number</label>
+    <?php if($_SESSION['rid'] !== '3'):?> 
+
+        <label for="stud_num" class="form-label">Student Number</label>
         <br>
-        <input name="stud_num" class="form-control" type="text" id="attendance" autocomplete="off" id="stud_num" placeholder="Student Number" required>
+        <input name="stud_num" class="form-control" type="text" autocomplete="off" id="stud_num" placeholder="Student Number" required>
+      <?php endif;?>
+        
         </div>
+        
       </div>
       <div class="col-md-12">
-      <?php if($_SESSION['rid'] !== '3'):?> 
+    <?php if($_SESSION['rid'] !== '3'):?> 
+
         <center>
-          <button name="time_in" id="time_in" class="btn btn-success m-3">TIME IN</button>
-          <button name="time_out" id="time_out" class="btn btn-success m-3"> TIME OUT</button>
+          <button id="time_in" class="btn btn-success m-3">TIME IN</button>
+          <button id="time_out" class="btn btn-success m-3"> TIME OUT</button>
         </center>
       <?php endif;?>
       </div>
-    <!-- </form> -->
+    </form>
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -29,8 +43,7 @@
     </h4>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-8 offset-md-2">
+  <div class="col-md-10 offset-md-1">
     <div class="table-responsive">
       <table class="table table-bordered" id="myTable">
         <thead class="thead-dark text-center">
@@ -55,13 +68,37 @@
               <td><?=$attendance['timeout'] == null ? 'N/A' : number_format((float)(abs(strtotime($attendance['timein']) - strtotime($attendance['timeout'])) / 60) / 60, 2, '.', '') . ' hrs'?></td>
               <td><?=$attendance['subject']?></td>
             </tr>
+           
           <?php endforeach; ?>
+         
         </tbody>
       </table>
     </div>
   </div>
-</div>
-<script>
+  <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
 
-console.log('')
+<script>  
+$('#time_in').on('click', function(){
+  var student_num = $('#stud_num').val();
+  $.ajax({
+      url: "<?= base_url("attendance/verify")?>",
+      type: "POST",
+      data: {stud_num :student_num},
+      success: function(response){
+        console.log(response)
+      }
+  });
+});
+
+$('#time_out').on('click', function(){
+  var student_number = $('#stud_num').val();
+  $.ajax({
+      url: "<?= base_url("attendance/attendanceTimeOut")?>",
+      type: "POST",
+      data: {student_number :student_number},
+      success: function(response){
+        console.log(response)
+      }
+  });
+});
 </script>
