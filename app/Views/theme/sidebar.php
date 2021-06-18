@@ -84,3 +84,16 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
+
+	<script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<script>
+
+
+$('li.nav-item ul.nav-treeview li.nav-item a').each(function(){
+	if($(this).hasClass('active')){
+		$(this).parent().parent().parent().addClass('menu-is-opening menu-open');
+	}
+});
+
+</script>

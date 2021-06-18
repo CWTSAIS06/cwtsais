@@ -113,4 +113,8 @@ class StudentModel extends \CodeIgniter\Model
     $this->where('user_id', $id);
     return $this->first();
   }
+
+  public function getAllStudents(){
+    return $this->findAll();
+  }
 }

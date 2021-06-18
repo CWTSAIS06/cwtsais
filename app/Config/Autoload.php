@@ -62,6 +62,7 @@ class Autoload extends \CodeIgniter\Config\AutoloadConfig
 			'Modules\Attendance'  => ROOTPATH.'modules/Attendance',
 			'Modules\Maintenances'  => ROOTPATH.'modules/Maintenances',
 			'Modules\UserManagement'  => ROOTPATH.'modules/UserManagement',
+			'Modules\Dashboard'  => ROOTPATH.'modules/Dashboard',
 		];
 
 		//echo $psr4['Modules'];  die();

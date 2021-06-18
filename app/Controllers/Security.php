@@ -46,7 +46,7 @@ class Security extends BaseController
 				if($landing_page['role_name'] == 'Student'){
 					return redirect()->to(base_url('student/profileStudent'));
 				}else{
-					return redirect()->to(base_url('student'));
+					return redirect()->to(base_url('Dashboard'));
 				}
 			}
 			else

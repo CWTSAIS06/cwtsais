@@ -72,14 +72,17 @@ if (! function_exists('user_primary_links'))
 	function user_primary_links(array $array_permissions)
 	{
 		$strAdditionalUrl = '';
+		if($_SESSION['rid'] == "1"){
+			echo '<li class="nav-item "> <a href="'.base_url('dashboard').'" class="nav-link '.( (uri_string() == 'dashboard') ? "active":"").' "><i class="fas fa-chart-bar fa-w-16"></i> &nbsp <p> Dash Board </p> </a></li>';
+		}
+
 		foreach($_SESSION['appmodules'] as $module)
 		{
 			if(hasPrimary($module['id'], $array_permissions))
 			{
-
 				//
 				// if ($module['module_type'] == 1)
-				// {
+				// {	
 									echo '<li class="nav-item">';
 									echo '<a href="#" class="nav-link">';
 									echo getIcon($module['id'], $_SESSION['appmodules'], false);
@@ -95,7 +98,7 @@ if (! function_exists('user_primary_links'))
 									{
 										if($permission['status'] == 'a' && $permission['module_id'] == $module['id'] && $permission['func_type'] == 1 && in_array($_SESSION['rid'], json_decode($permission['allowed_roles'])))
 										{
-											echo '<a id="color" class="nav-link title="'.ucwords($permission['function_name']) .'" href="'. base_url() .''.str_replace("_","-",$permission['table_name']).'">'.getIcon($permission['id'], $_SESSION['userPermmissions']);
+											echo '<a id="color" class="nav-link '.( (uri_string() == $permission['table_name']) ? "active":" ").' " title="'.ucwords($permission['function_name']) .'" href="'. base_url() .''.str_replace("_","-",$permission['table_name']).'">'.getIcon($permission['id'], $_SESSION['userPermmissions']);
 											echo '&nbsp<p>';
 											echo ucwords($permission['function_name']);
 											echo '</p>';

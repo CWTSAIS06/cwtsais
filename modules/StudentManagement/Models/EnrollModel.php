@@ -70,5 +70,15 @@ class EnrollModel extends \CodeIgniter\Model
     public function deleteStudent($id)
   	{
 		return $this->delete($id);
-	  }
+    }
+    
+    public function getAllEnrolled(){
+      return $this->findAll();
+    }
+
+     
+    public function getComplete(){
+      $this->where('status', 'c');
+      return $this->findAll();
+    }
 }

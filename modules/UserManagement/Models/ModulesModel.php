@@ -23,6 +23,14 @@ class ModulesModel extends \CodeIgniter\Model
 	    return $this->findAll();
 	}
 
+
+	public function getModulesPermission()
+	{	
+		$this->from('modules m');
+		$this->join('permissions p', 'm.id = p.module_id');
+	    return $this->findAll();
+	}
+
  //    public function addRoles($val_array = [])
 	// {
 	// 	$val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
