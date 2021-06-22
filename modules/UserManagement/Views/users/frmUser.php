@@ -2,7 +2,7 @@
   <div class="card-body">
      <div class="row">
        <div class="col-md-10">
-         <h3> <?=$function_title?> </h3>
+         <!-- <h3> <?=$function_title?> </h3> -->
        </div>
        <div class="col-md-2">
          <!--  <a href="<?= base_url() ?>node/add" class="btn btn-sm btn-primary btn-block float-right">Add Node</a> -->

@@ -17,7 +17,7 @@
     <script src=" <?= base_url() ?>/public/js1/main.js"></script>
     <script src="<?= base_url() ?>/public/js/sweetalert2@9.js"></script>
     <script src="<?= base_url() ?>/public/js/myAlerts.js"></script>
-    
+
     <title>CWTS-AIS PUPT</title>
   </head>
   <style>
@@ -33,7 +33,7 @@
         -moz-transform: translate(-50%);
         -ms-transform: translate(-50%);
         -o-transform: translate(-50%);
-        transform: translate(-50%);  
+        transform: translate(-50%);
     }
 
     a:hover {
@@ -58,11 +58,11 @@
               <form action="<?= base_url() ?> " method="post">
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input type="text" name="username" class="form-control" placeholder="Your Username" id="username" required>
+                  <input type="text" name="username" class="form-control" placeholder="Your Username" id="username">
                 </div>
                 <div class="form-group last mb-3">
                   <label for="password">Password</label>
-                  <input type="password" name="password" class="form-control" placeholder="Your Password" id="password"required>
+                  <input type="password" name="password" class="form-control" placeholder="Your Password" id="password">
                 </div>
                 <input type="submit" value="Sign In" class="btn btn-block btn-dark" style="background-color:#E1AD01;">
                 <hr>

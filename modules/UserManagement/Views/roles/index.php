@@ -4,7 +4,7 @@
   <div class="card-body">
     <div class="row">
        <div class="col-md-4">
-         <h1> <?=$function_title?> </h1>
+         <h1> </h1>
        </div>
        <div class="col-md-2 offset-md-6">
         <?php user_add_link('roles', $_SESSION['userPermmissions']) ?>
@@ -13,7 +13,7 @@
     <br>
       <?php $uri = new \CodeIgniter\HTTP\URI(current_url()); ?>
      <div class="table-responsive">
-       <table class="table table-sm table-striped table-bordered index-table">
+       <table class="table table-sm table-striped table-bordered index-table" id="myTable">
         <thead class="thead-dark">
           <tr class="text-center">
             <th>#</th>
@@ -43,10 +43,10 @@
      </div>
     <hr>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-6 offset-md-6">
         <?php paginater('roles', count($all_items), PERPAGE, $offset) ?>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
