@@ -117,9 +117,6 @@ class Attendance extends BaseController
 						$total_hrs = number_format($enrolled['accumulated_hrs'], 2, '.', '') + number_format($total, 2, '.', '');
 						$enrollModel->updateAccumulatedHours($total_hrs, $attendance[0]['enroll_id']);
 
-						print_r($total_hrs);
-
-					die();
 					// if (!isset($penaltyModel->getPenaltyByEnrollId($data['enroll_id'])[0]['hours'])) {
 					// 	$required = $penaltyModel->getPenaltyByEnrollId($data['enroll_id'])[0]['hours'] +  $students[0]['required_hrs'];
 					// } else {
