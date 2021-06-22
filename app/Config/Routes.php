@@ -77,7 +77,7 @@ $routes->get('/', 'Security::index');
 // $routes->get('/', 'Migrate::seeder');
 $routes->post('/', 'Security::index');
 $routes->get('logout', 'Security::logout');
-
+$routes->cli('attendance/message/(:segment)', 'Attendance::message/$1');
 /**
  * --------------------------------------------------------------------
  * Additional Routing

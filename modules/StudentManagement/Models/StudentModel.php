@@ -63,10 +63,10 @@ class StudentModel extends \CodeIgniter\Model
 
     public function getStudent()
 	{
-      $this->select('student.*, schyear.schyear, course.course');
-      $this->join('schyear', 'schyear.id = student.schyear_id');
+      $this->select('student.*, course.course');
+      // $this->join('schyear', 'schyear.id = student.schyear_id');
       $this->join('course', 'course.id = student.course_id');
-      $this->where('student.status', 'a');
+      // $this->where('student.status', 'a');
 	    return $this->findAll();
 	}
 
@@ -86,10 +86,16 @@ class StudentModel extends \CodeIgniter\Model
 		return $this->update($id, $val_array);
 	}
 
-    public function deleteStudent($id)
+  public function inactiveStudent($id)
 	{
 		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
 		$val_array['status'] = 'd';
+		return $this->update($id, $val_array);
+  }
+  public function activeStudent($id)
+	{
+		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+		$val_array['status'] = 'a';
 		return $this->update($id, $val_array);
 	}
 

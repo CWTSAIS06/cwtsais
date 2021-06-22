@@ -29,7 +29,8 @@ $routes->group('subjects', ['namespace' => 'Modules\Maintenances\Controllers'], 
     $routes->get('/', 'Subjects::index');
     $routes->match(['get', 'post'], 'add', 'Subjects::add_subject');
     $routes->match(['get', 'post'], 'edit/(:num)', 'Subjects::edit_subject/$1');
-    $routes->delete('delete/(:num)', 'Subjects::delete_subject/$1');
+    $routes->delete('inactive/(:num)', 'Subjects::inactive/$1');
+    $routes->delete('active/(:num)', 'Subjects::active/$1');
 });
 
 $routes->group('penalties', ['namespace' => 'Modules\Maintenances\Controllers'], function($routes)
@@ -37,5 +38,6 @@ $routes->group('penalties', ['namespace' => 'Modules\Maintenances\Controllers'],
     $routes->get('/', 'Penalties::index');
     $routes->match(['get', 'post'], 'add', 'Penalties::add_penalty');
     $routes->match(['get', 'post'], 'edit/(:num)', 'Penalties::edit_penalty/$1');
-    $routes->delete('delete/(:num)', 'Penalties::delete_penalty/$1');
+    $routes->delete('inactive/(:num)', 'Penalties::inactive/$1');
+    $routes->delete('active/(:num)', 'Penalties::active/$1');
 });

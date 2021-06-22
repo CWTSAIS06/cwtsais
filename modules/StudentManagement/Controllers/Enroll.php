@@ -131,6 +131,8 @@ class Enroll extends BaseController
 				$isEnrolled = $model->selectStudent($_POST['student_id']);	
 				//next step check if already complete to previous subject 
 		        if (!isset($isEnrolled)){
+					$subject = $subject_model->getSubjectWithCondition(['id' => $_POST['subject_id']]);
+					$_POST['required_hrs'] = $subject[0]['required_hrs'];
 					if($model->addStudentEnroll($_POST))
 					{
 						$_SESSION['success'] = 'You are now enrolled!';

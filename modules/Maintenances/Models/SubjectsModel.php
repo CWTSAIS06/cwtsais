@@ -22,7 +22,7 @@ class SubjectsModel extends \CodeIgniter\Model
 
         $db = \Config\Database::connect();
 
-        $str = "SELECT p.* FROM subjects p WHERE p.status = 'a' order by p.created_date desc";
+        $str = "SELECT p.* FROM subjects p  order by p.created_date desc";
 
         $query = $db->query($str);
 
@@ -39,10 +39,18 @@ class SubjectsModel extends \CodeIgniter\Model
         return $this->update($id, $val_array);
       }
 
-      public function delete_maintenance($id)
+      public function inactive_maintenance($id)
       {
         $val_array['deleted_date'] = (new \DateTime())->format('Y-m-d H:i:s');
         $val_array['status'] = 'd';
+
+        return $this->update($id, $val_array);
+      }
+
+      public function active_maintenance($id)
+      {
+        $val_array['deleted_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'a';
 
         return $this->update($id, $val_array);
       }

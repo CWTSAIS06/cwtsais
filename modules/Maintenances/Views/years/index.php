@@ -15,7 +15,7 @@
           </div>
           <br>
            <div class="table-responsive">
-             <table class="table table-sm table-striped table-bordered index-table">
+             <table class="table table-sm table-striped table-bordered index-table"  id="myTable">
               <thead class="thead-dark">
                 <tr class="text-center">
                   <th>#</th>
@@ -40,6 +40,8 @@
                     <!-- <?php
                       maintenance_action('years', $_SESSION['userPermmissions'], $years['id']);
                     ?> -->
+                    <!-- <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('years/edit/'.$year['year_id']); ?>'><i class="far fa-edit"></i></a>  -->
+
                     <?php if($year['status'] == 'a'):?>
                       <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('years/delete/')?>',<?=$year['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
                     <?php else:?>

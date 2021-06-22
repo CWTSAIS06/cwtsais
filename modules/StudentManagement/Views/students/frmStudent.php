@@ -64,7 +64,7 @@
             <div class="col-md-5 offset-md-1">
               <div class="form-group">
                 <label for="middlename">Middle Name</label>
-                <input name="middlename" type="text" value="<?= isset($rec['middlename']) ? '': set_value('middlename') ?>" class="form-control <?= isset($errors['middlename']) ? 'is-invalid':' ' ?>" id="middlename" placeholder="Middle Name(Optional)">
+                <input name="middlename" type="text" value="<?= isset($rec['middlename']) ? $rec['middlename']: set_value('middlename') ?>" class="form-control <?= isset($errors['middlename']) ? 'is-invalid':' ' ?>" id="middlename" placeholder="Middle Name(Optional)">
                   <?php if(isset($errors['middlename'])): ?>
                     <div class="invalid-feedback">
                       <?= $errors['middlename'] ?>
@@ -75,14 +75,10 @@
             <div class="col-md-5">
               <div class="form-group">
                 <label for="gender">Gender</label>
-                <select name="gender" value="<?= isset($rec['gender']) ? '' : set_value('gender') ?>" class="form-control <?= isset($errors['gender']) ? 'is-invalid':' ' ?>" id="gender" placeholder="Select Gender">
-                  <?php if(isset($rec['gender'])): ?>
-                    <option value="<?= $rec['gender'] ?>"><?= name_on_system($rec['gender'], $gender, 'gender') ?></option>
-                  <?php else: ?>
-                    <option value="">Select Gender</option>
-                  <?php endif; ?>
-                    <option value="Male"> Male </option>
-                    <option value="Female"> Female </option>
+                <select name="gender" value="<?= isset($rec['gender']) ? $rec['gender'] : set_value('gender') ?>" class="form-control <?= isset($errors['gender']) ? 'is-invalid':' ' ?>" id="gender" placeholder="Select Gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="1" <?= ($rec['gender'] == 1) ? 'selected':'' ?>>Male</option>
+                    <option value="2"<?= ($rec['gender'] == 2) ? 'selected':'' ?>>Female</option>
                 </select>
                 <?php if(isset($errors['gender'])): ?>
                    <div class="invalid-feedback">
@@ -96,7 +92,7 @@
             <div class="col-md-5 offset-md-1">
               <div class="form-group">
                 <label for="address">Address</label>
-                <input name="address" type="text" value="<?= isset($rec['address']) ? '': set_value('address') ?>" class="form-control <?= isset($errors['address']) ? 'is-invalid':' ' ?>" id="address" placeholder="Address">
+                <input name="address" type="text" value="<?= isset($rec['address']) ? $rec['address']: set_value('address') ?>" class="form-control <?= isset($errors['address']) ? 'is-invalid':' ' ?>" id="address" placeholder="Address">
                   <?php if(isset($errors['address'])): ?>
                     <div class="invalid-feedback">
                       <?= $errors['address'] ?>
@@ -106,41 +102,30 @@
             </div>
         <div class="col-md-5">
           <div class="form-group">
-            <label for="contact_num">Contact Number</label>
-            <input name="contact_num" type="text" value="<?= isset($rec['contact_num']) ? $rec['contact_num'] : set_value('contact_num') ?>" class="form-control <?= isset($errors['contact_num']) ? 'is-invalid':' ' ?>" id="contact_num" placeholder="Contact #">
-              <?php if(isset($errors['contact_num'])): ?>
+            <label for="contact_no">Contact Number</label>
+            <input name="contact_no" type="text" value="<?= isset($rec['contact_no']) ? $rec['contact_no'] : set_value('contact_no') ?>" class="form-control <?= isset($errors['contact_no']) ? 'is-invalid':' ' ?>" id="contact_no" placeholder="Contact #">
+              <?php if(isset($errors['contact_no'])): ?>
                 <div class="invalid-feedback">
-                  <?= $errors['contact_num'] ?>
+                  <?= $errors['contact_no'] ?>
                 </div>
               <?php endif; ?>
           </div>
         </div>
         </div>
         <div class="row">
-            <div class="col-md-5 offset-md-1">
-              <div class="form-group">
-                <label for="section">Year & Section</label>
-                <select name="section" value="<?= isset($rec['section']) ? '' : set_value('section') ?>" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" id="section" placeholder="Select Year & Section">
-                  <?php if(isset($rec['section'])): ?>
-                    <option value="<?= $rec['section'] ?>"><?= name_on_system($rec['section'], $section, 'section') ?></option>
-                  <?php else: ?>
-                    <option value="">Year & Section</option>
-                  <?php endif; ?>
-                    <option value="1-1"> 1-1 </option>
-                    <option value="1-2"> 1-2 </option>
-                    <option value="2-1"> 2-1 </option>
-                    <option value="2-2"> 2-2 </option>
-                    <option value="3-1"> 3-1 </option>
-                    <option value="3-2"> 3-2 </option>
-                    <option value="4-1"> 4-1 </option>
-                    <option value="5-1"> 5-1 </option>
+           <div class="col-md-5 offset-md-1">
+                <label for="course_id">Course</label>
+                <select name="course_id" id="course_id" class="form-control <?= isset($errors['course_id']) ? 'is-invalid':' ' ?>">
+                  <option value="" disabled selected>Select Course</option>
+                  <?php foreach($course as $course): ?>
+                    <option value="<?= $course['id'] ?>" <?=   ($course['id'] == $rec['course_id']) ? 'selected':'' ?>><?= ucwords($course['course']) ?> - <?= ucwords($course['description'])?></option>
+                  <?php endforeach; ?>
                 </select>
-                <?php if(isset($errors['section'])): ?>
-                   <div class="invalid-feedback">
-                     <?= $errors['section'] ?>
-                   </div>
-                 <?php endif; ?>
-              </div>
+                 <?php if(isset($errors['course_id'])): ?>
+                    <div class="invalid-feedback">
+                      <?= $errors['course_id'] ?>
+                    </div>
+                  <?php endif; ?>
             </div>
             <div class="col-md-5">
               <div class="form-group">
@@ -155,68 +140,24 @@
             </div>
         </div>
 
-          <div class="row">
-            <div class="col-md-5 offset-md-1">
+        
+        <div class="row">
+          <div class="col-md-5 offset-md-1">
               <div class="form-group">
-                <label for="guardian_name">Guardian/Parent Name</label>
-                <input name="guardian_name" type="text" value="<?= isset($rec['guardian_name']) ? $rec['guardian_name'] : set_value('guardian_name') ?>" class="form-control <?= isset($errors['guardian_name']) ? 'is-invalid':' ' ?>" id="guardian_name" placeholder="Guardian/Parent Name">
-                  <?php if(isset($errors['guardian_name'])): ?>
-                    <div class="invalid-feedback">
-                      <?= $errors['guardian_name'] ?>
-                    </div>
-                  <?php endif; ?>
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div class="form-group">
-                <label for="guardian_contactnum">Guardian/Parent Contact #</label>
-                <input name="guardian_contactnum" type="text" value="<?= isset($rec['guardian_contactnum']) ? $rec['guardian_contactnum'] : set_value('guardian_contactnum') ?>" class="form-control <?= isset($errors['guardian_contactnum']) ? 'is-invalid':' ' ?>" id="guardian_contactnum" placeholder="Guardian/Parent Contact #">
-                  <?php if(isset($errors['guardian_contactnum'])): ?>
-                    <div class="invalid-feedback">
-                      <?= $errors['guardian_contactnum'] ?>
-                    </div>
-                  <?php endif; ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-5 offset-md-1">
-                <label for="course_id">Course</label>
-                <select name="course_id" class="form-control <?= isset($errors['course_id']) ? 'is-invalid':' ' ?>">
-                  <?php if(isset($rec['course_id'])): ?>
-                    <option value="<?= $rec['course_id'] ?>"><?= name_on_system($rec['course_id'], $course, 'course') ?></option>
-                  <?php else: ?>
-                    <option value="">Select Course</option>
-                  <?php endif; ?>
-
-                  <?php foreach($course as $course): ?>
-                    <option value="<?= $course['id'] ?>"><?= ucwords($course['course']) ?></option>
-                  <?php endforeach; ?>
+                <label for="section">Year & Section</label>
+                <select name="section" id="section" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" id="section" placeholder="Select Year & Section">
+                <?php if(isset($sections)):?>
+                  <?php  foreach($sections as $section):?>
+                  <option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year_id'] == $rec['year_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
+                  <?php endforeach;?>
+                <?php endif;?>
                 </select>
-                 <?php if(isset($errors['course_id'])): ?>
-                    <div class="invalid-feedback">
-                      <?= $errors['course_id'] ?>
-                    </div>
-                  <?php endif; ?>
-              </div>
-            <div class="col-md-5">
-              <label for="schyear_id">User Role</label>
-              <select name="schyear_id" class="form-control <?= isset($errors['schyear_id']) ? 'is-invalid':' ' ?>">
-                <?php if(isset($rec['schyear_id'])): ?>
-                  <option value="<?= $rec['schyear_id'] ?>"><?= name_on_system($rec['schyear_id'], $schyear, 'schyear') ?></option>
-                <?php else: ?>
-                  <option value="">Select School Year</option>
-                <?php endif; ?>
-
-                <?php foreach($schyear as $schyear): ?>
-                  <option value="<?= $schyear['id'] ?>"><?= ucwords($schyear['schyear']) ?></option>
-                <?php endforeach; ?>
-              </select>
-               <?php if(isset($errors['schyear_id'])): ?>
+                <?php if(isset($errors['section'])): ?>
                   <div class="invalid-feedback">
-                    <?= $errors['schyear_id'] ?>
+                    <?= $errors['section'] ?>
                   </div>
                 <?php endif; ?>
+              </div>
             </div>
           </div>
           <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -226,3 +167,34 @@
     </div>
     </div>
     </div>
+    
+    <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
+
+<script>
+  
+
+  $(document).ready(function() {
+  
+  });
+  $("#course_id").on('change', function(){
+  var course_id = $("#course_id :selected").val();
+  var option = " ";
+
+    $.ajax({
+      url: "<?= base_url("student/getSections"); ?>",
+      type:"GET",
+      dataType: "JSON",
+      data:{ course_id:course_id},
+      success:function(response){
+        option = " ";
+        response.forEach(function(data){
+          option += "<option value='"+data.year_id+'-'+data.id+"'>" + data.year + '-' + data.section + '</option>';
+        });
+        $('#section').html(option);
+
+      }
+    });
+
+  });
+</script>
+

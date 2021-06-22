@@ -29,7 +29,7 @@ class YearsModel extends \CodeIgniter\Model
       }
 
       public function getYearAndSectionByCourse($id){
-        $this->select('years.*,c.id, s.*');
+        $this->select('years.*,years.id as year_id,c.id, s.*');
         $this->join('course c', 'years.course_id = c.id', 'inner');
         $this->join('sections s', 's.year_id = years.id', 'inner');
         $this->where('years.status', 'a');
@@ -38,6 +38,18 @@ class YearsModel extends \CodeIgniter\Model
 
 
         return $this->findAll();
+        
+      }
+      public function getYearAndSectionById($id){
+        // $this->select('years.*,c.id, s.*');
+        $this->join('course c', 'years.course_id = c.id', 'inner');
+        $this->join('sections s', 's.year_id = years.id', 'left');
+        $this->where('years.status', 'a');
+        $this->where('s.status', 'a');
+        $this->where('years.id', $id);
+        $this->where('s.year_id', $id);
+
+        return $this->first();
         
       }
   

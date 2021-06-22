@@ -9,7 +9,8 @@ $routes->group('course', ['namespace' => 'Modules\TableManagement\Controllers'],
     $routes->get('own/(:num)', 'Course::user_own_profile/$1');
     $routes->match(['get', 'post'], 'add', 'Course::add_course');
     $routes->match(['get', 'post'], 'edit/(:num)', 'Course::edit_course/$1');
-    $routes->delete('delete/(:num)', 'Course::delete_course/$1');
+    $routes->delete('inactive/(:num)', 'Course::inactive/$1');
+    $routes->delete('active/(:num)', 'Course::active/$1');
 });
 $routes->group('schyear', ['namespace' => 'Modules\TableManagement\Controllers'], function($routes)
 {
@@ -21,7 +22,8 @@ $routes->group('schyear', ['namespace' => 'Modules\TableManagement\Controllers']
     $routes->get('own/(:num)', 'Schoolyear::user_own_profile/$1');
     $routes->match(['get', 'post'], 'add', 'Schoolyear::add_schyear');
     $routes->match(['get', 'post'], 'edit/(:num)', 'Schoolyear::edit_schyear/$1');
-    $routes->delete('delete/(:num)', 'Schoolyear::delete_schyear/$1');
+    $routes->delete('inactive/(:num)', 'Schoolyear::inactive/$1');
+    $routes->delete('active/(:num)', 'Schoolyear::active/$1');
 });
 // $routes->group('section', ['namespace' => 'Modules\TableManagement\Controllers'], function($routes)
 // {

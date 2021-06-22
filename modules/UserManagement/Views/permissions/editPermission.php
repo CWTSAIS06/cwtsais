@@ -12,12 +12,23 @@
     <br>
     <?php foreach($modules as $module): ?>
        <h3><?= ucwords($module['module_name']) ?></h3>
-        <table class="table">
+        <table class="table" id="<?= str_replace(' ', '_', $module['module_name'])?>">
           <thead class="thead-dark">
             <tr>
               <th>#</th>
               <th>Function Name</th>
-              <th>Allowed Roles</th>
+              <th>Allowed Roles 
+              <?php foreach($roles as $role): ?>
+             
+
+              &nbsp<input class='header_<?= str_replace(' ', '_',$role['role_name'])?>' type="checkbox" name="chk">
+              <?php
+                      echo ' '.$role['role_name'];
+              
+              ?>
+              <?php endforeach; ?>
+              
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -35,11 +46,11 @@
                       $finalAllowed = explode(',',$allowed_roles);
                       if(in_array($role['id'], $finalAllowed))
                       {
-                        echo '<input type="checkbox" name="allowedUsers['.$permission['id'].']['.$role['id'].']" checked>';
+                        echo '<input class='.str_replace(" ", "_", $role["role_name"]).' type="checkbox" name="allowedUsers['.$permission['id'].']['.$role['id'].']" checked>';
                       }
                       else
                       {
-                        echo '<input type="checkbox" name="allowedUsers['.$permission['id'].']['.$role['id'].']">';
+                        echo '<input class='.str_replace(" ", "_", $role["role_name"]).' type="checkbox" name="allowedUsers['.$permission['id'].']['.$role['id'].']">';
                       }
                       echo ' '.$role['role_name'];
                     ?>
@@ -56,3 +67,29 @@
     <br><br><br>
   </div>
   </div>
+
+<script>
+var roles = JSON.parse('<?= json_encode($roles);?>');
+var modules = JSON.parse(JSON.stringify(<?= json_encode($modules);?>));
+
+$(document).ready(function(){
+  modules.forEach( function(modules){
+      roles.forEach(function(role){
+        
+        $('.header_'+role.role_name.replace(' ', '_')).change(function(e){
+          var table = $(e.target).closest('table');
+          console.log(table)
+
+          table.find('input.'+role.role_name.replace(' ', '_')).prop('checked', true);
+          
+          if(!$(this).prop("checked")) {
+            table.find('input.'+role.role_name.replace(' ', '_')).prop('checked', false);
+          }
+
+        });
+      });
+
+    });
+});
+
+</script>

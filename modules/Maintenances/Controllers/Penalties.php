@@ -114,11 +114,18 @@ class Penalties extends BaseController
   	}
   }
 
-		    public function delete_penalty($id)
-		    {
-		    	$this->hasPermissionRedirect('delete-penalty');
-		    	$model = new PenaltiesModel();
-		    	$model->delete_maintenance($id);
-		    }
+	public function inactive($id)
+	{
+		$this->hasPermissionRedirect('delete-penalty');
+		$model = new PenaltiesModel();
+		$model->inactive_status($id);
+	}
 
+
+	public function active($id)
+	{
+		$this->hasPermissionRedirect('delete-penalty');
+		$model = new PenaltiesModel();
+		$model->active_status($id);
+	}
 }

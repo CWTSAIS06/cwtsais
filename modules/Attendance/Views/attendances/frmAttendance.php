@@ -76,8 +76,7 @@
          
         </tbody>
       </table>
-      <?php endif;?>
-
+    <?php endif;?>
     </div>
   </div>
   <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
@@ -95,7 +94,8 @@ $('#time_in').on('click', function(){
   });
 });
 
-$('#time_out').on('click', function(){
+$('#time_out').on('click', function(e){
+  // e.preventDefault();
   var student_number = $('#stud_num').val();
   $.ajax({
       url: "<?= base_url("attendance/attendanceTimeOut")?>",
