@@ -30,6 +30,7 @@ class Student extends BaseController
 			// die($_SESSION['uid']);
     	$model = new StudentModel();
 		$data['student'] = $model->getStudent();
+		$data['course'] = $this->course;
 		// $data['student'] = $model->getStudentWithSchyear(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
         $data['function_title'] = "Student List";
         $data['viewName'] = 'Modules\StudentManagement\Views\students\index';
@@ -196,13 +197,16 @@ class Student extends BaseController
     	$model = new StudentModel();
     	$data['rec'] = $model->find($id);
 
-    	$permissions_model = new PermissionsModel();
+    		$permissions_model = new PermissionsModel();
 			$course_model = new CourseModel();
 			$schyear_model = new SchoolyearModel();
-
+			$year_model = new YearsModel();
+			$data['student'] = $model->where('id', $id)->first();
+	
 			$data['course'] = $this->course;
 			$data['schyear'] = $this->schyear;
 			$data['permissions'] = $this->permissions;
+			$data['sections'] = $year_model->getYearAndSectionByCourse($data['student']['course_id']);
 
     	if(!empty($_POST))
     	{
@@ -217,7 +221,10 @@ class Student extends BaseController
 		    }
 		    else
 		    {
-		    	if($model->editStudent($_POST, $id))
+		    	$yearAndSection = explode('-',$_POST['section']);
+				$year = $yearAndSection[0];
+				$section = $yearAndSection[1];
+		    	if($model->editStudent($_POST, $id, $year, $section))
 		        {
 		        	$_SESSION['success'] = 'You have updated a record';
 							$this->session->markAsFlashdata('success');
@@ -239,11 +246,18 @@ class Student extends BaseController
     	}
     }
 
-    public function delete_student($id)
+    public function inactive($id)
     {
     	$this->hasPermissionRedirect('delete-student');
     	$model = new StudentModel();
-    	$model->deleteStudent($id);
+    	$model->inactiveStudent($id);
+	}
+	
+	public function active($id)
+    {
+    	$this->hasPermissionRedirect('delete-student');
+    	$model = new StudentModel();
+    	$model->activeStudent($id);
     }
 
 		public function pdf($id){

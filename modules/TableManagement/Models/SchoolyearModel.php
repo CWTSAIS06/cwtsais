@@ -23,10 +23,10 @@ class SchoolyearModel extends \CodeIgniter\Model
 		$db = \Config\Database::connect();
 
 		//$str = "SELECT a.*, b.function_name FROM dentists a LEFT JOIN permissions b ON a.function_id = b.id WHERE a.status = '".$args['status']."' LIMIT ". $args['offset'] .','.$args['limit'];1
-    $str = "SELECT * FROM schyear WHERE";
-    $str .= " status = '" .$args['status'] ."'";
+    $str = "SELECT * FROM schyear";
+    // $str .= " status = '" .$args['status'] ."'";
     if (isset($args['search'])) {
-      $str .= "AND schyear LIKE '%" . $args['search'] . "'";
+      $str .= "WHERE schyear LIKE '%" . $args['search'] . "'";
     }
     $str .= " LIMIT ". $args['offset'] .','.$args['limit'];//without foreign key
 		// print_r($str); die();
@@ -55,10 +55,16 @@ class SchoolyearModel extends \CodeIgniter\Model
 		return $this->update($id, $val_array);
 	}
 
-    public function deleteSchoolyear($id)
+    public function inactiveSchoolyear($id)
 	{
 		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
 		$val_array['status'] = 'd';
+		return $this->update($id, $val_array);
+	}
+	public function activeSchoolyear($id)
+	{
+		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+		$val_array['status'] = 'a';
 		return $this->update($id, $val_array);
 	}
 

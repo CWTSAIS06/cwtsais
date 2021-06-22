@@ -103,8 +103,8 @@ function confirmUpdateStatus(url, id, status)
 	             },
 	             success: function(data) {
 	             	   Swal.fire(
-						  'Archived!',
-					      'Your file has been archived.',
+						(status == 'd') ? 'Archived!':'Unarchived!',
+					      (status == 'd') ? 'Your file has been archived.':'Your file has been unarchived.',
 					      'success'
 						).then((resultAgain)=>{
 							if (resultAgain.value)

@@ -111,10 +111,17 @@ class Subjects extends BaseController
 			echo view('App\Views\theme\index', $data);
   	}
   }
-	public function delete_subject($id)
+	public function inactive($id)
 	{
 		$this->hasPermissionRedirect('delete-subject');
 		$model = new SubjectsModel();
-		$model->delete_maintenance($id);
+		$model->inactive_maintenance($id);
+	}
+
+	public function active($id)
+	{
+		$this->hasPermissionRedirect('delete-subject');
+		$model = new SubjectsModel();
+		$model->active_maintenance($id);
 	}
 }

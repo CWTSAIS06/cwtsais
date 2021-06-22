@@ -45,7 +45,6 @@
 </div>
   <div class="col-md-10 offset-md-1">
     <div class="table-responsive">
-    <?php if($_SESSION['rid'] == '3'):?> 
 
       <table class="table table-bordered" id="myTable">
         <thead class="thead-dark text-center">
@@ -76,7 +75,6 @@
          
         </tbody>
       </table>
-      <?php endif;?>
 
     </div>
   </div>
@@ -95,7 +93,8 @@ $('#time_in').on('click', function(){
   });
 });
 
-$('#time_out').on('click', function(){
+$('#time_out').on('click', function(e){
+  // e.preventDefault();
   var student_number = $('#stud_num').val();
   $.ajax({
       url: "<?= base_url("attendance/attendanceTimeOut")?>",

@@ -23,9 +23,15 @@ class PenaltyModel extends \CodeIgniter\Model
 	}
 
     public function getPenalty()
-	{
+  	{
 	    return $this->findAll();
-	}
+    }
+
+    public function getSpecificPenalty($id)
+    {
+        $this->where('id', $id);
+        return $this->first();
+    }
 
     public function addPenalty($val_array = [])
 	{

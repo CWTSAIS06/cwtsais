@@ -28,9 +28,9 @@ class AttendanceModel extends \CodeIgniter\Model
     $this->orderBy('id','DESC');
     return $this->findAll();
   }
-  public function timeOut($student_id){
+  public function timeOut($id){
   date_default_timezone_set('Asia/Singapore');
-  return $this->where('id', $student_id)
+  return $this->where('id', $id)
   ->set(['timeout' => date('H:i:s')])
   ->update();
   }
@@ -88,4 +88,8 @@ class AttendanceModel extends \CodeIgniter\Model
     return $this->findAll();
   }
 
+  public function getAttendanceById($id){
+    $this->where('id', $id);
+    return $this->findAll();
+  }
 }

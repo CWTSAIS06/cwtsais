@@ -22,9 +22,9 @@ class Course extends BaseController
     	$model = new CourseModel();
 
     	//kailangan ito para sa pagination
-       	$data['all_items'] = $model->getCourseWithCondition(['status'=> 'a']);
+       	$data['all_items'] = $model->getCourseWithCondition();
        	$data['offset'] = $offset;
-				$data['course'] = $model->getCourseWithFunction(['status'=> 'a','limit' => PERPAGE, 'offset' =>  $offset]);
+				$data['course'] = $model->getCourseWithFunction(['limit' => PERPAGE, 'offset' =>  $offset]);
 
         $data['function_title'] = "Course List";
         $data['viewName'] = 'Modules\TableManagement\Views\courses\index';
@@ -139,11 +139,18 @@ class Course extends BaseController
     	}
     }
 
-    public function delete_course($id)
+    public function inactive($id)
     {
     	$this->hasPermissionRedirect('delete-course');
     	$model = new CourseModel();
-    	$model->deleteCourse($id);
+    	$model->inactiveCourse($id);
+	}
+	
+	public function active($id)
+    {
+    	$this->hasPermissionRedirect('delete-course');
+    	$model = new CourseModel();
+    	$model->activeCourse($id);
     }
 
 }

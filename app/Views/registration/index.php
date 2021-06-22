@@ -58,51 +58,93 @@
                     <div class="col-sm-12">
                         <div id="final-quantity" class="form-group">
                             <label>Student Number*</label>
-                            <input placeholder="####-#####-TG-#" type="text" class="form-control" name="stud_num">
+                            <input name="stud_num" type="text" autocomplete="off"  value="<?= isset($rec['stud_num']) ? $rec['stud_num'] : set_value('stud_num') ?>" class="form-control <?= isset($errors['stud_num']) ? 'is-invalid':' ' ?>" id="stud_num" placeholder="####-#####-TG-#">
+                            <?php if (isset($errors['stud_num'])): ?>
+                          <div class="text-danger">
+                              <?= $errors['stud_num']?>
+                          </div>
+                        <?php endif; ?>
                         </div>
+                       
                     </div>
 
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>First Name*</label>
-                            <input placeholder="First Name" type="text" class="form-control" name="firstname">
+                            <input name="firstname" type="text" value="<?= isset($rec['firstname']) ? $rec['firstname'] : set_value('firstname') ?>" class="form-control <?= isset($errors['firstname']) ? 'is-invalid':' ' ?>" id="firstname" placeholder="First Name">
+                            <?php if(isset($errors['firstname'])): ?>
+                             <div class="text-danger">
+                                <?= $errors['firstname'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                        
                     </div>
 
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Last Name*</label>
-                            <input placeholder="Last Name" type="text" class="form-control" name="lastname">
+                            <input name="lastname" type="text" value="<?= isset($rec['lastname']) ? $rec['lastname'] : set_value('lastname') ?>" class="form-control <?= isset($errors['lastname']) ? 'is-invalid':' ' ?>" id="lastname" placeholder="Last Name">
+                            <?php if(isset($errors['lastname'])): ?>
+                              <div class="text-danger">
+                                <?= $errors['lastname'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                        
                     </div>
 
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Email*</label>
-                            <input placeholder="Email" type="text" class="form-control" name="email">
+                            <input name="email" type="text" value="<?= isset($rec['email']) ? $rec['email'] : set_value('email') ?>" class="form-control <?= isset($errors['email']) ? 'is-invalid':' ' ?>" id="email" placeholder="Email">
+                            <?php if(isset($errors['email'])): ?>
+                              <div class="text-danger">
+                                <?= $errors['email'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                       
                     </div>
 
        
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Username*</label>
-                            <input placeholder="Username" type="text" class="form-control" name="username">
+                            <input name="username" type="text" autocomplete="off" value="<?= isset($rec['username']) ? $rec['username'] : set_value('username') ?>" class="form-control <?= isset($errors['username']) ? 'is-invalid':' ' ?>" id="username" placeholder="Username">
+                            <?php if(isset($errors['username'])): ?>
+                              <div class="text-danger">
+                                <?= $errors['username'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                       
                     </div>
 
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Password*</label>
-                            <input placeholder="Password" type="text" class="form-control" name="password">
+                            <input name="password" type="text" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
+                            <?php if(isset($errors['password'])): ?>
+                              <div class="text-danger">
+                                <?= $errors['password'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                        
                     </div>
 
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Re-type Password*</label>
-                            <input placeholder="Re-type Password" type="text" class="form-control" name="password_retype">
+                            <input name="password_retype" type="text" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
+                            <?php if(isset($errors['password_retype'])): ?>
+                              <div class="text-danger">
+                                <?= $errors['password_retype'] ?>
+                              </div>
+                            <?php endif; ?>
                         </div>
+                       
                     </div>
 
                     

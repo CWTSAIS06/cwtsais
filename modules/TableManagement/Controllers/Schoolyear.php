@@ -23,9 +23,9 @@ class Schoolyear extends BaseController
     	$model = new SchoolyearModel();
 
     	//kailangan ito para sa pagination
-       	$data['all_items'] = $model->getSchoolyearWithCondition(['status'=> 'a']);
+       	$data['all_items'] = $model->getSchoolyearWithCondition();
        	$data['offset'] = $offset;
-				$data['schyear'] = $model->getSchoolyearWithFunction(['status'=> 'a','limit' => PERPAGE, 'offset' =>  $offset]);
+				$data['schyear'] = $model->getSchoolyearWithFunction(['limit' => PERPAGE, 'offset' =>  $offset]);
 
         $data['function_title'] = "School Year List";
         $data['viewName'] = 'Modules\TableManagement\Views\schyear\index';
@@ -140,11 +140,20 @@ class Schoolyear extends BaseController
     	}
     }
 
-    public function delete_schyear($id)
+    public function inactive($id)
     {
     	$this->hasPermissionRedirect('delete-schyear');
     	$model = new SchoolyearModel();
-    	$model->deleteSchoolyear($id);
-    }
+    	$model->inactiveSchoolyear($id);
+	}
+	
+	public function active($id)
+    {
+    	$this->hasPermissionRedirect('delete-schyear');
+    	$model = new SchoolyearModel();
+    	$model->activeSchoolyear($id);
+	}
+	
+	
 
 }

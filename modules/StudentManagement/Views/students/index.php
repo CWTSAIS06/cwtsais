@@ -8,7 +8,7 @@
   <div class="col-md-2 offset-md-10">
     <br>
     <?php if(user_link('add-student', $_SESSION['userPermmissions'])): ?>
-    <!-- <a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">Add Student</a> -->
+    <a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">Add Student</a>
   <?php endif; ?>
   </div>
 </div>
@@ -22,8 +22,8 @@
        <th>Student No.</th>
        <th>Name</th>
        <th>Course</th>
-       <th>School Year</th>
-       <!-- <th>Action</th> -->
+       <th>Status</th>
+       <th>Action</th>
      </tr>
    </thead>
    <tbody>
@@ -34,8 +34,16 @@
        <td><?= ucwords($student['stud_num']) ?></td>
        <td><?= ucwords($student['lastname']). ', ' . ucwords($student['firstname']) ?></td>
        <td><?= ucwords($student['course']) ?></td>
-       <td><?= ucwords($student['schyear']) ?></td>
+       <td><?= ($student['status'] == 'a') ? 'active':'inactive' ?></td>
        <td class="text-center">
+      
+      <a class="btn btn-dark btn-sm" title="show" href='<?= base_url('student/show/'.$student['id']); ?>'><i class="fas fa-bars"></i></a>
+      <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('student/edit/'.$student['id']); ?>'><i class="far fa-edit"></i></a> 
+      <?php if($student['status'] == 'a'):?>
+        <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('student/inactive/')?>',<?=$student['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
+      <?php else:?>
+        <a class="btn btn-info btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('student/active/')?>',<?=$student['id']?>,'a')" title="activate"><i class="fas fa-archive"></i></a>
+      <?php endif;?>
       <!-- <?php  users_action('student', $_SESSION['userPermmissions'], $student['id']); ?> -->
        </td>
      </tr>

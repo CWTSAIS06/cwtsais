@@ -81,12 +81,54 @@ class Years extends BaseController
   	}
   }
 
+  public function edit_year($id)
+  {
+	//   $this->hasPermissionRedirect('edit-year');
+	  helper(['form', 'url']);
+	  $model = new YearsModel();
+	  $course = new CourseModel();
+	  $section = new SectionsModel();
+  
+	  $data['rec'] = $model->getYearAndSectionById($id);
+	  $data['courses'] = $course->getCourse();
+	  if(!empty($_POST))
+	  {
+
+		  if (!$this->validate('penaltys'))
+		  {
+			  //die("here");
+				  $data['errors'] = \Config\Services::validation()->getErrors();
+			  $data['function_title'] = "Edit Year and Section";
+			  $data['viewName'] = 'Modules\Maintenances\Views\years\edit_year';
+			  echo view('App\Views\theme\index', $data);
+		  }
+		  else
+		  {
+			  if($model->editPenalty($_POST, $id))
+			  {
+			  //$permissions_model->update_permitted_role($id, $_POST['function_id'], $data['rec']['function_id']);
+				  $_SESSION['success'] = 'You have updated a record';
+						  $this->session->markAsFlashdata('success');
+				  return redirect()->to(base_url('penalty'));
+			  }
+			  else
+			  {
+				  $_SESSION['error'] = 'You an error in updating a record';
+				  $this->session->markAsFlashdata('error');
+				  return redirect()->to( base_url('penalty'));
+			  }
+		  }
+	  }
+	  else
+	  {
+		  $data['function_title'] = "Editing Year and Section";
+		  $data['viewName'] = 'Modules\Maintenances\Views\years\edit_year';
+		  echo view('App\Views\theme\index', $data);
+	  }
+  }
 	public function delete_year($id)
 	{
-		$model = new YearsModel();
 		$section = new SectionsModel();
-
-		// $model->delete_maintenance($id);
 		$section->delete_sections($id);
 	}
 

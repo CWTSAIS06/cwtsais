@@ -468,7 +468,7 @@ class Validation
 
 			'contact_no' => [
 					'label'  => 'Contact #',
-					'rules'  => 'required|regex_match[((^(\+)(\d){12}$)|(^\d{11}$))]|is_unique[student.contact_num]',
+					'rules'  => 'required|is_unique[student.contact_no]',
 					'errors' => [
 							'required' => 'Contact Number field is required.',
 							'is_unique' => 'Data Already Exist!',
@@ -483,23 +483,6 @@ class Validation
 							'is_unique' => 'Data Already Exist!',
 					]
 			],
-
-			'guardian_name' => [
-					'label'  => 'Guardian/Parent Name',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'Guardian/Parent Name field is required.',
-					]
-			],
-
-			'guardian_contactnum' => [
-					'label'  => 'Guardian/Parent Contact #',
-					'rules'  => 'required|regex_match[((^(\+)(\d){12}$)|(^\d{11}$))]|is_unique[student.guardin_contactnum]',
-					'errors' => [
-							'required' => 'Guardian/Parent # field is required.',
-					]
-			],
-
 			'section' => [
 					'label'  => 'section',
 					'rules'  => 'required',
@@ -513,13 +496,6 @@ class Validation
 					'rules'  => 'required',
 					'errors' => [
 							'required' => 'Course field is required.',
-					]
-			],
-			'schyear_id' => [
-					'label'  => 'School Year',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'School Year field is required.',
 					]
 			],
 		];
@@ -589,6 +565,75 @@ class Validation
 							'required' => 'Course field is required.',
 					]
 			],
+			
+		];
+
+
+		public $registration = [
+			'stud_num' => [
+				'label'  => 'Student number',
+				'rules'  => 'required|min_length[14]|max_length[15]|is_unique[student.stud_num]',
+				'errors' => [
+						'required' => 'Student Number field is required.',
+						 'min_length' => 'Minimum Length is 14 Characters',
+						 'max_length' => 'Minimum Length is 15 Characters',
+						'is_unique' => 'Data Already Exist!',
+				]
+			],
+
+			'lastname' => [
+					'label'  => 'Last Name',
+					'rules'  => 'required|alpha',
+					'errors' => [
+							'required' => 'Last Name is required.',
+							'alpha' => 'Alphabetical Only.',
+					]
+			],
+
+			'firstname' => [
+					'label'  => 'First Name',
+					'rules'  => 'required|alpha',
+					'errors' => [
+							'required' => 'First Name is required.',
+							'alpha' => 'Alphabetical Only.',
+					]
+			],
+
+
+			'email' => [
+					'label'  => 'Email Address',
+					'rules'  => 'required|valid_email',
+					'errors' => [
+							'required' => 'Email is required.',
+					]
+			],
+
+			'username' => [
+				'label'  => 'User name',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Username is required.',
+				]
+			],
+
+			'password' => [
+				'label'  => 'Password',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Password is required.',
+				]
+			],
+
+			'password_retype' => [
+				'label'  => 'Password Re-type',
+				'rules'  => 'required|matches[password]',
+				'errors' => [
+						'required' => 'Password Re-type required.',
+				]
+			],
+			
+		
+
 			
 		];
 

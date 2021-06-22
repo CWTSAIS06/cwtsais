@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/summernote/summernote-bs4.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>/public/css/header.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/public/css/bootstrap-select.min.css">
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

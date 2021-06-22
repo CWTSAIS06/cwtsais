@@ -19,6 +19,7 @@
          <select class="form-control" name="subject_id">
            <?php foreach ($subjects as $subject): ?>
              <option value="<?=$subject['id']?>"><?=$subject['subject']?> (<?= $subject['required_hrs']?> hrs)</option>
+
            <?php endforeach; ?>
          </select>
        </div>

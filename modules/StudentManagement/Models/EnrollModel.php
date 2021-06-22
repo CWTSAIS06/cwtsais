@@ -7,7 +7,7 @@ class EnrollModel extends \CodeIgniter\Model
 {
      protected $table = 'enrollment';
 
-     protected $allowedFields = ['id','student_id','stud_num','subject_id','schyear_id','status','created_at','deleted_at','updated_at'];
+     protected $allowedFields = ['id','student_id','stud_num','subject_id','schyear_id','required_hrs','accumulated_hrs','status','created_at','deleted_at','updated_at'];
 
      public function getSpecificStudent($stud_num){
 
@@ -48,7 +48,7 @@ class EnrollModel extends \CodeIgniter\Model
      }
 
      public function selectSpecificEnroll($data){
-       $this->select('enrollment.id as id, subjects.required_hrs, student.id as student_id');
+       $this->select('enrollment.id as id, subjects.required_hrs, student.id as student_id, enrollment.accumulated_hrs as accumulated_hrs');
        $this->join('student', 'student.id = enrollment.student_id');
        $this->join('subjects', 'subjects.id = enrollment.subject_id');
        $this->where('enrollment.status', 'i');
@@ -79,6 +79,25 @@ class EnrollModel extends \CodeIgniter\Model
      
     public function getComplete(){
       $this->where('status', 'c');
+      return $this->findAll();
+    }
+
+    public function getEnrolledById($id){
+      $this->where('id', $id);
+      return $this->first();
+    }
+    public function updateAccumulatedHours($val_array, $id){
+      $data = ['accumulated_hrs' => $val_array];
+      return $this->update($id, $data);
+    }
+
+    public function getAllGraduates(){
+
+      $this->join('student', 'student.id = enrollment.student_id');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->join('schyear', 'schyear.id = enrollment.schyear_id');
+      $this->join('course', 'student.course_id = course.id');
+      $this->where('enrollment.status', 'c');
       return $this->findAll();
     }
 }

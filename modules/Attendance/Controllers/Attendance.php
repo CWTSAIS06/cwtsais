@@ -20,6 +20,11 @@ class Attendance extends BaseController
 		$this->permissions = $permissions_model->getPermissionsWithCondition(['status' => 'a']);
 	}
 
+	public function message($to = 'World')
+	{
+		echo "Hello {$to}!".PHP_EOL;
+	}
+
     public function index($offset = 0)
     {
     	$this->hasPermissionRedirect('list-attendance');
@@ -104,8 +109,17 @@ class Attendance extends BaseController
 			$data['enroll_id'] = $students[0]['id'];
 			$attendance = $attendanceModel->getAttendance($students[0]['id']);
 
-			if ($attendance[0]['timeout'] == null) {
+			if ($attendance[0]['timeout'] !== null) {
 				if ($attendanceModel->timeOut($attendance[0]['id'])) {
+					$enrolled = $enrollModel->getEnrolledById($attendance[0]['enroll_id']);
+					$current_attendance = $attendanceModel->getAttendanceById($attendance[0]['id']);
+						$total = number_format((float)(abs(strtotime($current_attendance[0]['timein']) - strtotime($current_attendance[0]['timeout'])) / 60) / 60, 2, '.', '');
+						$total_hrs = number_format($enrolled['accumulated_hrs'], 2, '.', '') + number_format($total, 2, '.', '');
+						$enrollModel->updateAccumulatedHours($total_hrs, $attendance[0]['enroll_id']);
+
+						print_r($total_hrs);
+
+					die();
 					// if (!isset($penaltyModel->getPenaltyByEnrollId($data['enroll_id'])[0]['hours'])) {
 					// 	$required = $penaltyModel->getPenaltyByEnrollId($data['enroll_id'])[0]['hours'] +  $students[0]['required_hrs'];
 					// } else {

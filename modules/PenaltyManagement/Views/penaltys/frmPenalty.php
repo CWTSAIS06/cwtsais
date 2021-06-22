@@ -16,7 +16,7 @@
             <div class="col-md-6 offset-md-3">
               <div class="form-group">
                 <label for="student">Student</label>
-                <select class="form-control  <?= isset($errors['student']) ? 'is-invalid':' ' ?>" name="enrollment_id">
+                <select class="form-control  selectpicker<?= isset($errors['student']) ? 'is-invalid':' ' ?>" name="enrollment_id"  data-live-search="true">
                   <?php foreach ($students as $student): ?>
                     <?php if (isset($rec)): ?>
                       <option value="<?=$student['id']?>" <?= $rec['id'] == $student['id'] ? 'selected' : ''?>><?=$student['firstname'] . ' ' . $student['lastname']?></option>
