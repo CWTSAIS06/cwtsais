@@ -27,7 +27,7 @@ class Schoolyear extends BaseController
        	$data['offset'] = $offset;
 				$data['schyear'] = $model->getSchoolyearWithFunction(['limit' => PERPAGE, 'offset' =>  $offset]);
 
-        $data['function_title'] = "School Year List";
+        $data['function_title'] = "List of School Year";
         $data['viewName'] = 'Modules\TableManagement\Views\schyear\index';
         echo view('App\Views\theme\index', $data);
     }
@@ -146,14 +146,14 @@ class Schoolyear extends BaseController
     	$model = new SchoolyearModel();
     	$model->inactiveSchoolyear($id);
 	}
-	
+
 	public function active($id)
     {
     	$this->hasPermissionRedirect('delete-schyear');
     	$model = new SchoolyearModel();
     	$model->activeSchoolyear($id);
 	}
-	
-	
+
+
 
 }

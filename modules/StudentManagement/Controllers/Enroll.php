@@ -27,7 +27,7 @@ class Enroll extends BaseController
 
     	$model = new EnrollModel();
 		$data['students'] = $model->getStudents();
-        $data['function_title'] = "Enrolled Student List";
+        $data['function_title'] = "List of Enrolled Students";
         $data['viewName'] = 'Modules\StudentManagement\Views\enroll\index';
         echo view('App\Views\theme\index', $data);
     }
@@ -55,7 +55,7 @@ class Enroll extends BaseController
 	    	if (!$this->validate('enroll'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		       $data['function_title'] = "Adding Student";
+		       $data['function_title'] = "Adding of Student";
 		       $data['viewName'] = 'Modules\StudentManagement\Views\enroll\frmEnroll';
 		       echo view('App\Views\theme\index', $data);
 		    }
@@ -86,7 +86,7 @@ class Enroll extends BaseController
     	}
     	else
     	{
-	    	$data['function_title'] = "Adding Student";
+	    	$data['function_title'] = "Adding of Student";
 	       $data['viewName'] = 'Modules\StudentManagement\Views\enroll\frmEnroll';
 	       echo view('App\Views\theme\index', $data);
     	}
@@ -99,7 +99,7 @@ class Enroll extends BaseController
 	}
 
 	public function enroll_student(){
-		
+
 		$permissions_model = new PermissionsModel();
     	$course_model = new CourseModel();
     	$schyear_model = new SchoolyearModel();
@@ -112,13 +112,13 @@ class Enroll extends BaseController
     	$data['schyear'] = $schyear_model->getCurrentSchoolYear(date('Y'));
 		$data['subjects'] = $subject_model->getSubjectWithCondition(['status' => 'a']);
 		$data['students'] = $student_model->getStudentByUserId($_SESSION['uid']);
-		
+
     	helper(['form', 'url']);
-		
-		
+
+
     	if(!empty($_POST))
     	{
-			
+
 	    	if (!$this->validate('enroll'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
@@ -128,8 +128,8 @@ class Enroll extends BaseController
 		    }
 		    else
 		    {
-				$isEnrolled = $model->selectStudent($_POST['student_id']);	
-				//next step check if already complete to previous subject 
+				$isEnrolled = $model->selectStudent($_POST['student_id']);
+				//next step check if already complete to previous subject
 		        if (!isset($isEnrolled)){
 					$subject = $subject_model->getSubjectWithCondition(['id' => $_POST['subject_id']]);
 					$_POST['required_hrs'] = $subject[0]['required_hrs'];

@@ -24,7 +24,7 @@ class Subjects extends BaseController
 
     $data['subject'] = $model->getSubject();
 
-    $data['function_title'] = "Subject List";
+    $data['function_title'] = "List of Subjects";
     $data['viewName'] = 'Modules\Maintenances\Views\subjects\index';
     echo view('App\Views\theme\index', $data);
   }

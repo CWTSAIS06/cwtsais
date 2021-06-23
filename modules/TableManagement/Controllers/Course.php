@@ -26,7 +26,7 @@ class Course extends BaseController
        	$data['offset'] = $offset;
 				$data['course'] = $model->getCourseWithFunction(['limit' => PERPAGE, 'offset' =>  $offset]);
 
-        $data['function_title'] = "Course List";
+        $data['function_title'] = "List of Programs";
         $data['viewName'] = 'Modules\TableManagement\Views\courses\index';
         echo view('App\Views\theme\index', $data);
     }
@@ -61,7 +61,7 @@ class Course extends BaseController
 	    	if (!$this->validate('courses'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Adding Course";
+		        $data['function_title'] = "Adding of Programs";
 		        $data['viewName'] = 'Modules\TableManagement\Views\courses\frmCourse';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -86,7 +86,7 @@ class Course extends BaseController
     	else
     	{
 
-	    	$data['function_title'] = "Adding Course";
+	    	$data['function_title'] = "Adding of Programs";
 	        $data['viewName'] = 'Modules\TableManagement\Views\courses\frmCourse';
 	        echo view('App\Views\theme\index', $data);
     	}
@@ -110,7 +110,7 @@ class Course extends BaseController
 		    {
 				//die("here");
 		    		$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Edit Course";
+		        $data['function_title'] = "Editing of Program";
 		        $data['viewName'] = 'Modules\TableManagement\Views\courses\frmCourse';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -133,7 +133,7 @@ class Course extends BaseController
     	}
     	else
     	{
-	    	$data['function_title'] = "Editing Course";
+	    	$data['function_title'] = "Editing of Program";
 	        $data['viewName'] = 'Modules\TableManagement\Views\courses\frmCourse';
 	        echo view('App\Views\theme\index', $data);
     	}
@@ -145,7 +145,7 @@ class Course extends BaseController
     	$model = new CourseModel();
     	$model->inactiveCourse($id);
 	}
-	
+
 	public function active($id)
     {
     	$this->hasPermissionRedirect('delete-course');

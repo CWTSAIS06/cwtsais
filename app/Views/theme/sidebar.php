@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#000014;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#4d0000;">
 	<!-- Brand Logo -->
 	<a href="<?php echo base_url('student')?>" class="brand-link">
 		<img src="<?= base_url('')?>/public/img/logooff.png" alt="CWTSIS PUPT" class="brand-image img-circle elevation-3" style="opacity:.8;">
@@ -68,9 +68,9 @@
 				</li>
 
 			<!-- KAILANGAN TO SA SIDEBAR -->
-		
+
 				<?php user_primary_links($_SESSION['userPermmissions']) ?>
-			
+
 					</ul>
 				</li>
 		</nav>

@@ -24,7 +24,7 @@ class Penalties extends BaseController
 
     $data['penalty'] = $model->getPenalty();
 
-    $data['function_title'] = "Penalty List";
+    $data['function_title'] = "List of Penalty Maintenance";
     $data['viewName'] = 'Modules\Maintenances\Views\penalties\index';
     echo view('App\Views\theme\index', $data);
   }

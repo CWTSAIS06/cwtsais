@@ -24,7 +24,7 @@ class Sections extends BaseController
 
     $data['section'] = $model->getSection();
 
-    $data['function_title'] = "Section List";
+    $data['function_title'] = "List of Year & Sections";
     $data['viewName'] = 'Modules\Maintenances\Views\sections\index';
     echo view('App\Views\theme\index', $data);
   }

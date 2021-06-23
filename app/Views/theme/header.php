@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?= base_url() ?>/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
- 
+
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>/public/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
@@ -33,14 +33,14 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-dark navbar-light" style="background-color:#212529;">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-light" style="background-color:#670000;">
 	<!-- Left navbar links -->
 	<ul class="navbar-nav">
 		<li class="nav-item">
 			<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 		</li>
 		<li class="nav-item d-none d-sm-inline-block">
-			<a href="<?=base_url('attendance')?>" class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Time in / Time Out</a>
+			<a href="<?=base_url('attendance')?>" class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Attendance Management</a>
 
 		</li>
 		<!-- <li class="nav-item d-none d-sm-inline-block">

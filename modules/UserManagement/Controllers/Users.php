@@ -110,7 +110,7 @@ class Users extends BaseController
 
         $data['users'] = $model->getUsersWithRole(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
 
-        $data['function_title'] = "Users List";
+        $data['function_title'] = "List of Users";
         $data['viewName'] = 'Modules\UserManagement\Views\users\index';
         echo view('App\Views\theme\index', $data);
     }
@@ -128,7 +128,7 @@ class Users extends BaseController
 	    	if (!$this->validate('user'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Adding user";
+		        $data['function_title'] = "Adding of User";
 		        $data['viewName'] = 'Modules\UserManagement\Views\users\frmUser';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -175,7 +175,7 @@ class Users extends BaseController
 	    	if (!$this->validate('user_edit'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Edit of User";
+		        $data['function_title'] = "Editing of User Account";
 		        $data['viewName'] = 'Modules\UserManagement\Views\users\frmUser';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -198,7 +198,7 @@ class Users extends BaseController
     	}
     	else
     	{
-    		$data['function_title'] = "Editing of User";
+    		$data['function_title'] = "Editing of User Account";
 	        $data['viewName'] = 'Modules\UserManagement\Views\users\frmUser';
 	        echo view('App\Views\theme\index', $data);
     	}

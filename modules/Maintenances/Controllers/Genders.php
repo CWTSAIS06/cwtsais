@@ -26,7 +26,7 @@ class Genders extends BaseController
 
     $data['gender'] = $model->getGender();
 
-    $data['function_title'] = "Gender List";
+    $data['function_title'] = "List of Gender";
     $data['viewName'] = 'Modules\Maintenances\Views\genders\index';
     echo view('App\Views\theme\index', $data);
   }

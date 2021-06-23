@@ -32,7 +32,7 @@ class Student extends BaseController
 		$data['student'] = $model->getStudent();
 		$data['course'] = $this->course;
 		// $data['student'] = $model->getStudentWithSchyear(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
-        $data['function_title'] = "Student List";
+        $data['function_title'] = "List of Students";
         $data['viewName'] = 'Modules\StudentManagement\Views\students\index';
         echo view('App\Views\theme\index', $data);
 	}
@@ -90,7 +90,7 @@ class Student extends BaseController
 
 		return json_encode($sections);
 	}
-	
+
 	public function edit_profile_student($id)
     {
     	helper(['form', 'url']);
@@ -111,7 +111,7 @@ class Student extends BaseController
 		    {
 				//die("here");
 				$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Edit Student Information";
+		        $data['function_title'] = "Editing of Student Information";
 		        $data['viewName'] = 'Modules\StudentManagement\Views\students\profileStudent';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -202,7 +202,7 @@ class Student extends BaseController
 			$schyear_model = new SchoolyearModel();
 			$year_model = new YearsModel();
 			$data['student'] = $model->where('id', $id)->first();
-	
+
 			$data['course'] = $this->course;
 			$data['schyear'] = $this->schyear;
 			$data['permissions'] = $this->permissions;
@@ -215,7 +215,7 @@ class Student extends BaseController
 		    {
 				//die("here");
 		    		$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Edit Student Information";
+		        $data['function_title'] = "Editing Student Information";
 		        $data['viewName'] = 'Modules\StudentManagement\Views\students\frmStudent';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -252,7 +252,7 @@ class Student extends BaseController
     	$model = new StudentModel();
     	$model->inactiveStudent($id);
 	}
-	
+
 	public function active($id)
     {
     	$this->hasPermissionRedirect('delete-student');

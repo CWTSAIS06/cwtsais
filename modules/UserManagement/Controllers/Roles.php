@@ -29,7 +29,7 @@ class Roles extends BaseController
 
         $data['roles'] = $model->getRoleWithFunction(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
 
-        $data['function_title'] = "Roles List";
+        $data['function_title'] = "List of Roles";
         $data['viewName'] = 'Modules\UserManagement\Views\roles\index';
         echo view('App\Views\theme\index', $data);
     }
@@ -64,7 +64,7 @@ class Roles extends BaseController
 	    	if (!$this->validate('role'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Adding Role";
+		        $data['function_title'] = "Adding of Role";
 		        $data['viewName'] = 'Modules\UserManagement\Views\roles\frmRole';
 		        echo view('App\Views\theme\index', $data);
 		    }
@@ -89,7 +89,7 @@ class Roles extends BaseController
     	else
     	{
 
-	    	$data['function_title'] = "Adding Role";
+	    	$data['function_title'] = "Adding of Role";
 	        $data['viewName'] = 'Modules\UserManagement\Views\roles\frmRole';
 	        echo view('App\Views\theme\index', $data);
     	}
@@ -111,7 +111,7 @@ class Roles extends BaseController
 	    	if (!$this->validate('role'))
 		    {
 		    	$data['errors'] = \Config\Services::validation()->getErrors();
-		        $data['function_title'] = "Edit of Role";
+		        $data['function_title'] = "Editing of Role";
 		        $data['viewName'] = 'Modules\UserManagement\Views\roles\frmRole';
 		        echo view('App\Views\theme\index', $data);
 		    }
