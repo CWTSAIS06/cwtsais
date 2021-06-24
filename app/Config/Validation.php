@@ -305,13 +305,6 @@ class Validation
 							'required' => 'Student Type field is required.',
 					]
 			],
-			'hours' => [
-					'label'  => 'Penalty Hours',
-					'rules'  => 'required',
-					'errors' => [
-							'required' => 'Penalty Hours field is required.',
-					]
-			],
 			'date' => [
 					'label'  => 'Date',
 					'rules'  => 'required',
@@ -592,7 +585,7 @@ class Validation
 
 			'firstname' => [
 					'label'  => 'First Name',
-					'rules'  => 'required|alpha',
+					'rules'  => 'required',
 					'errors' => [
 							'required' => 'First Name is required.',
 							'alpha' => 'Alphabetical Only.',

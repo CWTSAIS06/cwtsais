@@ -124,7 +124,7 @@
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Password*</label>
-                            <input name="password" type="text" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
+                            <input name="password" type="password" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
                             <?php if(isset($errors['password'])): ?>
                               <div class="text-danger">
                                 <?= $errors['password'] ?>
@@ -137,7 +137,7 @@
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Re-type Password*</label>
-                            <input name="password_retype" type="text" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
+                            <input name="password_retype" type="password" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
                             <?php if(isset($errors['password_retype'])): ?>
                               <div class="text-danger">
                                 <?= $errors['password_retype'] ?>

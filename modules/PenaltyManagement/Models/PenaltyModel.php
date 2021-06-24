@@ -11,7 +11,7 @@ class PenaltyModel extends \CodeIgniter\Model
 
     public function getPenaltyWithCondition($conditions = [])
 	{
-    $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.hours');
+    $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.hours, penalties.penalty as penalty');
 		foreach($conditions as $field => $value)
 		{
 			$this->where($field, $value);
@@ -19,6 +19,7 @@ class PenaltyModel extends \CodeIgniter\Model
       $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
       $this->join('subjects', 'subjects.id = enrollment.subject_id');
       $this->join('student', 'student.id = enrollment.student_id');
+      $this->join('penalties', 'penalties.id = penalty.reason');
 	    return $this->findAll();
 	}
 

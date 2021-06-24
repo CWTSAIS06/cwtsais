@@ -45,8 +45,11 @@ class Security extends BaseController
 				$this->session->markAsFlashdata('success_login');
 				if($landing_page['role_name'] == 'Student'){
 					return redirect()->to(base_url('student/profileStudent'));
-				}else{
+				}else if($_SESSION['rid'] == '1'){
 					return redirect()->to(base_url('dashboard'));
+				
+				}else{
+					return redirect()->to(base_url($landing_page['table_name']));
 				}
 			}
 			else

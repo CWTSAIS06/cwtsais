@@ -117,7 +117,6 @@
                 <select name="course_id" id="course_id" class="form-control <?= isset($errors['course_id']) ? 'is-invalid':' ' ?>">
                   <option value="" disabled selected>Select Course</option>
                   <?php foreach($course as $course): ?>
-
                     <option value="<?= $course['id'] ?>" <?=   ($course['id'] == $student['course_id']) ? 'selected':'' ?>><?= ucwords($course['course']) ?> - <?= ucwords($course['description'])?></option>
                   <?php endforeach; ?>
                 </select>

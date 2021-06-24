@@ -15,7 +15,7 @@
           <tr>
             <td>Address: </td>
             <td><?=$student['address']?></td>
-          </tr>
+          </tr> 
         </table>
       <?php endforeach; ?>
       <br>
@@ -58,7 +58,7 @@
                 N/A
               <?php endif; ?>
             </td>
-            <td><?=$enroll['status'] == 'i' ? 'Incomplete' : 'Complete'?></td>
+            <td><?= ($enroll['status'] == 'i') ? 'Incomplete' : 'Complete'?></td>
           </tr>
         <?php endforeach; ?>
       </table>

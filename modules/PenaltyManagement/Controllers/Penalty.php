@@ -3,6 +3,7 @@
 use Modules\PenaltyManagement\Models\PenaltyModel;
 use Modules\StudentManagement\Models\EnrollModel;
 use Modules\UserManagement\Models\PermissionsModel;
+use Modules\Maintenances\Models\PenaltiesModel;
 use App\Controllers\BaseController;
 
 class Penalty extends BaseController
@@ -51,8 +52,10 @@ class Penalty extends BaseController
 		$eModel = new EnrollModel();
 		$data['students'] = $eModel->getStudentsForm();
     	helper(['form', 'url']);
-    	$model = new PenaltyModel();
-
+		$model = new PenaltyModel();
+		
+    	$penaltiesModel = new PenaltiesModel();
+		$data['penaltys'] = $penaltiesModel->getPenalty();
     	if(!empty($_POST))
     	{
 	    	if (!$this->validate('penaltys'))
@@ -102,7 +105,8 @@ class Penalty extends BaseController
 			$eModel = new EnrollModel();
 			$data['students'] = $eModel->getStudentsForm();
     	$permissions_model = new PermissionsModel();
-
+		$penaltiesModel = new PenaltiesModel();
+		$data['penaltys'] = $penaltiesModel->getPenalty();
     	$data['permissions'] = $this->permissions;
 
     	if(!empty($_POST))

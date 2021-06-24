@@ -40,7 +40,7 @@
        <td><?=$penalty['subject']?></td>
        <td><?=date('M d, Y', strtotime($penalty['date']))?></td>
        <td><?=$penalty['hours']?></td>
-       <td><?=$penalty['reason']?></td>
+       <td><?=$penalty['penalty']?></td>
        <td class="text-center">
          <?php users_action('penalty', $_SESSION['userPermmissions'], $penalty['id']); ?>
        </td>

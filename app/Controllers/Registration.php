@@ -24,19 +24,19 @@ class Registration extends BaseController
                     $student_model = new StudentModel();
                     unset($_POST['password_retype']);
                    
-                    // if($users_model->addStudentAccount($_POST)){
-                    //     $user_id = $users_model->insertID();
-                    //     if($student_model->addRegisteredStudent($_POST, $user_id)){
-                    //         $_SESSION['success_registered'] = 'You Successfuly have CWTS-AIS Account!';
-                    //         $this->session->markAsFlashdata('success_registered');
-                    //         return redirect()->to( base_url());
-                    //     }
+                    if($users_model->addStudentAccount($_POST)){
+                        $user_id = $users_model->insertID();
+                        if($student_model->addRegisteredStudent($_POST, $user_id)){
+                            $_SESSION['success_registered'] = 'You Successfuly have CWTS-AIS Account!';
+                            $this->session->markAsFlashdata('success_registered');
+                            return redirect()->to( base_url());
+                        }
                         
-                    // }else{
-                    //     $_SESSION['error'] = 'You have an error in adding a new record';
-                    //     $this->session->markAsFlashdata('error');
-                    //     return redirect()->to( base_url('users'));
-                    // }
+                    }else{
+                        $_SESSION['error'] = 'You have an error in adding a new record';
+                        $this->session->markAsFlashdata('error');
+                        return redirect()->to( base_url('users'));
+                    }
                     
                 }else{
                     $_SESSION['error_login'] = 'Your Password and Re-type Password mismatch!';
