@@ -24,6 +24,7 @@
        <th>Course</th>
        <th>Subject</th>
        <th>required hours</th>
+       <th>accumulated hours</th>
      </tr>
    </thead>
    <tbody>
@@ -36,6 +37,7 @@
        <td><?= ucwords($student['course']) ?></td>
        <td><?= ucwords($student['subject']) ?></td>
        <td><?= ucwords($student['required_hrs'])?> </td>
+       <td><?= ucwords($student['accumulated_hrs'])?> </td>
      </tr>
      <?php endforeach; ?>
    </tbody>

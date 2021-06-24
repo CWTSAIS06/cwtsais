@@ -70,7 +70,7 @@ class Penalty extends BaseController
 		        if($model->addPenalty($_POST))
 		        {	
 					$enrolled = $eModel->getEnrolledById($_POST['enrollment_id']);
-					$total_hrs = number_format($_POST['hours'], 2, '.', '') + number_format($enrolled['accumulated_hrs'], 2, '.', '');
+					$total_hrs = number_format($_POST['hours'], 2, '.', '') + number_format($enrolled['required_hrs'], 2, '.', '');
 					$eModel->updateAccumulatedHours($total_hrs, $_POST['enrollment_id']);
 
 		        	//$role_id = $model->insertID();

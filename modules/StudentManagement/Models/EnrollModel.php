@@ -17,7 +17,7 @@ class EnrollModel extends \CodeIgniter\Model
      }
 
      public function getStudents(){
-       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, subjects.required_hrs');
+       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs');
        $this->join('student', 'student.id = enrollment.student_id');
        $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
        $this->join('course', 'student.course_id = course.id');
@@ -87,7 +87,7 @@ class EnrollModel extends \CodeIgniter\Model
       return $this->first();
     }
     public function updateAccumulatedHours($val_array, $id){
-      $data = ['accumulated_hrs' => $val_array];
+      $data = ['required_hrs' => $val_array];
       return $this->update($id, $data);
     }
 
