@@ -5,7 +5,7 @@
       <div class="card-body">
       <form action="<?= base_url() ?>years/<?= isset($rec) ? 'edit/'.$rec['id'] : 'add' ?>" method="post">
 
-      
+
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -13,7 +13,7 @@
                 <div class="col-md-8">
                   <label for="year">Course</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2 offset-md-10">
               </div>
             </div>
               <select class="form-control" name="course_id" id="course_id">
@@ -28,8 +28,8 @@
                 </div>
               <?php endif; ?>
             </div>
-          </div> <!-- end of row --> 
-  
+          </div> <!-- end of row -->
+
           <div class="col">
             <div class="form-group">
               <div class="row">
@@ -71,7 +71,7 @@
               <?php endif; ?>
             </div>
           </div>
-        </div> <!-- end of row --> 
+        </div> <!-- end of row -->
         <div class="row">
           <div class="col-md-6">
           </div>
@@ -80,7 +80,7 @@
           </div>
           <div class="col-md-3">
           </div>
-        </div> <!-- end of row --> 
+        </div> <!-- end of row -->
       </form>
       </div>
     </div>

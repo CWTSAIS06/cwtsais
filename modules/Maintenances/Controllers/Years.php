@@ -25,7 +25,7 @@ class Years extends BaseController
   	$model = new YearsModel();
     $data['years'] = $model->getYear();
 
-    $data['function_title'] = "Year & Section List";
+    $data['function_title'] = "List of Year & Sections";
     $data['viewName'] = 'Modules\Maintenances\Views\years\index';
     echo view('App\Views\theme\index', $data);
   }
@@ -88,7 +88,7 @@ class Years extends BaseController
 	  $model = new YearsModel();
 	  $course = new CourseModel();
 	  $section = new SectionsModel();
-  
+
 	  $data['rec'] = $model->getYearAndSectionById($id);
 	  $data['courses'] = $course->getCourse();
 	  if(!empty($_POST))
@@ -137,5 +137,5 @@ class Years extends BaseController
 		$section->active_sections($id);
 	}
 
-	
+
 }

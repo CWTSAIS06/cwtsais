@@ -6,11 +6,11 @@
       <div class="card bg-light ">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <h5><?= $function_title?></h5>
-            </div>
-            <div class="col-md-6">
-              <?php maintenance_detail_add_link('penalties', $_SESSION['userPermmissions']) ?>
+            </div> -->
+            <div class="col-md-2 offset-md-10">
+            <?php maintenance_detail_add_link('penalties', $_SESSION['userPermmissions']) ?>
             </div>
           </div>
           <br>
@@ -35,9 +35,9 @@
                   <td><?= ($type['status'] == 'a') ? 'active':'inactive' ?></td>
 
                   <td class="text-center">
-                    <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('penalties/edit/'.$type['id']); ?>'><i class="far fa-edit"></i></a> 
+                    <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('penalties/edit/'.$type['id']); ?>'><i class="far fa-edit"></i></a>
                     <?php if($type['status'] == 'a'):?>
-                      <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('penalties/inactive/')?>',<?=$type['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
+                      <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('penalties/inactive/')?>',<?=$type['id']?>,'d')" title="inactive"><i class="fas fa-archive"></i></a>
                     <?php else:?>
                       <a class="btn btn-info btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('penalties/active/')?>',<?=$type['id']?>,'a')" title="activate"><i class="fas fa-archive"></i></a>
                     <?php endif;?>

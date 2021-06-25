@@ -35,7 +35,7 @@
        <td><?= ($schyear['status'] == 'a') ? 'active':'inactive' ?></td>
        <td class="text-center">
          <!-- <?php  users_edit('schyear', $_SESSION['userPermmissions'], $schyear['id']); ?> -->
-         <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('schyear/edit/'.$schyear['id']); ?>'>Edit<i cla ss="far fa-edit"></i></a> 
+         <a class="btn btn-success btn-sm" title="edit" href='<?= base_url('schyear/edit/'.$schyear['id']); ?>'><i class="far fa-edit"></i></a>
           <?php if($schyear['status'] == 'a'):?>
             <a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('schyear/inactive/')?>',<?=$schyear['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
           <?php else:?>
@@ -49,8 +49,8 @@
 </div>
 <hr>
 
-<div class="row">
+<!-- <div class="row">
  <div class="col-md-6 offset-md-6">
    <?php paginater('schyear', count($all_items), PERPAGE, $offset) ?>
  </div>
-</div>
+</div> -->
