@@ -1,45 +1,67 @@
-<br><div class="card bg-light ">
-  <div class="card-body">
-     <div class="row">
-       <div class="col-md-10">
-         <!-- <h3> <?=$function_title?> </h3> -->
-       </div>
-       <div class="col-md-2">
-         <!--  <a href="<?= base_url() ?>node/add" class="btn btn-sm btn-primary btn-block float-right">Add Node</a> -->
-       </div>
-     </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <form action="<?= base_url() ?>course/<?= isset($rec) ? 'edit/'.$rec['id'] : 'add' ?>" method="post">
-          <div class="row">
-            <div class="col-md-5 offset-md-1">
-              <div class="form-group">
-                <label for="course">Course</label>
-                <input name="course" type="text" value="<?= isset($rec['course']) ? $rec['course'] : set_value('course') ?>" class="form-control <?= isset($errors['course']) ? 'is-invalid':' ' ?>" id="course" placeholder="Course">
-                  <?php if(isset($errors['course'])): ?>
-                    <div class="invalid-feedback">
-                      <?= $errors['course'] ?>
-                    </div>
-                  <?php endif; ?>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-success" style="border-radius: 0px;">
+      <div class="card-body">
+      <form action="<?= base_url() ?>course/<?= isset($rec) ? 'edit/'.$rec['id'] : 'add' ?>" method="post">
+
+        <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+              <label class="card-title"><h3><?= $function_title?></h3></label>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-8">
+                  <label for="course">Program</label>
+                </div>
+                <div class="col-md-4">
+                </div>
               </div>
-            </div>
-            <div class="col-md-5">
-              <div class="form-group">
-                <label for="description">Description</label>
-                <input name="description" type="text" value="<?= isset($rec['description']) ? $rec['description'] : set_value('description') ?>" class="form-control <?= isset($errors['description']) ? 'is-invalid':' ' ?>" id="description" placeholder="Description">
-                  <?php if(isset($errors['description'])): ?>
-                    <div class="invalid-feedback">
-                      <?= $errors['description'] ?>
-                    </div>
-                  <?php endif; ?>
+              <input type="text" class="form-control" name="course" value="<?= isset($rec['course']) ? $rec['course'] : ''?>" id="course" placeholder="Course">
+              <?php if (isset($errors['course'])): ?>
+                <div class="text-danger">
+                    <?= $errors['course']?>
+                </div>
+              <?php endif; ?>
+              <div class="row">
+                <div class="col-md-8">
+                  <label for="description">Description</label>
+                </div>
+                <div class="col-md-4">
+                </div>
               </div>
+              <input type="text" class="form-control" name="description" value="<?= isset($rec['description']) ? $rec['description'] : ''?>" id="description" placeholder="Description">
+              <?php if (isset($errors['description'])): ?>
+                <div class="text-danger">
+                    <?= $errors['description']?>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <p style="clear: both"></p>
+          <div class="col-md-3">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-success float-right" style="width:40%;"><i class="fas fa-paper-plane"></i> Submit</button>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+      </form>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
+</div>
+<br>

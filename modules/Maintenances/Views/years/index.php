@@ -6,11 +6,11 @@
       <div class="card bg-light ">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <h5> Year & Section</h5>
-            </div>
-            <div class="col-md-6">
-            <a href="<?= base_url(); ?>years/add" class="btn btn-sm btn-success btn-block float-left">Add Year & Section</a>
+            </div> -->
+            <div class="col-md-2 offset-md-10">
+            <a href="<?= base_url(); ?>years/add" class="btn btn-sm btn-success btn-block float-left"><i class="fas fa-plus"></i>    Add Year & Section</a>
             </div>
           </div>
           <br>
