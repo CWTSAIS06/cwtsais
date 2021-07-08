@@ -55,6 +55,7 @@ class BaseController extends Controller
 
 	public function __construct()
 	{
+		date_default_timezone_set('Asia/Singapore');
 		$this->session = \Config\Services::session();
 		helper(['link', 'namesearch', 'paging', 'document', 'url','form']);
 

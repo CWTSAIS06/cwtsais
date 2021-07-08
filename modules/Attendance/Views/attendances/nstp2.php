@@ -1,36 +1,12 @@
 <div class="row">
   <div class="col-md-10">
+  <a type="button" href="<?= base_url("student/profileStudent") ?>" class="btn btn-primary m-3">Back</a>
+  <div> <span class="float-right" >ACCUMULATED HOURS: <?= $accumulated_hrs;?> HRS (NSTP2)</span></div>
   </div>
+  
 </div>
 <br>
-<a type="button" href="<?= base_url("dashboard") ?>" class="btn btn-primary m-3">Back</a>
-<div class="row mt-5">
-  <div class="col-md-4 offset-md-4">
-    <!-- <form action="<?= base_url() ?>attendance/verify" method="post"> -->
-    <form >
-
-      <div class="form-group">
-    <?php if($_SESSION['rid'] !== '3'):?> 
-
-        <label for="stud_num" class="form-label">Student Number</label>
-        <br>
-        <input name="stud_num" class="form-control" type="text" autocomplete="off" id="stud_num" placeholder="Student Number" required>
-      <?php endif;?>
-        
-        </div>
-        
-      </div>
-      <div class="col-md-12">
-    <?php if($_SESSION['rid'] !== '3'):?> 
-
-        <center>
-          <button id="time_in" class="btn btn-success m-3">TIME IN</button>
-          <button id="time_out" class="btn btn-success m-3"> TIME OUT</button>
-        </center>
-      <?php endif;?>
-      </div>
-    </form>
-</div>
+   
 <div class="row">
   <div class="col-md-12">
     <h4>
@@ -76,32 +52,3 @@
     </div>
   </div>
   <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
-
-<script>  
-$('#time_in').on('click', function(e){
-  // e.preventDefault();  
-
-  var student_num = $('#stud_num').val();
-  $.ajax({
-      url: "<?= base_url("attendance/verify")?>",
-      type: "POST",
-      data: {stud_num :student_num},
-      success: function(response){
-        console.log(response)
-      }
-  });
-});
-
-$('#time_out').on('click', function(e){
-  // e.preventDefault();
-  var student_number = $('#stud_num').val();
-  $.ajax({
-      url: "<?= base_url("attendance/attendanceTimeOut")?>",
-      type: "POST",
-      data: {student_number :student_number},
-      success: function(response){
-        console.log(response)
-      }
-  });
-});
-</script>

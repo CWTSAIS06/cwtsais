@@ -58,7 +58,7 @@
                     <div class="col-sm-12">
                         <div id="final-quantity" class="form-group">
                             <label>Student Number*</label>
-                            <input name="stud_num" type="text" autocomplete="off"  value="<?= isset($rec['stud_num']) ? $rec['stud_num'] : set_value('stud_num') ?>" class="form-control <?= isset($errors['stud_num']) ? 'is-invalid':' ' ?>" id="stud_num" placeholder="####-#####-TG-#">
+                            <input name="stud_num" type="text" autocomplete="off"  value="<?= isset($rec['stud_num']) ? $rec['stud_num'] : set_value('stud_num') ?>" class="form-control <?= isset($errors['stud_num']) ? 'is-invalid':' ' ?>" placeholder="####-#####-TG-#" id="stud_num"  maxlength='15'>
                             <?php if (isset($errors['stud_num'])): ?>
                           <div class="text-danger">
                               <?= $errors['stud_num']?>
@@ -124,7 +124,7 @@
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Password*</label>
-                            <input name="password" type="password" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
+                            <input name="password" type="text" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
                             <?php if(isset($errors['password'])): ?>
                               <div class="text-danger">
                                 <?= $errors['password'] ?>
@@ -137,7 +137,7 @@
                     <div class="col-sm-6">
                         <div id="final-quantity" class="form-group">
                             <label>Re-type Password*</label>
-                            <input name="password_retype" type="password" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
+                            <input name="password_retype" type="text" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
                             <?php if(isset($errors['password_retype'])): ?>
                               <div class="text-danger">
                                 <?= $errors['password_retype'] ?>
@@ -158,9 +158,23 @@
       </div>
     </div>
   </body>
-
+ <script type="text/javascript" src="<?= base_url();?>public/js/inputmask.min.js"></script>
+    <script type="text/javascript" src="<?= base_url();?>public/js/inputmask.extensions.min.js"></script>
   <script type="text/javascript">
+
+
     $(function(){
+      var inputmask = new Inputmask("9999-99999-TG-9");
+          inputmask.mask($('[id*=stud_num]'));
+      $('[id*=stud_num]').on('keypress', function (e) {
+          var number = $(this).val();
+          if (number.length == 2) {
+              $(this).val($(this).val() + '-');
+          }
+          else if (number.length == 7) {
+              $(this).val($(this).val() + '-');
+          }
+      });
       setTimeout(function(){
         $('.alert').hide();
       },5000);

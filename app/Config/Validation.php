@@ -127,18 +127,42 @@ class Validation
 				 			]
 				 		],
 				 		'hours' => [
-				 		'label'  => 'Hours',
-				 		'rules'  => 'required',
-				 		'errors' => [
-				 		'required' => 'Number of Hours field is required.',
-				 			]
+							'label'  => 'Hours',
+							'rules'  => 'required',
+							'errors' => [
+								'required' => 'Number of Hours field is required.',
+							]
 				 		],
 				 ];
 
 		public $enroll = [
 			'subject_id' => [
 				'label' => 'Subject',
-				'rules' => 'required'
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'Subject is required.'
+				]
+			],
+			'professor_id' => [
+				'label' => 'Professor',
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'Professor is required.'
+				]
+			],
+			'day' => [
+				'label' => 'Day',
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'Day is required.'
+				]
+			],
+			'schedule' => [
+				'label' => 'schedule',
+				'rules' => 'required',
+				'errors' => [
+					'required' => 'Schedule is required.'
+				]
 			]
 		];
 

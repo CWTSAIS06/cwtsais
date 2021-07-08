@@ -9,4 +9,7 @@ $routes->group('attendance', ['namespace' => 'Modules\Attendance\Controllers'], 
     $routes->match(['get', 'post'], 'add', 'Attendance::add_attendance');
     $routes->match(['get', 'post'], 'verify', 'Attendance::verify');
     $routes->match(['get', 'post'], 'attendanceTimeOut', 'Attendance::attendance_time_out');
+    $routes->match(['get', 'post'], 'penalty', 'Attendance::penalty');
+    $routes->match(['get', 'post'], 'nstp1', 'Attendance::nstp1');
+    $routes->match(['get', 'post'], 'nstp2', 'Attendance::nstp2');
 });

@@ -92,4 +92,9 @@ class UsersModel extends \CodeIgniter\Model
 
 		return $query;
 	}
+
+	public function getProfessors(){
+		$this->where('role_id', 4);
+		return $this->findAll();
+	}
 }

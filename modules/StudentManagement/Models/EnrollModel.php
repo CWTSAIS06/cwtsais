@@ -7,7 +7,7 @@ class EnrollModel extends \CodeIgniter\Model
 {
      protected $table = 'enrollment';
 
-     protected $allowedFields = ['id','student_id','stud_num','subject_id','schyear_id','required_hrs','accumulated_hrs','status','created_at','deleted_at','updated_at'];
+     protected $allowedFields = ['id','student_id','stud_num','subject_id','schyear_id','required_hrs','accumulated_hrs','professor_id','day','start_time','end_time','status','created_at','deleted_at','updated_at'];
 
      public function getSpecificStudent($stud_num){
 
@@ -99,5 +99,36 @@ class EnrollModel extends \CodeIgniter\Model
       $this->join('course', 'student.course_id = course.id');
       $this->where('enrollment.status', 'c');
       return $this->findAll();
+    }
+
+    public function getAllSchedule($day, $time){
+          $this->where('day', $day);
+          $this->where('start_time <=', $time);
+          $this->where('end_time >=', $time);
+          return $this->findAll();
+    }
+
+    public function getStudentSchedule($day, $student_id){
+      $this->where('day',$day);
+      $this->where('student_id', $student_id);
+      return $this->first();
+    }
+
+    public function selectNstp1($id){
+      $this->select('enrollment.id as id , enrollment.accumulated_hrs, enrollment.required_hrs');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->where('enrollment.student_id', $id);
+      $this->where('enrollment.status', 'i');
+      $this->where('subjects.subject', 'NSTP1');
+      return $this->first();
+    }
+
+    public function selectNstp2($id){
+      $this->select('enrollment.id as id , enrollment.accumulated_hrs, enrollment.required_hrs');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->where('enrollment.student_id', $id);
+      $this->where('enrollment.status', 'i');
+      $this->where('subjects.subject', 'NSTP2');
+      return $this->first();
     }
 }

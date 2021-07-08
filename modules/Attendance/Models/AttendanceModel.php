@@ -16,7 +16,7 @@ class AttendanceModel extends \CodeIgniter\Model
   $data['timein'] = date('H:i:s');
   $data['timeout'] = null;
   $data['user_id'] = $_SESSION['uid'];
-  $data['status'] = 'a';
+  $data['status'] = 'present';
   $data['created_at'] = date('y-m-d H:i:s');
 
   return $this->insert($data);
@@ -35,6 +35,15 @@ class AttendanceModel extends \CodeIgniter\Model
   ->update();
   }
 
+  public function absent($data){
+    date_default_timezone_set('Asia/Singapore');
+    $data['date'] = date('y-m-d');
+    $data['timeout'] = null;
+    $data['status'] = 'absent';
+    $data['created_at'] = date('y-m-d H:i:s');
+  
+    return $this->insert($data);
+  }
   public function getAttendances(){
     $this->select('attendance.id as id, student.stud_num,student.firstname, student.lastname, student.middlename, attendance.timein, attendance.timeout, attendance.date, subjects.subject');
     $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
@@ -73,20 +82,30 @@ class AttendanceModel extends \CodeIgniter\Model
     return $this->findAll();
   }
 
-  public function getAttendancesAndPenaltyByUserId($id){
-    // SEC_TO_TIME( SUM( TIME_TO_SEC( TIMEDIFF(attendance.timeout, attendance.timein) ) ) ) as completed_time
-    // $this->select('enrollment.id, attendance.timein, attendance.timeout');
+  public function getAttendancesNstp1ByEnrollId($id){
+
     $this->select('attendance.id as id, enrollment.id as enrollment_id, student.stud_num,student.firstname, student.lastname, student.middlename, attendance.timein, attendance.timeout, attendance.date, subjects.subject');
     $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
     $this->join('subjects', 'enrollment.subject_id = subjects.id');
     $this->join('student', 'enrollment.student_id = student.id');
-    $this->where('student.user_id', $id);
+    $this->where('enrollment.id', $id);
     $this->where('attendance.timeout IS NOT NULL', null, false);
-    // $this->groupBy('enrollment.id');
-    // print_r($this->findAll());
-    // die();
+    $this->where('subjects.subject', 'NSTP1');
     return $this->findAll();
   }
+
+  public function getAttendancesNstp2ByEnrollId($id){
+
+    $this->select('attendance.id as id, enrollment.id as enrollment_id, student.stud_num,student.firstname, student.lastname, student.middlename, attendance.timein, attendance.timeout, attendance.date, subjects.subject');
+    $this->join('enrollment', 'enrollment.id = attendance.enroll_id');
+    $this->join('subjects', 'enrollment.subject_id = subjects.id');
+    $this->join('student', 'enrollment.student_id = student.id');
+    $this->where('enrollment.id', $id);
+    $this->where('attendance.timeout IS NOT NULL', null, false);
+    $this->where('subjects.subject', 'NSTP2');
+    return $this->findAll();
+  }
+
 
   public function getAttendanceById($id){
     $this->where('id', $id);

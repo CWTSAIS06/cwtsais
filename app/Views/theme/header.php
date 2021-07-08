@@ -40,8 +40,6 @@
 			<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 		</li>
 		<li class="nav-item d-none d-sm-inline-block">
-			<a href="<?=base_url('attendance')?>" class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Attendance Management</a>
-
 		</li>
 		<!-- <li class="nav-item d-none d-sm-inline-block">
 			<a href="#" class="nav-link">Contact</a>

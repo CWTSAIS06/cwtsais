@@ -72,8 +72,17 @@ if (! function_exists('user_primary_links'))
 	function user_primary_links(array $array_permissions)
 	{
 		$strAdditionalUrl = '';
-		if($_SESSION['rid'] == "1"){
+		if($_SESSION['rid'] == "1" || $_SESSION['rid'] == "2"){
 			echo '<li class="nav-item "> <a href="'.base_url('dashboard').'" class="nav-link '.( (uri_string() == 'dashboard') ? "active":"").' "><i class="fas fa-chart-bar fa-w-16"></i> &nbsp <p> Dash Board </p> </a></li>';
+			echo '<li class="nav-item "> <a href='.base_url("attendance").' class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Attendance Management</a>';
+		}
+		if($_SESSION['rid'] == "4"){
+			echo '<li class="nav-item "> <a href='.base_url("attendance").' class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Attendance Management</a>';
+		}
+		if($_SESSION['rid'] == "3"){
+			echo '<li class="nav-item "> <a href='.base_url("attendance/nstp1").' class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Nstp1</a></li>';
+			echo '<li class="nav-item "> <a href='.base_url("attendance/nstp2").' class="nav-link"><i class="far fa-clock"></i>&nbsp;&nbsp;Nstp2</a></li>';
+
 		}
 
 		foreach($_SESSION['appmodules'] as $module)

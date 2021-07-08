@@ -1,12 +1,14 @@
 <?php namespace App\Controllers;
 
 use Modules\UserManagement\Models\UsersModel;
+use Modules\StudentManagement\Models\StudentModel;
 
 class Security extends BaseController
 {
 	public function index()
 	{
 		$model = new UsersModel();
+		$studentModel = new StudentModel();
 		if($_POST)
 		{
 			$loginOK = 0;
@@ -19,10 +21,12 @@ class Security extends BaseController
 				{
 					if(password_verify($_POST['password'], $user['password']))
 					{
+						$student = $studentModel->getStudentByUserId($user['id']);
 						$loginOK = 1;
 						$_SESSION['uid'] = $user['id'];
 						$_SESSION['uname'] = $user['username'];
 						$_SESSION['rid'] = $user['role_id'];
+						$_SESSION['student_id'] = $student['id'];
 						$_SESSION['user_logged_in'] = 1;
 						break;
 					}

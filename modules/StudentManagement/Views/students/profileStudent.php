@@ -167,13 +167,25 @@
     </div>
 
     <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= base_url();?>public/js/inputmask.min.js"></script>
+    <script type="text/javascript" src="<?= base_url();?>public/js/inputmask.extensions.min.js"></script>
+  <script type="text/javascript">
 
-    <script>
-      
 
-      $(document).ready(function() {
-      
+    $(function(){
+      var inputmask = new Inputmask("9999-99999-TG-9");
+          inputmask.mask($('[id*=stud_num]'));
+      $('[id*=stud_num]').on('keypress', function (e) {
+          var number = $(this).val();
+          if (number.length == 2) {
+              $(this).val($(this).val() + '-');
+          }
+          else if (number.length == 7) {
+              $(this).val($(this).val() + '-');
+          }
       });
+     
+    });
       $("#course_id").on('change', function(){
       var course_id = $("#course_id :selected").val();
       var option = " ";
