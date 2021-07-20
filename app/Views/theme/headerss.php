@@ -182,7 +182,6 @@
   <!--banner-->
     <div class="banner">
       <br>
-
     <h1 id="page-title"><?= $function_title ?></h1>
     <?php echo view($viewName); ?>
 

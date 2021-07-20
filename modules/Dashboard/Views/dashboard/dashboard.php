@@ -1,60 +1,49 @@
-<div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Students</span>
-                <span class="info-box-number">
-                    <?= $students; ?>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users-slash"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Penalties</span>
-                <span class="info-box-number"><?= $penalties;?></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-address-card"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Enrolled</span>
-                <span class="info-box-number"><?= $enrolled;?></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-graduate"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Graduates</span>
-                <span class="info-box-number"><?= $complete?></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
+<link rel="stylesheet" href="<?= base_url() ?>/public/custom-css/dashboard.css">
+<div class="dashboard_content">
+	<div class="statistics">
+		<div class="statistic">
+			<div class="statistic_left left_blue">
+				<img src="public/img/icons/Group 13.svg" alt="">
+			</div>
+			<div class="statistic_right">
+				<p class="title">Students</p>
+				<p class="numbers"><?= $students; ?></p>
+			</div>
+		</div>
+		<div class="statistic">
+			<div class="statistic_left left_red">
+				<img src="public/img/icons/PENALTY VECTOR.svg" alt="">
+			</div>
+			<div class="statistic_right">
+				<p class="title">Penalties</p>
+				<p class="numbers"><?= $penalties; ?></p>
+			</div>
+		</div>
+		<div class="statistic">
+			<div class="statistic_left left_green">
+				<img src="public/img/icons/ENROLLED VECTOR.svg" alt="">
+			</div>
+			<div class="statistic_right">
+				<p class="title">Enrolled</p>
+				<p class="numbers"><?= $enrolled; ?></p>
+			</div>
+		</div>
+		<div class="statistic">
+			<div class="statistic_left left_yellow">
+				<img src="public/img/icons/GRADUATE VECTOR.svg" alt="">
+			</div>
+			<div class="statistic_right">
+				<p class="title">Graduates</p>
+				<p class="numbers"><?= $complete?></p>
+			</div>
+		</div>
+	</div>
+	<div class="others">
+		<div class="other">
+			event
+		</div>
+		<div class="other">
+			penalties
+		</div>
+	</div>
+</div>

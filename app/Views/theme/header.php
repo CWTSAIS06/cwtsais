@@ -28,12 +28,13 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
   <link rel="stylesheet" href="<?= base_url() ?>/public/css/bootstrap-select.min.css">
 
-
+  <!-- custom global css  -->
+  <link rel="stylesheet" href="<?= base_url() ?>/public/custom-css/global.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-dark navbar-light" style="background-color:#670000;">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-light">
 	<!-- Left navbar links -->
 	<ul class="navbar-nav">
 		<li class="nav-item">

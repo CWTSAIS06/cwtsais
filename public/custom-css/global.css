@@ -1,0 +1,70 @@
+@font-face {
+	font-family: Poppins-Regular;
+	src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Medium;
+	src: url('../fonts/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Bold;
+	src: url('../fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+	font-family: Poppins-SemiBold;
+	src: url('../fonts/poppins/Poppins-SemiBold.ttf');
+}
+body {
+	font-family: 'Poppins-Regular';
+	font-size: 14px;
+}
+
+body::-webkit-scrollbar {
+	width: 12px;
+	background-color: transparent;
+}
+body::-webkit-scrollbar-track {
+	box-shadow: none;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: #940000;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	border-radius: 50px;
+}
+
+.brand-link .brand-text {
+	font-size: 16px;
+}
+
+.main-header, .brand-link {
+	background: #980000;
+	border-bottom: 0 !important;
+}
+.main-sidebar {
+	background: #720000;
+	box-shadow: unset !important;
+}
+
+.nav-link.active {
+	background-color: #fff !important;
+	color: #910000 !important;
+	border-radius: 50px;
+}
+
+/* .sidebar-collapse .os-content {
+	padding: 0 8px 0 14px !important;
+} */
+.sidebar-collapse .nav-link i{
+	margin-left: 5px;
+}
+.sidebar a {
+	color: #fff !important;
+}
+#page-title {
+	color: #910000;
+	font-size: 32px;
+}

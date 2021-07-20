@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#4d0000;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
 	<a href="<?php echo base_url('student')?>" class="brand-link">
 		<img src="<?= base_url('')?>/public/img/logooff.png" alt="CWTSIS PUPT" class="brand-image img-circle elevation-3" style="opacity:.8;">
@@ -80,20 +80,15 @@
 </div>
 </aside>
 <div class="content-wrapper">
-
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
 
 	<script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-
 <script>
-
-
 $('li.nav-item ul.nav-treeview li.nav-item a').each(function(){
 	if($(this).hasClass('active')){
 		$(this).parent().parent().parent().addClass('menu-is-opening menu-open');
 	}
 });
-
 </script>
