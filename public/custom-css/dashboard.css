@@ -16,6 +16,12 @@ p {
 .dashboard_content {
 	margin-top: 30px;
 }
+.top_events {
+	background: #26A543;
+}
+.top_penalties {
+	background: #D63746;
+}
 .statistics {
 	display: flex;
 	flex-flow: row wrap;
@@ -58,4 +64,112 @@ p {
 }
 .statistic_right .numbers {
 	opacity: .6;
+}
+.others {
+	display: flex;
+	margin: 10px -10px 0;
+	align-items: flex-start;
+	padding-bottom: 100px;
+}
+.others .other {
+	flex: 0 0 calc(50% - 20px);
+	margin: 10px;
+	box-shadow: 5px 5px 10px #09090966;
+	border-radius: 10px;
+}
+.other .top_header {
+	display: flex;
+	align-items: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 10px;
+}
+.top_header img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	object-position: center;
+	margin-right: 15px;
+}
+.top_header {
+	color: #fff;
+	font-size: 16px; 
+}
+.events_content {
+	background: #fff;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	padding: 20px 10px;
+	display: flex;
+}
+
+.events {
+	flex: 0 0 calc(50% - 10px);
+	margin: 5px;
+}
+.events .label {
+	margin-bottom: 10px;
+}
+.events .event {
+	border-radius: 10px;
+	background: #980000;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.events.upcoming .event {
+	opacity: .8;
+}
+.event p {
+	color: #fff;
+}
+.event .date, .time {
+	font-size: 8px;
+}
+.event .title {
+	padding: 5px 0;
+	font-size: 12px;
+}
+.penalties_content {
+	padding: 20px 0;
+	background: #fff;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.penalty_list {
+	border-top: 1px solid #C8C8C8;
+	display: flex;
+}
+.penalty_list:last-child {
+	border-bottom: 1px solid #C8C8C8;
+}
+.penalty_list .name {
+	flex: 0 0 40%;
+	border-right: 1px solid #C8C8C8;
+	padding: 0 10px 0 30px;
+	font-size: 12px;
+}
+.penalty_list .penalty {
+	flex: 0 0 60%;
+	padding: 0 10px 0 30px;
+	font-size: 12px;
+}
+
+@media (max-width: 768px) and (min-width: 300px) {
+	.others {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	@media (max-width: 768px) and (min-width: 425px) {
+		.statistics .statistic {
+			flex: 0 0 calc(50% - 20px);
+		}
+	}
+	@media (max-width: 424px) {
+		.statistics {
+			flex-direction: column;
+		}
+		.events_content {
+			flex-direction: column;
+		}
+	}
 }

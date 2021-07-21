@@ -1,0 +1,135 @@
+@font-face {
+	font-family: Poppins-Regular;
+	src: url('../fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Medium;
+	src: url('../fonts/poppins/Poppins-Medium.ttf');
+}
+
+@font-face {
+	font-family: Poppins-Bold;
+	src: url('../fonts/poppins/Poppins-Bold.ttf');
+}
+
+@font-face {
+	font-family: Poppins-SemiBold;
+	src: url('../fonts/poppins/Poppins-SemiBold.ttf');
+}
+p {
+	margin: 0;
+}
+body {
+	background: #ECECEC;
+}
+.attendance_container {
+	position: relative;
+	padding: 100px;
+	font-family: 'Poppins-Regular';
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.with_table {
+	justify-content: unset;
+}
+.with_table .attendance_content {
+	margin-bottom: 50px;
+}
+.table-responsive {
+	margin-bottom: 50px;
+}
+.back_button {
+	position: absolute;
+	top: 25px;
+	left: 25px;
+}
+.attendance_content {
+	background: #fff;
+	padding: 40px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	max-width: 500px;
+	width: 100%;
+}
+.date_time_content .time {
+	color: #910000;
+	font-size: 70px;
+}
+.date_time_content .date {
+	color: #910000;
+	font-size: 40px;
+	margin-top: 10px;
+}
+.form_time_in_out {
+	margin-top: 40px;
+}
+.form_group .input_container {
+	border-radius: 10px;
+	outline: none;
+	border: 1px solid #6E6E6E;
+	background: #fff;
+	padding: 10px;
+	font-family: 'Poppins-Regular';
+	width: 100%;
+	max-width: 400px;
+	color: #6E6E6E;
+}
+.form_buttons {
+	margin: 20px 0 0;
+}
+.form_buttons .form_button {
+	outline: none;
+	border-radius: 10px;
+	font-size: 18px;
+	border: none;
+	padding: 10px;
+	min-width: 150px;
+	color: #fff;
+	font-weight: bold;
+}
+.form_button.time_in {
+	margin-right: 20px;
+	background: #26A543;
+}
+.form_button.time_out {
+	background: #B70404;
+}
+@media (max-height: 550px) {
+	.attendance_container {
+		justify-content: unset;
+		height: unset;
+	}
+}
+@media (max-width: 768px) and (min-width: 300px) {
+	.attendance_container {
+		padding: 25px;
+	}
+	.attendance_content {
+		max-width: 100%;
+	}
+	@media (max-width: 768px) and (min-width: 501px) {
+		.date_time_content .time {
+			font-size: 50px;
+		}
+	}
+	@media (max-width: 500px) and (min-width: 300px) {
+		.date_time_content .time {
+			font-size: 40px;
+		}
+		.date_time_content .date {
+			font-size: 25px;
+		}
+		.form_buttons .form_button {
+			min-width: 100%;
+		}
+		.form_button.time_in {
+			margin-right: 0;
+			margin-bottom: 20px;
+		}
+	}
+}
