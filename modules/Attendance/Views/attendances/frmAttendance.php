@@ -9,6 +9,7 @@
 		<div class="date_time_content">
 			<p class="time" id="attendance_time"></p>
 			<p class="date" id="attendance_date"></p>
+			<p class="day" id="attendance_day"></p>
 		</div>
 		<?php if($_SESSION['rid'] !== '3'):?> 
 			<div class="form_time_in_out">

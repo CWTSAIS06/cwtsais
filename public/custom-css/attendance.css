@@ -65,6 +65,10 @@ body {
 	font-size: 40px;
 	margin-top: 10px;
 }
+.date_time_content .day {
+	/* color: #910000; */
+	font-size: 30px;
+}
 .form_time_in_out {
 	margin-top: 40px;
 }
