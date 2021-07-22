@@ -20,6 +20,12 @@
 // display_c6();
 $(document).ready( function () {
     $('#myTable').DataTable();
+    $('table.display').DataTable({
+        "order": false,
+        "bPaginate": false,
+        "bInfo" : false,
+        searching: false
+    });
 } );
 
 function display_ct6() {

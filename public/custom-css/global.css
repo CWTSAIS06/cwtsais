@@ -20,6 +20,7 @@
 body {
 	font-family: 'Poppins-Regular';
 	font-size: 14px;
+	background: #F4F6F9;
 }
 
 body::-webkit-scrollbar {
@@ -30,6 +31,19 @@ body::-webkit-scrollbar-track {
 	box-shadow: none;
 }
 body::-webkit-scrollbar-thumb {
+	background-color: #940000;
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	border-radius: 50px;
+}
+select::-webkit-scrollbar {
+	width: 12px;
+	background-color: transparent;
+}
+select::-webkit-scrollbar-track {
+	box-shadow: none;
+}
+select::-webkit-scrollbar-thumb {
 	background-color: #940000;
 	border: 2px solid transparent;
 	background-clip: padding-box;
@@ -54,6 +68,12 @@ body::-webkit-scrollbar-thumb {
 	color: #910000 !important;
 	border-radius: 50px;
 }
+.nav.nav-treeview {
+	padding-left: 20px;
+}
+.sidebar-collapse .nav.nav-treeview {
+	padding-left: 0;
+}
 
 /* .sidebar-collapse .os-content {
 	padding: 0 8px 0 14px !important;
@@ -67,4 +87,132 @@ body::-webkit-scrollbar-thumb {
 #page-title {
 	color: #910000;
 	font-size: 32px;
+}
+
+.list_tables {
+	margin: 50px;
+	background: #fff;
+	padding: 25px;
+	border-radius: 10px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.add_button {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	margin-bottom: 20px;
+}
+.add_button a {
+	width: unset !important;
+	padding: 10px 30px;
+}
+.add_button a i {
+	margin-right: 5px;
+}
+.action_buttons a {
+	margin-bottom: 5px;
+}
+.table {
+	border-bottom: 0 !important;
+	margin: 0 auto 20px !important;
+	padding-top: 10px;
+}
+.form_container {
+	padding: 50px;
+}
+.form_submit {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+.form_submit .back_button {
+	margin-right: 10px;
+	color: #fff
+}
+.back_button a {
+	color: #fff;
+}
+.form-control {
+	background: transparent;
+	border-radius: 10px;
+}
+.dropdown-toggle {
+	border: 1px solid #ced4da;
+	background: transparent;
+}
+
+/* datatables  */
+.paginate_button.previous:hover {
+	background: transparent !important;
+}
+.paginate_button.current {
+	background: #980000 !important;
+	border: none !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	background: #980000 !important;
+	border: none !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+	color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	color: #fff !important;
+}
+.display.dataTable thead .sorting {
+	background-image: none;
+}
+.dt-button {
+	border: none;
+	border-radius: 10px;
+	padding: 10px 20px;
+	margin-right: 10px;
+}
+.dt-button.buttons-copy {
+	background: #007bff;
+	color: #fff;
+	transition: all .3s ease-in-out;
+}
+.dt-button.buttons-copy:hover {
+	background: #043c79;
+	transition: all .3s ease-in-out;
+}
+.dt-button.buttons-csv {
+	background: #28a745;
+	color: #fff;
+	transition: all .3s ease-in-out;
+}
+.dt-button.buttons-csv:hover {
+	background: #08641d;
+	transition: all .3s ease-in-out;
+}
+/* end datatables  */
+.download_pdf {
+	margin-bottom: 20px;
+}
+.download_pdf a {
+	color: #fff;
+}
+.info_details {
+	margin: 0 0 10px;
+	
+}
+.info_details span {
+	font-weight: bold;
+}
+.view_title {
+	color: #980000;
+}
+.enrolled_subjs {
+	margin-top: 30px;
+}
+@media (max-width: 1023px) and (min-width: 300px) {
+	.list_tables {
+		margin: 50px 0;
+	}
+	@media (max-width: 768px) {
+		.form_container {
+			padding: 50px 0;
+		}
+	}
 }
