@@ -206,6 +206,15 @@ select::-webkit-scrollbar-thumb {
 .enrolled_subjs {
 	margin-top: 30px;
 }
+.personal_edit_button {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 20px;
+}
+.personal_edit_button a {
+	width: unset;
+	padding: 5px 40px;
+}
 @media (max-width: 1023px) and (min-width: 300px) {
 	.list_tables {
 		margin: 50px 0;

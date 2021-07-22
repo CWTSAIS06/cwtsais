@@ -249,10 +249,11 @@ class Attendance extends BaseController
        	$data['accumulated_hrs'] = $enroll['accumulated_hrs'];
         $data['function_title'] = "Attendance Section";
         $data['viewName'] = 'Modules\Attendance\Views\attendances\nstp1';
-        echo view('Modules\Attendance\Views\attendances\header', $data);
-        echo view('Modules\Attendance\Views\attendances\nstp1', $data);
-		echo view('Modules\Attendance\Views\attendances\footer', $data);
-		echo view('Modules\Attendance\Views\attendances\notification', $data);
+		echo view('App\Views\theme\index', $data);
+        // echo view('Modules\Attendance\Views\attendances\header', $data);
+        // echo view('Modules\Attendance\Views\attendances\nstp1', $data);
+		// echo view('Modules\Attendance\Views\attendances\footer', $data);
+		// echo view('Modules\Attendance\Views\attendances\notification', $data);
 	}
 
 	public function nstp2(){
@@ -266,10 +267,11 @@ class Attendance extends BaseController
        	$data['accumulated_hrs'] = $enroll['accumulated_hrs'];
         $data['function_title'] = "Attendance Section";
         $data['viewName'] = 'Modules\Attendance\Views\attendances\nstp2';
-        echo view('Modules\Attendance\Views\attendances\header', $data);
-        echo view('Modules\Attendance\Views\attendances\nstp2', $data);
-		echo view('Modules\Attendance\Views\attendances\footer', $data);
-		echo view('Modules\Attendance\Views\attendances\notification', $data);
+		echo view('App\Views\theme\index', $data);
+        // echo view('Modules\Attendance\Views\attendances\header', $data);
+        // echo view('Modules\Attendance\Views\attendances\nstp2', $data);
+		// echo view('Modules\Attendance\Views\attendances\footer', $data);
+		// echo view('Modules\Attendance\Views\attendances\notification', $data);
 	}
 	
 }
