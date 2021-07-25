@@ -77,10 +77,12 @@ class StudentModel extends \CodeIgniter\Model
 	  return $this->save($val_array);
 	}
 
-    public function editStudent($val_array = [], $id, $year_id, $section_id)
+    public function editStudent($val_array, $id, $year_id, $section_id)
 	{
+    	
 		$val_array['updated_at'] = (new \DateTime())->format('Y-m-d H:i:s');
 		$val_array['status'] = 'a';
+		$val_array['contact_no'] = $val_array['contact_no'];
 		$val_array['year_id'] = $year_id;
     $val_array['section_id'] = $section_id;
 		return $this->update($id, $val_array);

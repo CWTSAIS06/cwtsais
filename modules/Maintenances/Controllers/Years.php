@@ -52,8 +52,10 @@ class Years extends BaseController
 	    }
 	    else
 	    {
+
 	        if($model->add_maintenance($_POST))
 	        {
+				unset($_POST['year']);
 				$id = $model->insertID();
 				$sections = $_POST['section'];
 				for($i=1; $i <= $sections; $i++){

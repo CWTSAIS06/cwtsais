@@ -30,7 +30,7 @@
 						<td><?=$penalty['subject']?></td>
 						<td><?=date('M d, Y', strtotime($penalty['date']))?></td>
 						<td><?=$penalty['hours']?></td>
-						<td><?=$penalty['penalty']?></td>
+						<td><?= ($penalty['reason'] == 0) ? $penalty['other_reason']:$penalty['penalty']?></td>
 						<td class="text-center">
 							<?php users_action('penalty', $_SESSION['userPermmissions'], $penalty['id']); ?>
 						</td>
@@ -43,18 +43,63 @@
 <script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/pdfmake.min.js"></script>
+<script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/vfs_fonts.js"></script>
+
+
 <script>
 	$(document).ready( function () {
-		// $('#penaltyTable').DataTable();
-		$('#penaltyTable').DataTable( {
+	
+		$('#penaltyTable').DataTable({
 			"bInfo": false,
 			dom: 'lft<"#space">Bip',
 			buttons: [
-				'copyHtml5',
-				'excelHtml5',
-				'csvHtml5',
-				'pdfHtml5'
+				// 'csvHtml5',
+				// 'excelHtml5',
+				{
+					extend: 'pdfHtml5',
+					text: 'To PDF',
+					className: 'btn btn-sm btn-primary rounded-pill px-3 mb-3 mb-sm-0',
+					messageTop: ' ',
+					download: 'open',
+					orientation: 'landscape',
+					title: ' List of Student with Penalty',
+					exportOptions: {
+						columns: [0,1,2,3,4,5]
+					},
+					customize: function ( doc, btn, tbl ) {
+
+						pdfMake.tableLayouts = {
+							exampleLayout: {
+							hLineWidth: function (i) {
+								return 0.5;
+							},
+							vLineWidth: function (i) {
+								return 0.5;
+							},
+							hLineColor: function (i) {
+								return 'black';
+							},
+							vLineColor: function (i) {
+								return 'black';
+							},
+							paddingLeft: function (i) {
+							 return i === 0 ? 0 : 50;
+							},
+							paddingRight: function (i, node) {
+							 return (i === node.table.widths.length - 1) ? 0 : 50;
+							}
+							}
+						};
+						
+						doc.content[2].layout = 'exampleLayout';
+
+						
+						
+					}
+					// pageSize: 'LEGAL'
+            	}
 			]
 		});
-	} );
+	});
 </script>

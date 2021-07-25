@@ -30,6 +30,12 @@ class UsersModel extends \CodeIgniter\Model
 	    return $query->getResultArray();
 	}
 
+	public function getUsersAndRole(){
+		$this->join('roles', 'users.role_id = roles.id', 'left');
+		$this->where('users.status', 'a');
+		return $this->findAll();
+	}
+
 
     public function getUsers()
 	{

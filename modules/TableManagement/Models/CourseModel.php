@@ -38,6 +38,7 @@ class CourseModel extends \CodeIgniter\Model
 
     public function getCourse()
 	{
+		$this->where('status','a');
 	    return $this->findAll();
 	}
 

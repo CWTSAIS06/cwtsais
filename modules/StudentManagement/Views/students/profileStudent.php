@@ -62,6 +62,7 @@
 						<?php endif; ?>
 					</div>
 				</div>
+				
 				<div class="col-md-5">
 					<div class="form-group">
 						<label for="gender">Gender</label>
@@ -95,7 +96,7 @@
 				<div class="col-md-5">
 					<div class="form-group">
 						<label for="contact_no">Contact Number</label>
-						<input name="contact_no" type="text" value="<?= isset($student['contact_no']) ? $student['contact_no'] : set_value('contact_no') ?>" class="form-control <?= isset($errors['contact_no']) ? 'is-invalid':' ' ?>" id="contact_no" placeholder="Contact #">
+						<input name="contact_no" id="contact_no" type="text" value="<?= isset($student['contact_no']) ? $student['contact_no'] : set_value('contact_no') ?>" class="form-control <?= isset($errors['contact_no']) ? 'is-invalid':' ' ?>"  placeholder="Contact #">
 						<?php if(isset($errors['contact_no'])): ?>
 							<div class="invalid-feedback">
 								<?= $errors['contact_no'] ?>
@@ -119,17 +120,20 @@
 						</div>
 					<?php endif; ?>
 				</div>
+				
 				<div class="col-md-5">
 					<div class="form-group">
-						<label for="email">Email Address</label>
-						<input name="email" type="text" value="<?= isset($student['email']) ? $student['email'] : set_value('email') ?>" class="form-control <?= isset($errors['email']) ? 'is-invalid':' ' ?>" id="email" placeholder="email">
-						<?php if(isset($errors['email'])): ?>
+						<label for="age">Age</label>
+						<input name="age" type="number" value="<?= isset($student['age']) ? $student['age'] : set_value('age') ?>" class="form-control <?= isset($errors['age']) ? 'is-invalid':' ' ?>" id="age" placeholder="age">
+						<?php if(isset($errors['age'])): ?>
 							<div class="invalid-feedback">
-								<?= $errors['email'] ?>
+								<?= $errors['age'] ?>
 							</div>
 						<?php endif; ?>
 					</div>
 				</div>
+
+				
 			</div>
 			<div class="row">
 				<div class="col-md-5 offset-md-1">
@@ -145,6 +149,17 @@
 						<?php if(isset($errors['section'])): ?>
 							<div class="invalid-feedback">
 								<?= $errors['section'] ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+						<label for="email">Email Address</label>
+						<input name="email" type="text" value="<?= isset($student['email']) ? $student['email'] : set_value('email') ?>" class="form-control <?= isset($errors['email']) ? 'is-invalid':' ' ?>" id="email" placeholder="email">
+						<?php if(isset($errors['email'])): ?>
+							<div class="invalid-feedback">
+								<?= $errors['email'] ?>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -166,6 +181,7 @@
 	$(function(){
 		var inputmask = new Inputmask("9999-99999-TG-9");
 			inputmask.mask($('[id*=stud_num]'));
+		
 		$('[id*=stud_num]').on('keypress', function (e) {
 			var number = $(this).val();
 			if (number.length == 2) {
@@ -174,6 +190,17 @@
 			else if (number.length == 7) {
 				$(this).val($(this).val() + '-');
 			}
+		});
+
+		var inputmask = new Inputmask("(+63)9999999999");
+			inputmask.mask($('[id*=contact_no]'));
+		
+		$('[id*=contact_no]').on('keypress', function (e) {
+			var number = $(this).val();
+			if (number.length == 0 ) {
+				$(this).val($(this).val() + '(+63)');
+			}
+		
 		});
 		
 	});

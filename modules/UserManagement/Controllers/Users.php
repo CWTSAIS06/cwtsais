@@ -108,7 +108,7 @@ class Users extends BaseController
        	$data['all_items'] = $model->getUserWithCondition(['status'=> 'a']);
        	$data['offset'] = $offset;
 
-        $data['users'] = $model->getUsersWithRole(['status'=> 'a', 'limit' => PERPAGE, 'offset' =>  $offset]);
+        $data['users'] = $model->getUsersAndRole();
 
         $data['function_title'] = "List of Users";
         $data['viewName'] = 'Modules\UserManagement\Views\users\index';

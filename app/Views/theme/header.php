@@ -49,9 +49,15 @@
 
 	<!-- Right navbar links -->
 	<ul class="navbar-nav ml-auto">
-		<li class="nav-item">
+  
+		<li class="nav-item dropdown">
 				<!-- <i class="fas fa-expand-arrows-alt"></i> -->
-        <a href="<?=base_url('logout')?>" class="nav-link"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <?= $_SESSION['uname'];?>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a href="<?=base_url('logout')?>" class="dropdown-item"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</a>
+        </div>
 		</li>
 		<!-- <li class="nav-item">
 			<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

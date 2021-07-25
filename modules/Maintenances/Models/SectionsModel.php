@@ -30,11 +30,19 @@ class SectionsModel extends \CodeIgniter\Model
 
         public function add_maintenance($val_array = [], $id)
       {
+        $db = \Config\Database::connect();
+    
+        $course_id = $val_array['course_id'];
+        $year_id = $id;
+        $section = $val_array['section'];
+        $status = 'a';
+        $created_date = "'".(new \DateTime())->format('Y-m-d H:i:s')."'";
 
-        $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
-        $val_array['status'] = 'a';
-        $val_array['year_id'] = $id;
-        return $this->save($val_array);
+        $str = "INSERT INTO sections (course_id,year_id,section,created_date) VALUES ($course_id,$year_id,$section,$created_date) ON DUPLICATE KEY UPDATE course_id = $course_id, year_id = $year_id, section = $section  ";
+   
+        return $db->query($str);
+
+
       }
       public function edit_maintenance($val_array = [], $id)
       {

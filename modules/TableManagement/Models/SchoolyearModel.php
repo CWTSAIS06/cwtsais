@@ -38,6 +38,7 @@ class SchoolyearModel extends \CodeIgniter\Model
 
     public function getSchoolyear()
 	{
+		$this->where('status', 'a');
 	    return $this->findAll();
 	}
 

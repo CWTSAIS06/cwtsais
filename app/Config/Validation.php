@@ -534,6 +534,14 @@ class Validation
 					]
 			],
 
+			'age' => [
+				'label'  => 'Age',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Age field is required.',
+				]
+			],
+
 			'gender' => [
 					'label'  => 'Gender',
 					'rules'  => 'required',

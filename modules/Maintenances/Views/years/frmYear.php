@@ -44,7 +44,7 @@
 					<div class="col-md-6 offset-md-3">
 						<div class="form-group">
 							<label for="how_many">How many section(s)</label>
-							<input type="text" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" name="section" value="<?= isset($rec['section']) ? $rec['section'] : ''?>" id="section" placeholder="Section">
+							<input type="text" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" name="section"  value="<?= isset($rec['section']) ? $rec['section'] : ''?>" id="section" min="1" max="5" maxlength="1" oninput="this.value=this.value.replace(/[^1-5]/g,'');" placeholder="Section">
 							<?php if (isset($errors['section'])): ?>
 								<div class="text-danger">
 									<?= $errors['section']?>
@@ -65,3 +65,7 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+</script>

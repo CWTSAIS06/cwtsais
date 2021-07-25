@@ -71,7 +71,7 @@
 <script>
 var roles = JSON.parse('<?= json_encode($roles);?>');
 var modules = JSON.parse(JSON.stringify(<?= json_encode($modules);?>));
-
+                      
 $(document).ready(function(){
   modules.forEach( function(modules){
       roles.forEach(function(role){

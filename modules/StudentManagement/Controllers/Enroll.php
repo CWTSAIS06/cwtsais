@@ -8,6 +8,7 @@ use Modules\TableManagement\Models\SchoolyearModel;
 use Modules\TableManagement\Models\SubjectModel;
 use Modules\UserManagement\Models\PermissionsModel;
 use Modules\UserManagement\Models\UsersModel;
+use Modules\Maintenances\Models\YearsModel;
 use App\Controllers\BaseController;
 
 class Enroll extends BaseController
@@ -24,8 +25,40 @@ class Enroll extends BaseController
 
     public function index($offset = 0)
     {
-    	$model = new EnrollModel();
-		$data['students'] = $model->getStudents();
+		$model = new EnrollModel();
+		$courseModel = new CourseModel();
+		$yearsModel = new YearsModel();
+
+
+		$data['courses'] = $courseModel->getCourse();
+		$data['sections'] = $yearsModel->getYearAndSection();
+		
+		if($_SESSION['rid'] == '4'){
+			$enrolled = $model->getEnrolledByProfessorId($_SESSION['uid']);
+			$data['students'] = $enrolled;
+
+			if(!empty($_POST)){
+				$yearAndSection = explode('-',$_POST['year_section']);
+				$year = $yearAndSection[0];
+				$section = $yearAndSection[1];
+				$enrolled = $model->getEnrolledByProfessorByCourseYS($_SESSION['uid'],$_POST['course_id'],$year,$section);
+				$data['students'] = $enrolled;
+			}
+		}else{
+			$enrolled = $model->getStudents();
+			$data['students'] = $enrolled;
+
+			if(!empty($_POST)){
+				$yearAndSection = explode('-',$_POST['year_section']);
+				$year = $yearAndSection[0];
+				$section = $yearAndSection[1];
+				$enrolled = $model->getStudentsByCourseYS($_POST['course_id'],$year,$section);
+				$data['students'] = $enrolled;
+				$_POST['section'] = $section;
+				// $data['rec'] = $_POST;
+			}
+
+		}
         $data['function_title'] = "List of Enrolled Students";
         $data['viewName'] = 'Modules\StudentManagement\Views\enroll\index';
         echo view('App\Views\theme\index', $data);

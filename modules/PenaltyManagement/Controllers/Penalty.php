@@ -21,8 +21,7 @@ class Penalty extends BaseController
     	$this->hasPermissionRedirect('list-penalty');
 
     	$model = new PenaltyModel();
-    	//kailangan ito para sa pagination
-       	$data['penalties'] = $model->getPenaltyWithCondition();
+		$data['penalties'] = $model->getPenaltyWithCondition();
         $data['function_title'] = "Penalty List";
         $data['viewName'] = 'Modules\PenaltyManagement\Views\penaltys\index';
         echo view('App\Views\theme\index', $data);
@@ -56,6 +55,7 @@ class Penalty extends BaseController
 		
     	$penaltiesModel = new PenaltiesModel();
 		$data['penaltys'] = $penaltiesModel->getPenalty();
+
     	if(!empty($_POST))
     	{
 	    	if (!$this->validate('penaltys'))

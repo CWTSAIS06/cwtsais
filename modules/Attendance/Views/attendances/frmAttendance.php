@@ -1,9 +1,18 @@
 <link rel="stylesheet" href="<?= base_url() ?>/public/custom-css/attendance.css">
 <div class="attendance_container <?php if ( $_SESSION['rid'] == '3' ) { echo "with_table"; } ?>">
+	<?php if($_SESSION['rid'] !== '4'):?>
 	<a type="button" href="<?= base_url("dashboard") ?>" class="back_button btn btn-primary">
 		<i class="fas fa-arrow-left"></i>
 		Back
 	</a>
+	<?php endif;?>
+
+	<?php if($_SESSION['rid'] == '4'):?>
+	<a type="button" href="<?= base_url("enroll") ?>" class="back_button btn btn-primary">
+		<i class="fas fa-arrow-left"></i>
+		Back
+	</a>
+	<?php endif;?>
 	<div class="attendance_content">
 		<p class="page_title">CWTS Daily Attendance</p>
 		<div class="date_time_content">
@@ -60,8 +69,12 @@
 	<?php endif;?>
 </div>
 <script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<?= base_url();?>public/js/inputmask.min.js"></script>
+<script type="text/javascript" src="<?= base_url();?>public/js/inputmask.extensions.min.js"></script>
 <script>
+
 	$('#time_in').on('click', function(e){
+		// e.preventDefault();
 		var student_num = $('#stud_num').val();
 		$.ajax({
 			url: "<?= base_url("attendance/verify")?>",
@@ -69,6 +82,7 @@
 			data: {stud_num :student_num},
 			success: function(response){
 				console.log(response)
+				location.reload();
 			}
 		});
 	});
@@ -80,7 +94,20 @@
 			data: {student_number :student_number},
 			success: function(response){
 				console.log(response)
+				location.reload();
 			}
 		});
+	});
+
+	var inputmask = new Inputmask("9999-99999-TG-9");
+	inputmask.mask($('[id*=stud_num]'));
+	$('[id*=stud_num]').on('keypress', function (e) {
+		var number = $(this).val();
+		if (number.length == 2) {
+			$(this).val($(this).val() + '-');
+		}
+		else if (number.length == 7) {
+			$(this).val($(this).val() + '-');
+		}
 	});
 </script>

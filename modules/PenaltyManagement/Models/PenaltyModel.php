@@ -7,19 +7,19 @@ class PenaltyModel extends \CodeIgniter\Model
 {
      protected $table = 'penalty';
 
-     protected $allowedFields = ['enrollment_id','date', 'hours','user_id','reason','created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['enrollment_id','date', 'hours','user_id','reason','other_reason','created_at','updated_at', 'deleted_at'];
 
     public function getPenaltyWithCondition($conditions = [])
-	{
-    $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.hours, penalties.penalty as penalty');
-		foreach($conditions as $field => $value)
-		{
-			$this->where($field, $value);
-		}
+	  {
+      $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.other_reason, penalty.hours, penalties.penalty');
+      foreach($conditions as $field => $value)
+      {
+        $this->where($field, $value);
+      }
       $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');
       $this->join('subjects', 'subjects.id = enrollment.subject_id');
       $this->join('student', 'student.id = enrollment.student_id');
-      $this->join('penalties', 'penalties.id = penalty.reason');
+      $this->join('penalties', 'penalties.id = penalty.reason','left');
 	    return $this->findAll();
 	}
 

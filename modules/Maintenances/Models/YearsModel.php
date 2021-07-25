@@ -22,8 +22,8 @@ class YearsModel extends \CodeIgniter\Model
       public function getYear(){
         $this->select('*');
         $this->join('course c', 'years.course_id = c.id', 'inner');
-        $this->join('sections s', 's.year_id = years.id', 'inner');
-        // $this->where('years.status', 'a');
+        $this->join('sections s', 's.year_id = years.id', 'left');
+        $this->where('years.status', 'a');
         return $this->findAll();
         
       }
@@ -40,6 +40,16 @@ class YearsModel extends \CodeIgniter\Model
         return $this->findAll();
         
       }
+
+      public function getYearAndSection(){
+        // $this->select('years.*,c.id, s.*');
+        $this->join('course c', 'years.course_id = c.id', 'INNER');
+        $this->join('sections s', 's.year_id = years.id', 'left');
+        $this->where('years.status', 'a');
+        $this->where('s.status', 'a');
+        return $this->findAll();
+      }
+
       public function getYearAndSectionById($id){
         // $this->select('years.*,c.id, s.*');
         $this->join('course c', 'years.course_id = c.id', 'inner');
@@ -50,14 +60,30 @@ class YearsModel extends \CodeIgniter\Model
         $this->where('s.year_id', $id);
 
         return $this->first();
-        
       }
   
       public function add_maintenance($val_array = [])
       {
-        $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
-        $val_array['status'] = 'a';
-        return $this->save($val_array);
+        $db = \Config\Database::connect();
+        unset($val_array['section']);
+
+        $year = $val_array['year'];
+        $course_id = $val_array['course_id'];
+
+        $str = "SELECT p.* FROM years p WHERE p.status = 'a' AND p.year = $year AND p.course_id = $course_id";
+        $query = $db->query($str);
+      
+
+        if(!empty($query->getResultArray()))
+        {
+          return $this->update(['course_id' => $course_id, 'year' => $year], $val_array);
+        }else{
+
+          $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+          $val_array['status'] = 'a';
+          return $this->save($val_array);
+        }
+      
       }
       public function edit_maintenance($val_array = [], $id)
       {
