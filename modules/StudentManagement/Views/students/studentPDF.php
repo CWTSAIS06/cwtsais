@@ -29,34 +29,11 @@
       </tr>
       <?php foreach ($enrolls as $enroll): ?>
         <tr>
-          <td><?=$enroll['subject']?></td>
-            <td>
-              <?php if (!empty($attendances)): ?>
-                <?php $total = 0; ?>
-                <?php foreach ($attendances as $attendance): ?>
-                  <?php if ($attendance['id'] == $enroll['current_id']): ?>
-                    <?php $total += number_format((float)(abs(strtotime($attendance['timein']) - strtotime($attendance['timeout'])) / 60) / 60, 2, '.', '') ?>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-                <?=$total?>
-              <?php else: ?>
-                N/A
-              <?php endif; ?>
-            </td>
-          <td><?=$enroll['required_hrs']?></td>
-          <td>
-            <?php if (!empty($penalties)): ?>
-              <?php foreach ($penalties as $penalty): ?>
-                <?php if ($penalty['id'] == $enroll['current_id']): ?>
-                  <?=$penalty['hours']?>
-                <?php else: ?>
-                  N/A
-                <?php endif; ?>
-              <?php endforeach; ?>
-            <?php else: ?>
-              N/A
-            <?php endif; ?>
-          </td>
+        
+          <td><?= $enroll['subject']?></td>
+          <td><?= $enroll['accumulated_hrs']?></td>
+          <td><?= $enroll['required_hrs']?></td>
+          <td><?= $enroll['penalty']?></td>
           <td><?=$enroll['status'] == 'i' ? 'Incomplete' : 'Complete'?></td>
         </tr>
       <?php endforeach; ?>

@@ -19,7 +19,7 @@
 					<div class="col-md-6 offset-md-3">
 						<div class="form-group">
 							<label for="subject">Subject</label>
-							<input type="text" class="form-control <?= isset($errors['subject']) ? 'is-invalid':' ' ?>" value="<?= isset($rec['subject']) ? $rec['subject'] : ''?>" id="subject" placeholder="Subject">
+							<input type="text"  name="subject" class="form-control <?= isset($errors['subject']) ? 'is-invalid':' ' ?>" value="<?= isset($rec['subject']) ? $rec['subject'] : ''?>" id="subject" placeholder="Subject">
 							<?php if (isset($errors['subject'])): ?>
 								<div class="text-danger">
 									<?= $errors['subject']?>

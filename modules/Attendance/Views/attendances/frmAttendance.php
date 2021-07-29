@@ -81,19 +81,20 @@
 			type: "POST",
 			data: {stud_num :student_num},
 			success: function(response){
-				console.log(response)
+				// console.log(response)
 				location.reload();
 			}
 		});
 	});
 	$('#time_out').on('click', function(e){
+		// e.preventDefault();
 		var student_number = $('#stud_num').val();
 		$.ajax({
 			url: "<?= base_url("attendance/attendanceTimeOut")?>",
 			type: "POST",
 			data: {student_number :student_number},
 			success: function(response){
-				console.log(response)
+				// console.log(response)
 				location.reload();
 			}
 		});
@@ -109,5 +110,32 @@
 		else if (number.length == 7) {
 			$(this).val($(this).val() + '-');
 		}
+		if ( number.length == 16){
+			console.log('submit')
+		}
 	});
+
+	$(window).ready(function(){
+
+//$("#bCode").scannerDetection();
+
+console.log('all is well');
+
+$(window).scannerDetection();
+$(window).bind('scannerDetectionComplete',function(e,data){
+		console.log('complete '+data.string);
+		$("#bCode").val(data.string);
+	})
+	.bind('scannerDetectionError',function(e,data){
+		console.log('detection error '+data.string);
+	})
+	.bind('scannerDetectionReceive',function(e,data){
+		console.log('Recieve');
+		console.log(data.evt.which);
+	})
+});
+
+	//$(window).scannerDetection('success');
+
+	
 </script>

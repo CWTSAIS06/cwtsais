@@ -71,7 +71,7 @@ class Penalty extends BaseController
 		        {	
 					$enrolled = $eModel->getEnrolledById($_POST['enrollment_id']);
 					$total_hrs = number_format($_POST['hours'], 2, '.', '') + number_format($enrolled['required_hrs'], 2, '.', '');
-					$eModel->updateAccumulatedHours($total_hrs, $_POST['enrollment_id']);
+					$eModel->updateRequiredHours($total_hrs, $_POST['enrollment_id']);
 
 		        	//$role_id = $model->insertID();
 		        	//$permissions_model->update_permitted_role($role_id, $_POST['function_id']);
@@ -147,7 +147,6 @@ class Penalty extends BaseController
 
     public function delete_penalty($id)
     {
-    	$this->hasPermissionRedirect('delete-penalty');
 		$model = new PenaltyModel();
 		$eModel = new EnrollModel();
 
@@ -155,10 +154,25 @@ class Penalty extends BaseController
 
 		$enrolled = $eModel->getEnrolledById($penalty['enrollment_id']);
 
-		$total_hrs = number_format($penalty['hours'], 2, '.', '') - number_format($enrolled['accumulated_hrs'], 2, '.', '');
-		$eModel->updateAccumulatedHours(abs($total_hrs), $penalty['enrollment_id']);
+		$total_hrs = number_format($penalty['hours'], 2, '.', '') - number_format($enrolled['required_hrs'], 2, '.', '');
+		$eModel->updateRequiredHours(abs($total_hrs), $penalty['enrollment_id']);
 
     	$model->deletePenalty($id);
+	}
+	
+	public function active($id)
+    {
+		$model = new PenaltyModel();
+		$eModel = new EnrollModel();
+
+		$penalty = $model->getSpecificPenalty($id);
+
+		$enrolled = $eModel->getEnrolledById($penalty['enrollment_id']);
+
+		$total_hrs = number_format($penalty['hours'], 2, '.', '') + number_format($enrolled['required_hrs'], 2, '.', '');
+		$eModel->updateRequiredHours(abs($total_hrs), $penalty['enrollment_id']);
+
+    	$model->activePenalty($id);
     }
 
 }

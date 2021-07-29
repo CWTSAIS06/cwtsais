@@ -20,15 +20,16 @@
 				<?php else: ?>
 					<?php $cnt = 1; ?>
 					<?php foreach($users as $user): ?>
-						<tr id="<?php echo $user['id']; ?>">
-							<td scope="row"><?= $cnt++ ?></td>
+						<tr>
+
+							<td scope="row"><?= esc($user['userid']); ?></td>
 							<td><?= $user['firstname'].' '.$user['lastname'] ?></td>
 							<td><?= $user['username'] ?></td>
 							<td width="30"><?= $user['email'] ?></td>
 							<td><?= strtoupper($user['role_name']) ?></td>
 							<td class="text-center action_buttons">
 								<?php
-									users_action('users', $_SESSION['userPermmissions'], $user['id']);
+									users_action('users', $_SESSION['userPermmissions'], $user['userid']);
 								?>
 							</td>
 						</tr>

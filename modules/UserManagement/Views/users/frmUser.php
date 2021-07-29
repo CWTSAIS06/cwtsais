@@ -54,7 +54,7 @@
 					<div class="col-md-5 offset-md-1">
 						<div class="form-group">
 							<label for="password">Password</label>
-							<input name="password" type="password" value="<?= isset($rec['password']) ? '': set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
+							<input name="password" type="password" value="<?= isset($rec['password']) ? $rec['password']: set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
 							<?php if(isset($errors['password'])): ?>
 								<div class="invalid-feedback">
 									<?= $errors['password'] ?>
@@ -65,7 +65,7 @@
 					<div class="col-md-5">
 						<div class="form-group">
 							<label for="password_retype">Password Re-type</label>
-							<input name="password_retype" type="password" value="<?= isset($rec['password']) ? '' : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
+							<input name="password_retype" type="password" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
 							<?php if(isset($errors['password_retype'])): ?>
 								<div class="invalid-feedback">
 									<?= $errors['password_retype'] ?>

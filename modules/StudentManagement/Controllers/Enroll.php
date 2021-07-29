@@ -168,6 +168,7 @@ class Enroll extends BaseController
 				$_POST['end_time'] = $end_time;
 				unset($_POST['schedule']);
 				$isEnrolled = $model->selectStudent($_POST['student_id']);
+				// $canEnrolledNSTP2 = $model->checkIfEnrolledNstp1($_POST['student_id']);
 				//next step check if already complete to previous subject
 		        if (!isset($isEnrolled)){
 					$subject = $subject_model->getSubjectWithCondition(['id' => $_POST['subject_id']]);

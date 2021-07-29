@@ -31,6 +31,7 @@ class UsersModel extends \CodeIgniter\Model
 	}
 
 	public function getUsersAndRole(){
+		$this->select('users.id as userid, users.username,users.firstname, users.lastname, users.email,roles.*');
 		$this->join('roles', 'users.role_id = roles.id', 'left');
 		$this->where('users.status', 'a');
 		return $this->findAll();

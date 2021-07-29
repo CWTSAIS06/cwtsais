@@ -32,7 +32,13 @@
 						<td><?=$penalty['hours']?></td>
 						<td><?= ($penalty['reason'] == 0) ? $penalty['other_reason']:$penalty['penalty']?></td>
 						<td class="text-center">
-							<?php users_action('penalty', $_SESSION['userPermmissions'], $penalty['id']); ?>
+							<a class="btn btn-dark btn-sm" title="show" href='<?= base_url('penalty/show/'.$penalty['id']); ?>'><i class="fas fa-bars"></i></a>
+							<a class="btn btn-success btn-sm" title="edit" href='<?= base_url('penalty/edit/'.$penalty['id']); ?>'><i class="far fa-edit"></i></a> 
+							<?php if($penalty['status'] == 'a'):?>
+								<a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('penalty/inactive/')?>',<?=$penalty['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
+							<?php else:?>
+								<a class="btn btn-info btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('penalty/active/')?>',<?=$penalty['id']?>,'a')" title="activate"><i class="fas fa-archive"></i></a>
+							<?php endif;?>
 						</td>
 					</tr>
 				<?php endforeach; ?>

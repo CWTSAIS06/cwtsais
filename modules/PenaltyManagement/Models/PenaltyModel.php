@@ -7,11 +7,11 @@ class PenaltyModel extends \CodeIgniter\Model
 {
      protected $table = 'penalty';
 
-     protected $allowedFields = ['enrollment_id','date', 'hours','user_id','reason','other_reason','created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['enrollment_id','date', 'hours','user_id','reason','other_reason','status','created_at','updated_at', 'deleted_at'];
 
     public function getPenaltyWithCondition($conditions = [])
 	  {
-      $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.other_reason, penalty.hours, penalties.penalty');
+      $this->select('penalty.id as id, student.firstname, student.middlename, student.lastname, subjects.subject, penalty.date, penalty.reason, penalty.other_reason, penalty.hours, penalties.penalty,penalty.status');
       foreach($conditions as $field => $value)
       {
         $this->where($field, $value);
@@ -50,9 +50,15 @@ class PenaltyModel extends \CodeIgniter\Model
 
     public function deletePenalty($id)
 	{
-		return $this->delete(['id' => $id]);
+    $data['status'] = 'd';
+		return $this->update($id,$data);
 	}
 
+  public function activePenalty($id)
+	{
+    $data['status'] = 'a';
+		return $this->update($id,$data);
+	}
   public function getPenaltyById($id){
     $this->select('enrollment.id as id, SUM(hours) as hours');
     $this->join('enrollment', 'enrollment.id = penalty.enrollment_id');

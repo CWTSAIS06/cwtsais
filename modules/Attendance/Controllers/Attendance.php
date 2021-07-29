@@ -114,14 +114,15 @@ class Attendance extends BaseController
 								return redirect()->to(base_url('attendance'));
 							}
 
-						}else if(abs(intval($difference_minute)) >= 60){
+						}
+						else if(abs(intval($difference_minute)) >= 60){
 							$data['enroll_id'] = $students[0]['id'];
-			
 							$attendanceModel->absent($data);
 								$_SESSION['error'] = "You cannot time-in, you already absent";
 								$this->session->markAsFlashdata('error');
 								return redirect()->to(base_url('attendance'));
-						}else{
+						}
+						else{
 
 							if($attendance[0]['status'] !== 'absent'){
 								if (empty($attendance)) {
@@ -154,7 +155,6 @@ class Attendance extends BaseController
 					$_SESSION['error'] = "You cannot time-in, you already absent";
 				}else{
 					$_SESSION['error'] = "You already time-in, you cant time-in again!";
-
 				}
 				$this->session->markAsFlashdata('error');
 				return redirect()->to(base_url('attendance'));
@@ -173,31 +173,42 @@ class Attendance extends BaseController
 		$penaltyModel = new PenaltyModel();
 		$attendanceModel = new AttendanceModel();
 		$students = $enrollModel->selectSpecificEnroll($_POST['student_number']);
+	
 		if(!empty($students) ) {
 			$data['enroll_id'] = $students[0]['id'];
 			$attendance = $attendanceModel->getAttendance($students[0]['id']);
 
-			if ($attendance[0]['timeout'] == null && $attendance[0]['status'] !== 'absent') {
-				if ($attendanceModel->timeOut($attendance[0]['id'])) {
-					$enrolled = $enrollModel->getEnrolledById($attendance[0]['enroll_id']);
-					$current_attendance = $attendanceModel->getAttendanceById($attendance[0]['id']);
-						$total = number_format((float)(abs(strtotime($current_attendance[0]['timein']) - strtotime($current_attendance[0]['timeout'])) / 60) / 60, 2, '.', '');
-						$total_hrs = number_format($enrolled['accumulated_hrs'], 2, '.', '') + number_format($total, 2, '.', '');
-						$enrollModel->updateAccumulatedHours($total_hrs, $attendance[0]['enroll_id']);
-
-					$_SESSION['success'] = 'You have succesfully time out!';
-					$this->session->markAsFlashdata('success');
-					return redirect()->to(base_url('attendance'));
-				} else {
-					$_SESSION['error'] = 'Something Went Wrong!';
-					$this->session->markAsFlashdata('error');
-					return redirect()->to(base_url('attendance'));
-				}
-			}else{
+			if(!empty($attendance)){
+				if ($attendance[0]['timeout'] == null || $attendance[0]['status'] !== 'absent') {
+				
+					if ($attendanceModel->timeOut($attendance[0]['id'])) {
+						$enrolled = $enrollModel->getEnrolledById($attendance[0]['enroll_id']);
+						$current_attendance = $attendanceModel->getAttendanceById($attendance[0]['id']);
+							$total = number_format((float)(abs(strtotime($current_attendance[0]['timein']) - strtotime($current_attendance[0]['timeout'])) / 60) / 60, 2, '.', '');
+							if($enrolled['accumulated_hrs'] == ' ') { $enrolled['accumulated_hrs'] = 0; }
+							$total_hrs = number_format($enrolled['accumulated_hrs'], 2, '.', '') + number_format($total, 2, '.', '');
+							$enrollModel->updateAccumulatedHours($total_hrs, $attendance[0]['enroll_id']);
+	
+						$_SESSION['success'] = 'You have succesfully time out!';
+						$this->session->markAsFlashdata('success');
+						return redirect()->to(base_url('attendance'));
+					} else {
+						$_SESSION['error'] = 'Something Went Wrong!';
+						$this->session->markAsFlashdata('error');
+						return redirect()->to(base_url('attendance'));
+					}
+				}else{
 					$_SESSION['error'] = "You cant time out, Please Time-in on another day!";
 					$this->session->markAsFlashdata('error');
 					return redirect()->to(base_url('attendance'));
+				}
+				
+			}else{
+				$_SESSION['error'] = "You cant time out, Please Time-in on another day!";
+				$this->session->markAsFlashdata('error');
+				return redirect()->to(base_url('attendance'));
 			}
+			
 		} else{
 			$_SESSION['error'] = 'Student Number Not Found';
 			$this->session->markAsFlashdata('error');
@@ -210,13 +221,13 @@ class Attendance extends BaseController
 	public function penalty(){
 		$enrollModel = new EnrollModel();
 		$attendanceModel = new AttendanceModel();
+		$penaltyModel = new PenaltyModel();
 		
 		$data = [];
 		$current_day = date('l');
 		$current_time = time();
-		$schedules = $enrollModel->getAllSchedule($current_day, date('H:i:s',strtotime($current_time)));
+		$schedules = $enrollModel->getAllSchedule($current_day, date('H:i:s',time()));
 		foreach($schedules as $schedule){
-		
 		$to_time = strtotime($schedule['start_time']);
 
 		$difference = $to_time - $current_time;
@@ -226,6 +237,13 @@ class Attendance extends BaseController
 				if(abs(intval($difference_minute)) >= 60){
 					$data['enroll_id'] = $schedule['id'];
 					$attendanceModel->absent($data);
+				}
+			}else{
+				if($schedule['end_time'] >= '18:30:00'){
+					if($attendance[0]['time_out'] == null && $attendance[0]['status'] == 'present'){
+
+					}
+
 				}
 			}
 			

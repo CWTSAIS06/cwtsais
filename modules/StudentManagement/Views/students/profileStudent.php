@@ -124,7 +124,7 @@
 				<div class="col-md-5">
 					<div class="form-group">
 						<label for="age">Age</label>
-						<input name="age" type="number" value="<?= isset($student['age']) ? $student['age'] : set_value('age') ?>" class="form-control <?= isset($errors['age']) ? 'is-invalid':' ' ?>" id="age" placeholder="age">
+						<input name="age" type="number" value="<?= isset($student['age']) ? $student['age'] : set_value('age') ?>" class="form-control <?= isset($errors['age']) ? 'is-invalid':' ' ?>" id="age" placeholder="age" readonly>
 						<?php if(isset($errors['age'])): ?>
 							<div class="invalid-feedback">
 								<?= $errors['age'] ?>
@@ -133,7 +133,6 @@
 					</div>
 				</div>
 
-				
 			</div>
 			<div class="row">
 				<div class="col-md-5 offset-md-1">
@@ -142,7 +141,7 @@
 						<select name="section" id="section" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" id="section" placeholder="Select Year & Section">
 							<?php if(isset($sections)):?>
 								<?php  foreach($sections as $section):?>
-									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year_id'] == $student['year_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
+									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year'] == $student['year_id'] && $section['id'] == $student['section_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
 								<?php endforeach;?>
 							<?php endif;?>
 						</select>
@@ -203,7 +202,16 @@
 		
 		});
 		
+		$(document).on('change','#birthdate', function(){
+			$('#age').val(_calculateAge(new Date(this.value)));
+		});
 	});
+
+	function _calculateAge(birthday) { // birthday is a date
+		var ageDifMs = Date.now() - birthday.getTime();
+		var ageDate = new Date(ageDifMs); // miliseconds from epoch
+		return Math.abs(ageDate.getUTCFullYear() - 1970);
+	}
 	$("#course_id").on('change', function(){
 		var course_id = $("#course_id :selected").val();
 		var option = " ";

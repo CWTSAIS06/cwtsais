@@ -55,10 +55,11 @@ class EnrollModel extends \CodeIgniter\Model
        return $this->findAll();
      }
      public function getSpecificStudentById($id){
-       $this->select('subjects.subject, subjects.required_hrs, enrollment.status, enrollment.id as enrollment_id');
-       $this->join('student', 'student.id = enrollment.student_id');
-       $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
-       $this->join('course', 'student.course_id = course.id');
+       $this->select('subjects.subject, enrollment.required_hrs, enrollment.accumulated_hrs, enrollment.status, enrollment.id as enrollment_id, sum(penalty.hours) as penalty');
+       $this->join('student', 'student.id = enrollment.student_id', 'left');
+       $this->join('subjects  ', 'subjects.id = enrollment.subject_id', 'left');
+       $this->join('course', 'student.course_id = course.id', 'left');
+       $this->join('penalty', 'penalty.enrollment_id = enrollment.id', 'left');
        $this->where('student.id', $id);
        return $this->findAll();
      }
@@ -84,6 +85,12 @@ class EnrollModel extends \CodeIgniter\Model
        return $this->first();
      }
 
+     public function checkIfEnrolledNstp1($id){
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->where('enrollment.student_id', $id);
+      $this->like('subjects.subject', '%NSTP1%');
+      return $this->first();
+    }
      public function markComplete($id){
        $data = ['status' => 'c'];
        return $this->update($id, $data);
@@ -155,8 +162,8 @@ class EnrollModel extends \CodeIgniter\Model
 
     public function getAllSchedule($day, $time){
           $this->where('day', $day);
-          $this->where('start_time <=', $time);
           $this->where('end_time >=', $time);
+          $this->where('start_time <=', $time);
           return $this->findAll();
     }
 

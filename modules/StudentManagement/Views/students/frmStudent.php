@@ -62,21 +62,19 @@
 							<?php endif; ?>
 						</div>
 					</div>
+
 					<div class="col-md-5">
 						<div class="form-group">
-							<label for="gender">Gender</label>
-							<select name="gender" value="<?= isset($rec['gender']) ? $rec['gender'] : set_value('gender') ?>" class="form-control <?= isset($errors['gender']) ? 'is-invalid':' ' ?>" id="gender" placeholder="Select Gender">
-								<option value="" disabled selected>Select Gender</option>
-								<option value="1" <?= ($rec['gender'] == 1) ? 'selected':'' ?>>Male</option>
-								<option value="2"<?= ($rec['gender'] == 2) ? 'selected':'' ?>>Female</option>
-							</select>
-							<?php if(isset($errors['gender'])): ?>
-								<div class="invalid-feedback">
-									<?= $errors['gender'] ?>
-								</div>
-								<?php endif; ?>
+							<label for="age">Age</label>
+							<input name="age" type="text" value="<?= isset($rec['age']) ? $rec['age']: set_value('age') ?>" class="form-control <?= isset($errors['age']) ? 'is-invalid':' ' ?>" id="age" placeholder="Middle Name(Optional)">
+							<?php if(isset($errors['age'])): ?>
+							<div class="invalid-feedback">
+								<?= $errors['age'] ?>
 							</div>
+							<?php endif; ?>
+						</div>
 					</div>
+					
 				</div>
 				<div class="row">
 					<div class="col-md-5 offset-md-1">
@@ -136,7 +134,7 @@
 							<select name="section" id="section" class="form-control <?= isset($errors['section']) ? 'is-invalid':' ' ?>" id="section" placeholder="Select Year & Section">
 							<?php if(isset($sections)):?>
 								<?php  foreach($sections as $section):?>
-									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year_id'] == $rec['year_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
+									<option value="<?= $section['year'];?>-<?= $section['id'];?>" <?= ($section['year'] == $rec['year_id'] && $section['id'] == $rec['section_id'] ) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
 								<?php endforeach;?>
 							<?php endif;?>
 							</select>
@@ -146,6 +144,22 @@
 								</div>
 							<?php endif; ?>
 						</div>
+					</div>
+
+					<div class="col-md-5">
+						<div class="form-group">
+							<label for="gender">Gender</label>
+							<select name="gender" value="<?= isset($rec['gender']) ? $rec['gender'] : set_value('gender') ?>" class="form-control <?= isset($errors['gender']) ? 'is-invalid':' ' ?>" id="gender" placeholder="Select Gender">
+								<option value="" disabled selected>Select Gender</option>
+								<option value="1" <?= ($rec['gender'] == 1) ? 'selected':'' ?>>Male</option>
+								<option value="2"<?= ($rec['gender'] == 2) ? 'selected':'' ?>>Female</option>
+							</select>
+							<?php if(isset($errors['gender'])): ?>
+								<div class="invalid-feedback">
+									<?= $errors['gender'] ?>
+								</div>
+								<?php endif; ?>
+							</div>
 					</div>
 				</div>
 				<div class="form_submit">

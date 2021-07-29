@@ -1,10 +1,10 @@
 <div class="list_tables">
 	<div class="add_button">
 		<?php if(user_link('add-student', $_SESSION['userPermmissions'])): ?>
-			<a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">
+			<!-- <a href="<?= base_url() ?>student/add" class="btn btn-sm btn-success btn-block float-right">
 				<i class="fa fa-plus"></i>
 				Add Student
-			</a>
+			</a> -->
 		<?php endif; ?>
 	</div>
 	<?php $uri = new \CodeIgniter\HTTP\URI(current_url()); ?>

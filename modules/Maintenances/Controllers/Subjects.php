@@ -81,7 +81,8 @@ class Subjects extends BaseController
 
   	if(!empty($_POST))
   	{
-			if (!$this->validate('subject'))
+	print_r($_POST);
+		if (!$this->validate('subject'))
 			{
 				$data['errors'] = \Config\Services::validation()->getErrors();
 					$data['function_title'] = "Edit of Subject";
