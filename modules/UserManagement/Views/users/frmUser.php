@@ -53,35 +53,11 @@
 				<div class="row">
 					<div class="col-md-5 offset-md-1">
 						<div class="form-group">
-							<label for="password">Password</label>
-							<input name="password" type="password" value="<?= isset($rec['password']) ? $rec['password']: set_value('password') ?>" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
+							<label for="password">Password (For Change Password) </label>
+							<input name="password" type="password" value="" class="form-control <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
 							<?php if(isset($errors['password'])): ?>
 								<div class="invalid-feedback">
 									<?= $errors['password'] ?>
-								</div>
-							<?php endif; ?>
-						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="form-group">
-							<label for="password_retype">Password Re-type</label>
-							<input name="password_retype" type="password" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password_retype') ?>" class="form-control <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Password Re-type">
-							<?php if(isset($errors['password_retype'])): ?>
-								<div class="invalid-feedback">
-									<?= $errors['password_retype'] ?>
-								</div>
-							<?php endif; ?>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-5 offset-md-1">
-						<div class="form-group">
-							<label for="birthdate">Birthdate</label>
-							<input name="birthdate" type="date" value="<?= isset($rec['birthdate']) ? $rec['birthdate'] : set_value('birthdate') ?>" class="form-control <?= isset($errors['birthdate']) ? 'is-invalid':' ' ?>" id="birthdate" placeholder="Birthdate">
-							<?php if(isset($errors['birthdate'])): ?>
-								<div class="invalid-feedback">
-									<?= $errors['birthdate'] ?>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -106,6 +82,7 @@
 						<?php endif; ?>
 					</div>
 				</div>
+				
 				<div class="form_submit">
 					<button type="reset" class="btn btn-secondary back_button">
 						<a href="<?= base_url() ?>users">

@@ -168,7 +168,6 @@ class Users extends BaseController
 
     	$model = new UsersModel();
     	$data['rec'] = $model->find($id);
-		print_r($data['rec']);
 
     	if(!empty($_POST))
     	{

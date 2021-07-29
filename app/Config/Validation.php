@@ -270,14 +270,7 @@ class Validation
             ]
         ],
 
-        'password_retype' => [
-            'label'  => 'Password Retype',
-            'rules'  => 'matches[password]',
-            'errors' => [
-                'required' => 'Password field is required.',
-                'matches' => 'Password Retype field must match password.'
-            ]
-        ],
+     
 
         'role_id' => [
             'label'  => 'Role',
@@ -311,13 +304,7 @@ class Validation
 						]
 				],
 
-				'birthdate' => [
-						'label'  => 'BirthDate',
-						'rules'  => 'required',
-						'errors' => [
-								'required' => 'Birthdate is required.'
-						]
-				],
+				
 
     ];
 
