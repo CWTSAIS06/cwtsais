@@ -16,6 +16,15 @@
 								<?php endforeach; ?>
 							</select>
 						</div>
+
+						<div class="form-group">
+							<label for="gender">Gender</label>
+							<select id="gender" class="form-control" name="gender" >
+								<option value="all">All</option>
+								<option value="1" <?= ($rec['gender'] == 1) ? 'selected':''?> >Male</option>
+								<option value="2" <?= ($rec['gender'] == 2) ? 'selected':''?>>Female</option>
+							</select>
+						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
@@ -104,6 +113,26 @@
 					title: ' List of NSTP Graduates \n S.Y '+conceptName,
 					customize: function ( doc, btn, tbl ) {
 
+						doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: 'data:image/png;base64,'+ "<?= base64_encode(file_get_contents('public/img/pup.png'))?>",
+										width: '650',
+									},
+									// {
+									// 	alignment: 'center',
+									// 	fontSize: 10,
+									// 	text: "Polytechnic University of the Philippines \n Taguig Branch \n General Santos Avenue, Lower Bicutan, Taguig City",
+									// 	style: 'header'
+									// },
+								],
+								
+								margin: [120,15]
+							}
+						});
+						doc.pageMargins = [20, 90, 10, 30];
+
 						pdfMake.tableLayouts = {
 							exampleLayout: {
 							hLineWidth: function (i) {
@@ -119,10 +148,10 @@
 								return 'black';
 							},
 							paddingLeft: function (i) {
-							 return i === 0 ? 0 : 10;
+							 return i === 0 ? 0 : 23;
 							},
 							paddingRight: function (i, node) {
-							 return (i === node.table.widths.length - 1) ? 0 : 10;
+							 return (i === node.table.widths.length - 1) ? 0 : 23;
 							}
 							}
 						};

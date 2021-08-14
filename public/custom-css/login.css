@@ -155,6 +155,24 @@ form {
 	background: #520101;
 }
 
+.student_button {
+	background: #faebe8;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	width: 100%;
+	color: #520101;
+	font-family: 'Poppins-Regular';
+	padding: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	transition: all .3s ease-in-out;
+}
+.student_button:hover {
+	transition: all .3s ease-in-out;
+	background: #dedede;
+}
+
 .sign_up {
 	margin-top: 20px;
 	font-family: 'Poppins-Regular';

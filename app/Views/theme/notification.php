@@ -21,3 +21,9 @@
 	    alert_error1('<?= $_SESSION['error1']; ?>');
 	</script>
 <?php endif; ?>
+
+<?php if(isset($_SESSION['nstp1'])): ?>
+	<script type="text/javascript">
+	    alert_nstp1('<?= $_SESSION['nstp1']; ?>');
+	</script>
+<?php endif; ?>

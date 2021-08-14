@@ -23,10 +23,7 @@ class Schoolyear extends BaseController
     	$model = new SchoolyearModel();
 
     	//kailangan ito para sa pagination
-       	$data['all_items'] = $model->getSchoolyearWithCondition();
-       	$data['offset'] = $offset;
-				$data['schyear'] = $model->getSchoolyearWithFunction(['limit' => PERPAGE, 'offset' =>  $offset]);
-
+       	$data['schyear'] = $model->getSchoolyearWithCondition();
         $data['function_title'] = "List of School Year";
         $data['viewName'] = 'Modules\TableManagement\Views\schyear\index';
         echo view('App\Views\theme\index', $data);

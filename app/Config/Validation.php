@@ -391,7 +391,7 @@ class Validation
 		];
 
 		public $announcements= [
-			'announcement' => [
+			'event' => [
 					'label'  => 'Announcement',
 					'rules'  => 'required',
 					'errors' => [
@@ -414,6 +414,23 @@ class Validation
 							'required' => 'Announcement Date field is required.',
 
 					]
+			],
+
+			'start_time' => [
+				'label'  => 'Start Time',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Start Time field is required.',
+
+				]
+			],
+			'end_time' => [
+				'label'  => 'End Time',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'End Time field is required.',
+
+				]
 			],
 		];
 		public $students = [
@@ -649,6 +666,51 @@ class Validation
 			
 		];
 
+		public $change_password = [
+			'password' => [
+				'label'  => 'Password',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Password field is required.',
+				]
+			]
+		];
+
+
+		public $edit_profile = [
+			'username' => [
+				'label'  => 'Username',
+				'rules'  => 'required',
+				'errors' => [
+					'required' => 'Username field is required.'
+				]
+			],
+
+			'firstname' => [
+					'label'  => 'First Name',
+					'rules'  => 'required',
+					'errors' => [
+							'required' => 'First Name is required.'
+					]
+			],
+
+			'lastname' => [
+					'label'  => 'Last Name',
+					'rules'  => 'required',
+					'errors' => [
+							'required' => 'Last Name is required.'
+					]
+			],
+
+			'email' => [
+					'label'  => 'Email',
+					'rules'  => 'required',
+					'errors' => [
+							'required' => 'Email is required.'
+					]
+			],
+
+		];
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------

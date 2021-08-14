@@ -118,3 +118,48 @@ function confirmUpdateStatus(url, id, status)
 		  }
 	})
 }
+
+
+function nstp1(url)
+		{
+			Swal.fire({
+				title: 'Congratulation!',
+				text: "You are already complete nstp1, You can now enrolled to nstp2.",
+				icon: 'success',
+				type: "success",
+				showCancelButton: true,
+				confirmButtonColor: '#f0ad4e',
+				cancelButtonColor: '#3085d6',
+				confirmButtonText: "Go to enrollment.",
+				closeOnConfirm: false,
+				closeOnCancel: false
+				}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						url: url,
+						type: 'GET',
+						error: function() {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Something went wrong!',
+							footer: '<a href>Why do I have this issue?</a>'
+							});
+						},
+						success: function(data) {
+							// Swal.fire(
+							// 	(status == 'd') ? 'Archived!':'Unarchived!',
+							// 	(status == 'd') ? 'Your file has been archived.':'Your file has been unarchived.',
+							// 	'success'
+							// 	).then((resultAgain)=>{
+							// 		if (resultAgain.value)
+							// 		{
+							// 			$("#"+id).remove();
+										location.href=url;
+							// 		}
+							// 	});
+						}
+					});
+				}
+			})
+		}

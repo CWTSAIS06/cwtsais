@@ -26,7 +26,7 @@ class Graduates extends BaseController
 		$data['courses'] = $courseModel->getCourse();
 
 		if(!empty($_POST)){
-			$graduates = $enroll->getAllGraduatesByCourseSY($_POST['course_id'],$_POST['schyear_id']);
+			$graduates = $enroll->getAllGraduatesByCourseSY($_POST['course_id'],$_POST['schyear_id'],$_POST['gender']);
 			$data['graduates'] = $graduates;	
 			$data['rec'] = $_POST;
 		}

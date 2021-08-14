@@ -33,6 +33,8 @@
 						<div class="form-group">
 							<label for="function_id">Role's Landing Page</label>
 							<select name="function_id" class="form-control <?= isset($errors['function_id']) ? 'is-invalid':' ' ?>">
+								<!-- <option value="999">Dashboard</option> -->
+								
 								<?php if(isset($rec['function_id'])): ?>
 									<option value="<?= $rec['function_id'] ?>"><?= ucwords(name_on_system($rec['function_id'], $permissions, 'permissions')) ?></option>
 								<?php else: ?>

@@ -41,8 +41,11 @@ class Enroll extends BaseController
 				$yearAndSection = explode('-',$_POST['year_section']);
 				$year = $yearAndSection[0];
 				$section = $yearAndSection[1];
-				$enrolled = $model->getEnrolledByProfessorByCourseYS($_SESSION['uid'],$_POST['course_id'],$year,$section);
+				$enrolled = $model->getEnrolledByProfessorByCourseYS($_SESSION['uid'],$_POST['course_id'],$year,$section,$_POST['gender']);
 				$data['students'] = $enrolled;
+				$_POST['section_id'] = $section;
+				$_POST['year_id'] = $year;
+				$data['rec'] = $_POST;
 			}
 		}else{
 			$enrolled = $model->getStudents();
@@ -52,10 +55,12 @@ class Enroll extends BaseController
 				$yearAndSection = explode('-',$_POST['year_section']);
 				$year = $yearAndSection[0];
 				$section = $yearAndSection[1];
-				$enrolled = $model->getStudentsByCourseYS($_POST['course_id'],$year,$section);
+				$enrolled = $model->getStudentsByCourseYS($_POST['course_id'],$year,$section,$_POST['gender']);
 				$data['students'] = $enrolled;
-				$_POST['section'] = $section;
-				// $data['rec'] = $_POST;
+				
+				$_POST['section_id'] = $section;
+				$_POST['year_id'] = $year;
+				$data['rec'] = $_POST;
 			}
 
 		}

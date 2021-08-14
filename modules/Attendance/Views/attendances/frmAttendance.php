@@ -8,7 +8,7 @@
 	<?php endif;?>
 
 	<?php if($_SESSION['rid'] == '4'):?>
-	<a type="button" href="<?= base_url("enroll") ?>" class="back_button btn btn-primary">
+	<a type="button" href="<?= base_url("dashboard") ?>" class="back_button btn btn-primary">
 		<i class="fas fa-arrow-left"></i>
 		Back
 	</a>
@@ -81,7 +81,7 @@
 			type: "POST",
 			data: {stud_num :student_num},
 			success: function(response){
-				// console.log(response)
+				console.log(response)
 				location.reload();
 			}
 		});
@@ -94,7 +94,7 @@
 			type: "POST",
 			data: {student_number :student_number},
 			success: function(response){
-				// console.log(response)
+				console.log(response)
 				location.reload();
 			}
 		});
@@ -114,28 +114,5 @@
 			console.log('submit')
 		}
 	});
-
-	$(window).ready(function(){
-
-//$("#bCode").scannerDetection();
-
-console.log('all is well');
-
-$(window).scannerDetection();
-$(window).bind('scannerDetectionComplete',function(e,data){
-		console.log('complete '+data.string);
-		$("#bCode").val(data.string);
-	})
-	.bind('scannerDetectionError',function(e,data){
-		console.log('detection error '+data.string);
-	})
-	.bind('scannerDetectionReceive',function(e,data){
-		console.log('Recieve');
-		console.log(data.evt.which);
-	})
-});
-
-	//$(window).scannerDetection('success');
-
 	
 </script>

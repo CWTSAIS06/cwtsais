@@ -12,4 +12,5 @@ $routes->group('attendance', ['namespace' => 'Modules\Attendance\Controllers'], 
     $routes->match(['get', 'post'], 'penalty', 'Attendance::penalty');
     $routes->match(['get', 'post'], 'nstp1', 'Attendance::nstp1');
     $routes->match(['get', 'post'], 'nstp2', 'Attendance::nstp2');
+    $routes->match(['get', 'post'], 'check_if_graduate', 'Attendance::check_if_graduate');
 });

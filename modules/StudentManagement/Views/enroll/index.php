@@ -14,6 +14,15 @@
 								<?php endforeach; ?>
 							</select>
 						</div>
+
+						<div class="form-group">
+							<label for="gender">Gender</label>
+							<select id="gender" class="form-control" name="gender" >
+								<option value="all">All</option>
+								<option value="1" <?= ($rec['gender'] == 1) ? 'selected':''?> >Male</option>
+								<option value="2" <?= ($rec['gender'] == 2) ? 'selected':''?>>Female</option>
+							</select>
+						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
@@ -21,8 +30,7 @@
 							<select id="year_section" class="form-control" name="year_section" >
 								<option value="all-all">All</option>
 								<?php foreach ($sections as $section): ?>
-									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year_id'] == $rec['year_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
-								
+									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year'] == $rec['year_id'] && $section['id'] == $rec['section_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
@@ -79,6 +87,7 @@
 	$(document).ready( function () {
 		var course = $('#course_id').find(":selected").text();
 		var section = $('#year_section').find(":selected").text();
+		var gender = $('#gender').find(":selected").text();
 		$('#myTable').DataTable({
 			"bInfo": false,
 			dom: 'lft<"#space">Bip',
@@ -92,9 +101,27 @@
 					messageTop: ' ',
 					download: 'open',
 					orientation: 'landscape',
-					title: ' List of Enrolled \n Course: '+course+' \n Year & Section: '+section,
+					title: '\n List of Enrolled \n  Course: '+course+'   Year & Section: '+section+'   Gender: '+gender,
 					customize: function ( doc, btn, tbl ) {
-
+						doc['header']=(function() {
+							return {
+								columns: [
+									{
+										image: 'data:image/png;base64,'+ "<?= base64_encode(file_get_contents('public/img/pup.png'))?>",
+										width: '650',
+									},
+									// {
+									// 	alignment: 'center',
+									// 	fontSize: 10,
+									// 	text: "Polytechnic University of the Philippines \n Taguig Branch \n General Santos Avenue, Lower Bicutan, Taguig City",
+									// 	style: 'header'
+									// },
+								],
+								
+								margin: [120,15]
+							}
+						});
+						doc.pageMargins = [30, 80, 10, 30];
 						pdfMake.tableLayouts = {
 							exampleLayout: {
 							hLineWidth: function (i) {

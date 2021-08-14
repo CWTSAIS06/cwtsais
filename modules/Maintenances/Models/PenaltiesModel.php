@@ -21,7 +21,7 @@ class PenaltiesModel extends \CodeIgniter\Model
 
     $db = \Config\Database::connect();
 
-    $str = "SELECT p.* FROM penalties p WHERE p.status = 'a' order by p.created_date desc";
+    $str = "SELECT p.* FROM penalties p order by p.created_date desc";
 
     $query = $db->query($str);
 

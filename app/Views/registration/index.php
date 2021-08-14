@@ -75,7 +75,7 @@
 									</div>
 								<?php endif; ?>
 							</div>
-							<div class="form_group">
+							<!-- <div class="form_group">
 								<p class="form_label">Username *</p>
 								<input name="username" type="text" autocomplete="off" value="<?= isset($rec['username']) ? $rec['username'] : set_value('username') ?>" class="input_container <?= isset($errors['username']) ? 'is-invalid':' ' ?>" id="username" placeholder="Username">
 								<?php if (isset($errors['username'])): ?>
@@ -83,10 +83,8 @@
 										<?= $errors['username']?>
 									</div>
 								<?php endif; ?>
-							</div>
-						</div>
-						<!-- password  -->
-						<div class="form_row">
+							</div> -->
+							
 							<div class="form_group">
 								<p class="form_label">Password *</p>
 								<input name="password" type="password" autocomplete="off" value="<?= isset($rec['password']) ? $rec['password'] : set_value('password') ?>" class="input_container <?= isset($errors['password']) ? 'is-invalid':' ' ?>" id="password" placeholder="Password">
@@ -96,6 +94,10 @@
 									</div>
 								<?php endif; ?>
 							</div>
+						</div>
+						<!-- password  -->
+						<div class="form_row">
+						
 							<div class="form_group">
 								<p class="form_label">Re-type Password *</p>
 								<input name="password_retype" type="password" autocomplete="off" value="<?= isset($rec['password_retype']) ? $rec['password_retype'] : set_value('password_retype') ?>" class="input_container <?= isset($errors['password_retype']) ? 'is-invalid':' ' ?>" id="password_retype" placeholder="Re-type Password">
@@ -109,7 +111,7 @@
 						<div class="form_footer">
 							<button type="submit" class="submit_button">Sign up</button>
 							<div class="already_have">
-								<span>Already have an account? <a href="<?= base_url("")?>"> Log in here</a></span>
+								<span>Already have an account? <a href="<?= base_url("student")?>"> Log in here</a></span>
 							</div>
 						</div>
 					</form>

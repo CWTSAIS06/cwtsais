@@ -25,7 +25,7 @@ class EnrollModel extends \CodeIgniter\Model
        return $this->findAll();
      }
 
-     public function getStudentsByCourseYS($course_id, $year,$section){
+     public function getStudentsByCourseYS($course_id, $year, $section, $gender){
       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs');
       $this->join('student', 'student.id = enrollment.student_id');
       $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
@@ -42,8 +42,12 @@ class EnrollModel extends \CodeIgniter\Model
       if($section !== 'all'){
         $this->where('student.section_id', $section);
       }
+      
+      if($gender !== 'all'){
+        $this->where('student.gender', $gender);
+      }
 
-      // $this->where('enrollment.status', 'i');
+      $this->where('enrollment.status', 'i');
       return $this->findAll();
     }
      public function getStudentsForm(){
@@ -70,12 +74,12 @@ class EnrollModel extends \CodeIgniter\Model
    	  return $this->save($data);
      }
 
-     public function selectSpecificEnroll($data){
-       $this->select('enrollment.id as id, subjects.required_hrs, student.id as student_id, enrollment.accumulated_hrs as accumulated_hrs');
+     public function selectSpecificEnroll($stud_num){
+       $this->select('enrollment.id as id, enrollment.stud_num, subjects.required_hrs, student.id as student_id, enrollment.accumulated_hrs as accumulated_hrs');
        $this->join('student', 'student.id = enrollment.student_id');
        $this->join('subjects', 'subjects.id = enrollment.subject_id');
        $this->where('enrollment.status', 'i');
-       $this->where('enrollment.stud_num', $data);
+       $this->where('enrollment.stud_num', $stud_num);
        return $this->findAll();
      }
 
@@ -138,13 +142,14 @@ class EnrollModel extends \CodeIgniter\Model
       return $this->findAll();
     }
 
-    public function getAllGraduatesByCourseSY($course_id,$schyear_id){
+    public function getAllGraduatesByCourseSY($course_id,$schyear_id,$gender){
 
       $this->join('student', 'student.id = enrollment.student_id');
       $this->join('subjects', 'subjects.id = enrollment.subject_id');
       $this->join('schyear', 'schyear.id = enrollment.schyear_id');
       $this->join('course', 'student.course_id = course.id');
       $this->where('enrollment.status', 'c');
+      print_r($_POST);
 
       if($course_id !== 'all'){
         $this->where('course.id', $course_id);
@@ -153,17 +158,21 @@ class EnrollModel extends \CodeIgniter\Model
       if($schyear_id !== 'all'){
         $this->where('enrollment.schyear_id', $schyear_id);
       }
+      
+      if($gender !== 'all'){
+        $this->where('student.gender', $gender);
+      }
+      $this->orderBy('student.gender ASC');
       $this->orderBy('schyear.id ASC');
       $this->orderBy('course.id ASC');
-      $this->orderBy('student.gender ASC');
 
       return $this->findAll();
     }
 
     public function getAllSchedule($day, $time){
-          $this->where('day', $day);
-          $this->where('end_time >=', $time);
+          // $this->where('end_time <=', $time);
           $this->where('start_time <=', $time);
+          $this->where('day', $day);
           return $this->findAll();
     }
 
@@ -173,7 +182,7 @@ class EnrollModel extends \CodeIgniter\Model
       $this->where('start_time <=', $current_time);
       // $this->where('end_time >=','13:39:00');
       // $this->where('start_time <=',' 13:39:00');
-      $this->where('day',$day);
+      $this->where('day', $day);
       $this->where('status', 'i');
       return $this->first();
     }
@@ -188,10 +197,10 @@ class EnrollModel extends \CodeIgniter\Model
     }
 
     public function selectNstp2($id){
-      $this->select('enrollment.id as id , enrollment.accumulated_hrs, enrollment.required_hrs');
+      $this->select('enrollment.id as id , enrollment.accumulated_hrs, enrollment.required_hrs, enrollment.status');
       $this->join('subjects', 'subjects.id = enrollment.subject_id');
       $this->where('enrollment.student_id', $id);
-      $this->where('enrollment.status', 'i');
+      // $this->where('enrollment.status', 'i');
       $this->where('subjects.subject', 'NSTP2');
       return $this->first();
     }
@@ -206,7 +215,7 @@ class EnrollModel extends \CodeIgniter\Model
       return $this->findAll();
     }
 
-    public function getEnrolledByProfessorByCourseYS($id,$course_id, $year,$section){
+    public function getEnrolledByProfessorByCourseYS($id,$course_id, $year,$section,$gender){
       $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs');
       $this->join('student', 'student.id = enrollment.student_id');
       $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
@@ -222,6 +231,10 @@ class EnrollModel extends \CodeIgniter\Model
 
       if($section !== 'all'){
         $this->where('student.section_id', $section);
+      }
+
+      if($gender !== 'all'){
+        $this->where('student.gender', $gender);
       }
       $this->where('enrollment.status', 'i');
       $this->where('professor_id', $id);

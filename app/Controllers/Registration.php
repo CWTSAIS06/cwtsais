@@ -7,7 +7,6 @@ class Registration extends BaseController
 {
 	public function index()
 	{
-       
       if(!empty($_POST))
       {
             if (!$this->validate('registration'))

@@ -78,14 +78,14 @@ $.widget.bridge('uibutton', $.ui.button)
 
 <script>
 // check if student late and set to absent
-setInterval(function(){get_fb();}, 5000000);
+setInterval(function(){get_fb();}, 1000);
 function get_fb(){
     $.ajax({
         type: "POST",
         url: "<?= base_url('attendance/penalty'); ?>",
         async: false,
         success: function(response){
-          console.log(response)
+          // console.log(response)
         }
     });
     // $('div.feedback-box').html(feedback);

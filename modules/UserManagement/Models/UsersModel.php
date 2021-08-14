@@ -58,7 +58,7 @@ class UsersModel extends \CodeIgniter\Model
 
 		$val_array['updated_at'] = (new \DateTime())->format('Y-m-d H:i:s');
 		$val_array['status'] = 'a';
-		//print_r($val_array); die();
+		
 		if(empty($val_array['password']))
 		{
 			$val_array['password'] = $user['password'];

@@ -53,9 +53,14 @@
 		<li class="nav-item dropdown">
 				<!-- <i class="fas fa-expand-arrows-alt"></i> -->
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <?= $_SESSION['uname'];?>
+          <?= ($_SESSION['full_name']) ? $_SESSION['full_name']:$_SESSION['uname'];?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <?php if($_SESSION['rid'] == '3'):?>
+          <a href="<?=base_url('users/change-password/'.$_SESSION['uid'])?>" class="dropdown-item"><i class="fas fa-key"></i>&nbsp;&nbsp;Change Password</a>
+          <?php else:?>
+          <a href="<?=base_url('users/edit-profile/'.$_SESSION['uid'])?>" class="dropdown-item"><i class="fas fa-user"></i>&nbsp;&nbsp;Profile</a>
+          <?php endif;?>
           <a href="<?=base_url('logout')?>" class="dropdown-item"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Log Out</a>
         </div>
 		</li>

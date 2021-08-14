@@ -39,7 +39,7 @@ class Student extends BaseController
 
     public function show_student($id)
 	{
-		$this->hasPermissionRedirect('show-student');
+		// $this->hasPermissionRedirect('show-student');
 		// $data['permissions'] = $this->permissions;
 
 		$model = new StudentModel();
@@ -100,6 +100,7 @@ class Student extends BaseController
     	$permissions_model = new PermissionsModel();
 			$course_model = new CourseModel();
 			$schyear_model = new SchoolyearModel();
+			$enrollModel = new EnrollModel();
 
 			$data['course'] = $this->course;
 			$data['schyear'] = $this->schyear;
@@ -124,7 +125,13 @@ class Student extends BaseController
 		        {
 		        	$_SESSION['success'] = 'You have updated a record';
 					$this->session->markAsFlashdata('success');
-		        	return redirect()->to(base_url('student/profileStudent'));
+					if(isset($_POST['graduate'])){
+						$enroll = $enrollModel->selectNstp2($_SESSION['student_id']);
+						$enrollModel->markComplete($enroll['id']);
+						return redirect()->to(base_url('attendance/nstp2'));
+					}else{
+						return redirect()->to(base_url('student/profileStudent'));
+					}
 		        }
 		        else
 		        {
@@ -214,7 +221,7 @@ class Student extends BaseController
 	    	if (!$this->validate('edit_students'))
 		    {
 				//die("here");
-		    		$data['errors'] = \Config\Services::validation()->getErrors();
+				$data['errors'] = \Config\Services::validation()->getErrors();
 		        $data['function_title'] = "Editing Student Information";
 		        $data['viewName'] = 'Modules\StudentManagement\Views\students\frmStudent';
 		        echo view('App\Views\theme\index', $data);

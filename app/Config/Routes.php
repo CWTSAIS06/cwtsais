@@ -77,7 +77,9 @@ $routes->get('/', 'Security::index');
 // $routes->get('/', 'Migrate::seeder');
 $routes->post('/', 'Security::index');
 $routes->get('logout', 'Security::logout');
-$routes->cli('attendance/message/(:segment)', 'Attendance::message/$1');
+$routes->match(['get', 'post'], 'student', 'Security::student_login');
+$routes->match(['get', 'post'], 'faculty', 'Security::faculty_login');
+
 /**
  * --------------------------------------------------------------------
  * Additional Routing

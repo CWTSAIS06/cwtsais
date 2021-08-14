@@ -85,8 +85,29 @@
     <div class="container-fluid">
 
 	<script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+
 <script>
-$('li.nav-item ul.nav-treeview li.nav-item a').each(function(){
+student_id = <?= $_SESSION['student_id'];?>;
+$('li.nav-item ul.nav-treeview li.nav-item a').each(function(e,data){
+	if($(data).attr('title') == 'Enroll'){
+
+		if(student_id !== 0){
+			$.ajax({
+				url: "<?= base_url('attendance/check_if_graduate')?>",
+				type: "POST",
+				data: {student_id:student_id},
+				success:function(response){
+					console.log('response: '+response)
+					if(response == 1){
+						$(data).hide();
+
+					}
+				}
+			});
+		}
+
+		// $(data).hide()
+	}
 	if($(this).hasClass('active')){
 		$(this).parent().parent().parent().addClass('menu-is-opening menu-open');
 	}

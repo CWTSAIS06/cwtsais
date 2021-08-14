@@ -7,7 +7,7 @@ class AnnouncementModel extends \CodeIgniter\Model
 {
      protected $table = 'announcement';
 
-     protected $allowedFields = ['announcement','description','announcement_date', 'status','created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['event','description','announcement_date','start_time','end_time', 'status','created_at','updated_at', 'deleted_at'];
 
     public function getAnnouncementWithCondition($conditions = [])
 	{
@@ -41,6 +41,23 @@ class AnnouncementModel extends \CodeIgniter\Model
 	    return $this->findAll();
 	}
 
+	public function getAnnouncementToday()
+	{
+		$this->where('announcement_date', Date('Y-m-d'));
+		$this->where('status', 'a');
+	    return $this->findAll();
+	}
+
+	public function getUpcommingAnnouncement()
+	{
+		$this->where('announcement_date > ', Date('Y-m-d'));
+		$this->where('status', 'a');
+		$this->orderBy('announcement_date', 'ASC');
+		$this->orderBy('start_time', 'ASC');
+		$this->limit(5);
+	    return $this->find();
+	}
+
     public function addAnnouncement($val_array = [])
 	{
 		$val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
@@ -55,10 +72,19 @@ class AnnouncementModel extends \CodeIgniter\Model
 		return $this->update($id, $val_array);
 	}
 
-    public function deleteAnnouncement($id)
+	public function inactive_status($id)
 	{
-		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
-		$val_array['status'] = 'd';
-		return $this->update($id, $val_array);
+	  $val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+	  $val_array['status'] = 'd';
+
+	  return $this->update($id, $val_array);
+	}
+
+	public function active_status($id)
+	{
+	  $val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+	  $val_array['status'] = 'a';
+
+	  return $this->update($id, $val_array);
 	}
 }

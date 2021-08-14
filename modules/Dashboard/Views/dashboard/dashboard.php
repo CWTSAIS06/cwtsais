@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<?= base_url() ?>/public/custom-css/dashboard.css">
-<div class="dashboard_content">
+ <div class="dashboard_content">
+	<?php if($_SESSION['rid'] == '1' || $_SESSION['rid'] == '4'):?>
 	<div class="statistics">
 		<div class="statistic">
 			<div class="statistic_left left_blue">
@@ -38,37 +39,56 @@
 			</div>
 		</div>
 	</div>
+	<?php endif;?>
 	<div class="others">
 		<div class="other">
 			<div class="top_header top_events">
 				<img src="public/img/icons/megaphone.png" alt="">
 				<p>Event Announcement</p>
+
 			</div>
 			<div class="events_content">
 				<div class="events">
 					<p class="label">Today's Event</p>
-					<div class="event">
-						<p class="date">July 19, 2021</p>
-						<p class="title">Flag Raising Ceremony</p>
-						<p class="time">6:00 am - 7:00 am</p>
+					<?php if(empty($event_today)):?>
+						<div class="event">
+						<p class="date"></p>
+						<p class="title">No Event Today</p>
+						<p class="time"></p>
 					</div>
+					<?php else:?>
+						<?php foreach($event_today as $today):?>
+							<div class="event">
+								<p class="date"><?= $today['announcement_date']?></p>
+								<p class="title"><?= $today['event']?></p>
+								<p class="time"><?= date('H:i:s A', strtotime($today['start_time'])) ?> - <?= date('H:i:s A', strtotime($today['end_time'])) ?></p>
+							</div>
+						<?php endforeach;?>
+					<?php endif;?>
+					
 				</div>
+
 				<div class="events upcoming">
 					<p class="label">Upcoming Events</p>
-					<div class="event">
-						<p class="date">July 19, 2021</p>
-						<p class="title">Flag Raising Ceremony</p>
-						<p class="time">6:00 am - 7:00 am</p>
+					<?php if(empty($event_upcoming)):?>
+						<div class="event">
+						<p class="date"></p>
+						<p class="title">No Upcoming Event</p>
+						<p class="time"></p>
 					</div>
-					<div class="event">
-						<p class="date">July 19, 2021</p>
-						<p class="title">Flag Raising Ceremony</p>
-						<p class="time">6:00 am - 7:00 am</p>
-					</div>
+					<?php else:?>
+						<?php foreach($event_upcoming as $upcoming):?>
+							<div class="event">
+								<p class="date"><?= $upcoming['announcement_date']?></p>
+								<p class="title"><?= $upcoming['event']?></p>
+								<p class="time"><?= date('H:i:s A', strtotime($upcoming['start_time'])) ?> - <?= date('H:i:s A', strtotime($today['end_time'])) ?></p>
+							</div>
+						<?php endforeach;?>
+					<?php endif;?>
 				</div>
 			</div>
 		</div>
-		<div class="other">
+		<!-- <div class="other">
 			<div class="top_header top_penalties">
 				<img src="public/img/icons/PENALTY VECTOR.svg" alt="">
 				<p>Recent Student Penalties</p>
@@ -99,6 +119,6 @@
 					<p class="penalty">Absent (Seminar)</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>

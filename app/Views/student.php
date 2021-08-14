@@ -25,23 +25,26 @@
 			</div>
 			<div class="right">
 				<div class="form_container">
-					<form>
+					<form action="<?= base_url('student') ?>" method="post">
 						<div class="form_header">
 							<p class="title">Welcome to <span>CWTS-AIS</span></p>
-							<p class="label">Please click your destination</p>
+							<p class="label">Login your student account</p>
 						</div>
 						<?php if(isset($_SESSION['error_login'])): ?>
 							<div class="error_message"><?= $_SESSION['error_login']; ?></div>
 						<?php endif; ?>
-			
+						<div class="form_group">
+							<p class="form_label">Username</p>
+							<input type="text" name="username" class="input_container" placeholder="Your Username" id="username" placeholder="">
+						</div>
+						<div class="form_group">
+							<p class="form_label">Password</p>
+							<input type="password" name="password" class="input_container" placeholder="Your Password" id="password">
+						</div>
 						<div class="form_footer">
-							<button id="student" class="student_button">Student</button>
-							
-							<br>
-							<br>
-							<button  id="faculty" class="submit_button">Faculty</button>
+							<button type="submit" class="submit_button">Log in</button>
 							<div class="sign_up">
-								<!-- <span>New on our platform? <a href="<?= base_url("Registration")?>"> Create an account</a></span> -->
+								<span>New on our platform? <a href="<?= base_url("Registration")?>"> Create an account</a></span>
 							</div>
 						</div>
 					</form>
@@ -54,17 +57,27 @@
 			alert_success('<?= $_SESSION["success_registered"]; ?>');
 		</script>
 	<?php endif; ?>
+
+	<script src="<?= base_url() ?>/public/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="<?= base_url();?>public/js/inputmask.min.js"></script>
+	<script type="text/javascript" src="<?= base_url();?>public/js/inputmask.extensions.min.js"></script>
+
 	<script type="text/javascript">
+	
 
-		$('#student').on('click', function(e){
-			e.preventDefault();
-			location.href = "<?= base_url("student")?>";
+		var inputmask = new Inputmask("9999-99999-TG-9");
+			inputmask.mask($('[id*=username]'));
+		
+		$('[id*=username]').on('keypress', function (e) {
+			var number = $(this).val();
+			if (number.length == 2) {
+				$(this).val($(this).val() + '-');
+			}
+			else if (number.length == 7) {
+				$(this).val($(this).val() + '-');
+			}
 		});
 
-		$('#faculty').on('click', function(e){
-			e.preventDefault();
-			location.href = "<?= base_url("faculty")?>";
-		});
 		$(function(){
 			setTimeout(function(){
 				$('.alert').hide();

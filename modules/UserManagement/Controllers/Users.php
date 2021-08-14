@@ -18,7 +18,6 @@ class Users extends BaseController
 		parent:: __construct();
 
 		$role_model = new RolesModel();
-		$this->roles = $role_model->getRoleWithCondition(['status' => 'a']);
 	}
 
 	public function show_user($id)
@@ -211,4 +210,86 @@ class Users extends BaseController
     	$model->deleteUser($id);
     }
 
+
+	public function change_password($id)
+    {
+    	helper(['form', 'url', 'html']);
+
+    	$model = new UsersModel();
+
+		if(!empty($_POST))
+    	{
+	    	if (!$this->validate('change_password'))
+		    {
+		    	$data['errors'] = \Config\Services::validation()->getErrors();
+		        $data['function_title'] = "Change Password";
+		        $data['viewName'] = 'Modules\UserManagement\Views\users\changePassword';
+		        echo view('App\Views\theme\index', $data);
+		    }
+		    else
+		    {
+		    	if($model->editUsers($_POST, $id))
+		        {
+		        	$_SESSION['success'] = 'You have updated a record';
+					$this->session->markAsFlashdata('success');
+		        	return redirect()->to( base_url('users/change-password/'.$id));
+		        }
+		        else
+		        {
+		        	$_SESSION['error'] = 'You an errot in updating a record';
+					$this->session->markAsFlashdata('error');
+		        	return redirect()->to( base_url('users/change-password/'.$id));
+		        }
+		    }
+    	}
+    	else
+    	{
+    		$data['function_title'] = "Change Password";
+	        $data['viewName'] = 'Modules\UserManagement\Views\users\changePassword';
+	        echo view('App\Views\theme\index', $data);
+    	}
+	}
+	
+	public function edit_profile($id)
+    {
+
+    	$data['roles'] = $this->roles;
+
+    	helper(['form', 'url', 'html']);
+
+    	$model = new UsersModel();
+    	$data['rec'] = $model->find($id);
+
+    	if(!empty($_POST))
+    	{
+	    	if (!$this->validate('edit_profile'))
+		    {
+		    	$data['errors'] = \Config\Services::validation()->getErrors();
+		        $data['function_title'] = "Editing of User Account";
+		        $data['viewName'] = 'Modules\UserManagement\Views\users\profile';
+		        echo view('App\Views\theme\index', $data);
+		    }
+		    else
+		    {
+		    	if($model->editUsers($_POST, $id))
+		        {
+		        	$_SESSION['success'] = 'You have updated a record';
+					$this->session->markAsFlashdata('success');
+		        	return redirect()->to( base_url('users/edit-profile/'.$id));
+		        }
+		        else
+		        {
+		        	$_SESSION['error'] = 'You an errot in updating a record';
+					$this->session->markAsFlashdata('error');
+		        	return redirect()->to( base_url('users/edit-profile/'.$id));
+		        }
+		    }
+    	}
+    	else
+    	{
+    		$data['function_title'] = "Editing of User Account";
+	        $data['viewName'] = 'Modules\UserManagement\Views\users\profile';
+	        echo view('App\Views\theme\index', $data);
+    	}
+    }
 }
