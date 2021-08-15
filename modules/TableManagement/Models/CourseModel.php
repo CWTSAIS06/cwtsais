@@ -61,6 +61,12 @@ class CourseModel extends \CodeIgniter\Model
 		return $this->first();
 	}
 
+	public function getCourseByName($course){
+		$this->like('course', '%'.$course.'%');
+		return $this->first();
+	}
+
+
     public function inactiveCourse($id)
 	{
 		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');

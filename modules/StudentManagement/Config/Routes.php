@@ -25,11 +25,12 @@ $routes->group('enroll', ['namespace' => 'Modules\StudentManagement\Controllers'
   $routes->get('enrollStudent', 'Enroll::enroll_student');
   $routes->post('enrolled', 'Enroll::enroll_student');
 });
+
 $routes->group('graduates', ['namespace' => 'Modules\StudentManagement\Controllers'], function($routes)
 {
   $routes->match(['get', 'post'],'/', 'Graduates::index');
   $routes->match(['get', 'post'], 'add', 'Graduates::add');
-  $routes->match(['get', 'post'], 'preview', 'Graduates::preview');
+  $routes->match(['get', 'post'], 'insert-graduates', 'Graduates::insert_graduates');
 
 });
 // $routes->group('current', ['namespace' => 'Modules\StudentManagement\Controllers'], function($routes)

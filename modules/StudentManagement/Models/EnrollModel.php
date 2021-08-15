@@ -130,11 +130,11 @@ class EnrollModel extends \CodeIgniter\Model
     }
 
     public function getAllGraduates(){
-      $this->join('student', 'student.id = enrollment.student_id');
-      $this->join('subjects', 'subjects.id = enrollment.subject_id');
-      $this->join('schyear', 'schyear.id = enrollment.schyear_id');
-      $this->join('course', 'student.course_id = course.id');
-      $this->where('enrollment.status', 'c');
+      $this->join('student', 'student.id = enrollment.student_id','left');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id','left');
+      $this->join('schyear', 'schyear.id = enrollment.schyear_id','left');
+      $this->join('course', 'student.course_id = course.id','left');
+      $this->where('enrollment.status', 'g');
       $this->orderBy('schyear.id ASC');
       $this->orderBy('course.id ASC');
       $this->orderBy('student.gender ASC');
@@ -144,12 +144,12 @@ class EnrollModel extends \CodeIgniter\Model
 
     public function getAllGraduatesByCourseSY($course_id,$schyear_id,$gender){
 
-      $this->join('student', 'student.id = enrollment.student_id');
-      $this->join('subjects', 'subjects.id = enrollment.subject_id');
-      $this->join('schyear', 'schyear.id = enrollment.schyear_id');
-      $this->join('course', 'student.course_id = course.id');
-      $this->where('enrollment.status', 'c');
-      print_r($_POST);
+      $this->join('student', 'student.id = enrollment.student_id','left');
+      $this->join('subjects', 'subjects.id = enrollment.subject_id','left');
+      $this->join('schyear', 'schyear.id = enrollment.schyear_id','left');
+      $this->join('course', 'student.course_id = course.id','left');
+      $this->where('enrollment.status', 'g');
+      // print_r($_POST);
 
       if($course_id !== 'all'){
         $this->where('course.id', $course_id);

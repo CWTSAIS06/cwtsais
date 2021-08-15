@@ -125,4 +125,9 @@ class StudentModel extends \CodeIgniter\Model
   public function getAllStudents(){
     return $this->findAll();
   }
+
+  public function getStudentByStudnum($stud_num){
+    $this->where('stud_num', $stud_num);
+    return $this->first();
+  }
 }
