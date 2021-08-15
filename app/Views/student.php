@@ -25,7 +25,7 @@
 			</div>
 			<div class="right">
 				<div class="form_container">
-					<form action="<?= base_url('student') ?>" method="post">
+					<form action="<?= base_url('student-login') ?>" method="post">
 						<div class="form_header">
 							<p class="title">Welcome to <span>CWTS-AIS</span></p>
 							<p class="label">Login your student account</p>

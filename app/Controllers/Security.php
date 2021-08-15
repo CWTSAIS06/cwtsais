@@ -116,7 +116,7 @@ class Security extends BaseController
 
 				$_SESSION['error_login'] = 'Cannot Find Your Student Number';
 				$this->session->markAsFlashdata('error_login');
-	        	return redirect()->to(base_url('student'));
+	        	return redirect()->to(base_url('student-login'));
 			}
 
 			//checking if user is user credential is valid
@@ -133,7 +133,7 @@ class Security extends BaseController
 				//die('error login');
 				$_SESSION['error_login'] = 'Username and Password mismatch!';
 				$this->session->markAsFlashdata('error_login');
-	        	return redirect()->to(base_url('student'));
+	        	return redirect()->to(base_url('student-login'));
 			}
 		}else{
 			return view('App\Views\student');
