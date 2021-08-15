@@ -88,6 +88,46 @@
 		</table>
 	</div>
 </div>
+
+<!-- <div class="list_tables">
+	<div class="row">
+		<div class="col-md-12">
+			<form id="file" action="<?= base_url("graduates") ?>" method="post" enctype="multipart/form-data"> 
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="exampleInputFile">File Upload</label>
+							<input type="file" name="file[]" id="file" size="150">
+							<p class="help-block">Only Excel/CSV File Import.</p>
+						</div>
+					</div>
+				
+				</div>
+		
+				<div class="form_submit pull-right">
+					<button type="submit" class="btn btn-success">Submit</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="list_tables">
+	<?php $uri = new \CodeIgniter\HTTP\URI(current_url()); ?>
+	<div class="table-responsive">
+		<table class="table stripe" id="previewTable">
+			<thead class="thead-dark">
+				<tr class="text-center">
+					<th>Student No.</th>
+				</tr>
+			</thead>
+			<tbody>
+		
+			</tbody>
+		</table>
+	</div>
+</div> -->
 <script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
@@ -164,6 +204,36 @@
 					// pageSize: 'LEGAL'
             	}
 			]
+		});
+
+
+		$(document).on('change','#file', function(event){
+			event.preventDefault();
+
+			var fd = new FormData();
+    		fd.append('file', this.files[0]); // since this is your file input
+
+			$.ajax({
+			url:"<?= base_url('graduates/preview');?>",
+			method:"POST",
+			data:fd,
+			dataType:'json',
+			contentType:false,
+			cache:false,
+			processData:false,
+			success:function(jsonData)
+			{
+			console.log(jsonData)
+
+				$('#csv_file').val('');
+				$('#previewTable').DataTable({
+				data  :  jsonData,
+				columns :  [
+				{ data : "student_number" },
+				]
+				});
+			}
+			});
 		});
 	});
 

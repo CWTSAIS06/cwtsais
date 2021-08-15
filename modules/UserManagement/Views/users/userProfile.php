@@ -11,7 +11,7 @@
 			Email: <span><?= ucfirst($user[0]['username']) ?></span>
 		</p>
 		<p class="info_details">
-			Birthdate: <span><?= $user[0]['birthdate'] ?> (<?= floor((time() - strtotime($user[0]['birthdate'])) / 31556926) ?> yrs old)</span>
+			<!-- Birthdate: <span><?= $user[0]['birthdate'] ?> (<?= floor((time() - strtotime($user[0]['birthdate'])) / 31556926) ?> yrs old)</span> -->
 		</p>
 		<div class="personal_edit_button">
 			<?php

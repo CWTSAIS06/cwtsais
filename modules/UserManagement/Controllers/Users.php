@@ -18,6 +18,7 @@ class Users extends BaseController
 		parent:: __construct();
 
 		$role_model = new RolesModel();
+		$this->roles = $role_model->getRoleWithCondition(['status' => 'a']);
 	}
 
 	public function show_user($id)

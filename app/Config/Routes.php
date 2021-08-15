@@ -77,7 +77,7 @@ $routes->get('/', 'Security::index');
 // $routes->get('/', 'Migrate::seeder');
 $routes->post('/', 'Security::index');
 $routes->get('logout', 'Security::logout');
-$routes->match(['get', 'post'], 'student', 'Security::student_login');
+$routes->match(['get', 'post'], 'student-login', 'Security::student_login');
 $routes->match(['get', 'post'], 'faculty', 'Security::faculty_login');
 
 /**

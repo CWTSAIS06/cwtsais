@@ -58,7 +58,7 @@
 
 		$('#student').on('click', function(e){
 			e.preventDefault();
-			location.href = "<?= base_url("student")?>";
+			location.href = "<?= base_url("student-login")?>";
 		});
 
 		$('#faculty').on('click', function(e){

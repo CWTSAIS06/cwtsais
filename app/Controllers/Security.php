@@ -155,10 +155,18 @@ class Security extends BaseController
 				{
 					if(password_verify($_POST['password'], $user['password']))
 					{
+						$student = $studentModel->getStudentByUserId($user['id']);
+
 						$loginOK = 1;
 						$_SESSION['uid'] = $user['id'];
 						$_SESSION['uname'] = $user['username'];
 						$_SESSION['rid'] = $user['role_id'];
+						if(!empty($student)){
+							$_SESSION['student_id'] = $student['id'];
+						}else{
+							$_SESSION['student_id'] = 0;
+
+						}
 						$_SESSION['user_logged_in'] = 1;
 						break;
 					}

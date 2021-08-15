@@ -76,6 +76,21 @@ class Graduates extends BaseController
 	        $data['viewName'] = 'Modules\TableManagement\Views\graduate\frmGraduate';
 	        echo view('App\Views\theme\index', $data);
     	}
-    }
+	}
+	
+	public function preview(){
+		if(!empty($_FILES['csv_file']['name']))
+		{
+			$file_data = fopen($_FILES['csv_file']['name'], 'r');
+			fgetcsv($file_data);
+				while($row = fgetcsv($file_data))
+				{
+				$data[] = array(
+				'student_number'  => $row[1],
+				);
+		}
+		echo json_encode($data);
+		}
+	}
 
 }
