@@ -52,12 +52,12 @@
 			<thead class="thead-dark">
 				<tr class="text-center">
 					<th>#</th>
-					<th>Student No.</th>
+					<th>Student No</th>
 					<th>Full Name</th>
 					<th>Course</th>
 					<th>Subject</th>
-					<th>required hours</th>
-					<th>accumulated hours</th>
+					<th>Required Hours</th>
+					<th>Accumulated Hours</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -77,13 +77,98 @@
 		</table>
 	</div>
 </div>
+
+
+<div class="list_tables">
+	<div class="row">
+		<div class="col-md-12">
+			<form id="file" action="<?= base_url("graduates") ?>" method="post" enctype="multipart/form-data"> 
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="exampleInputFile">File Upload</label>
+							<input type="file" name="file[]" id="file" accept=".csv">
+							<p class="help-block">Only CSV File Preview. 
+							<br><span> *Please remove special character like (" . , ! @ ^ # $ ") etc </span> 
+							<br> To not causing error csv preview </p>
+						</div>
+					</div>
+				
+				</div>
+		
+				<div class="form_submit pull-right">
+					<!-- <button type="submit" class="btn btn-success">Submit</button> -->
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="list_tables">
+	<?php $uri = new \CodeIgniter\HTTP\URI(current_url()); ?>
+	<div class="table-responsive">
+		<table class="table stripe" id="previewTable">
+			<!-- <thead class="thead-dark">
+			
+			</thead>
+			<tbody>
+			
+			</tbody> -->
+		</table>
+	</div>
+</div>
 <script src="<?= base_url();?>public/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/pdfmake.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/vfs_fonts.js"></script>
+<script type="text/javascript" src="<?= base_url();?>\public\js\papaparse.js"></script>
 
 <script>
+
+$('#file').change(function(e){
+  var file = e.target.files[0];
+  splitFileName = file['name'].split(".");
+  fileType = splitFileName.slice(-1)[0];
+  if(fileType != 'csv')
+  {
+    $('.error-message').html('<br /><div class="notification is-warning">Only CSV file extension is allowed!</div><br />');
+  }
+  else
+  {
+    Papa.parse(file, {
+      header: true,
+      dynamicTyping: true,
+      skipEmptyLines: true,
+      complete: function(results, file) {
+
+        file_arr = results.data;
+		file_chunk = results.data;
+		console.log(file_arr)
+		// var newObj = {};
+		// for (var i in file_arr) {
+		// 	newObj[i] = file_arr[i].replace(/[^a-zA-Z ]/g, "");
+		// }
+		$('#previewTable').DataTable({
+			"responsive": true,
+			"columns": results.meta.fields.map(c => ({
+                            "title": c,
+                           	 "data": c,
+                            // "visible": c.toLowerCase() !== "id",
+                            "default": ""
+						})),
+			"data": file_arr,
+			
+		});
+
+        // $('#uploadVariantsBtn').attr('disabled', false);
+      }// End complete: function(results, file)
+    });
+  }
+
+});
+
 	$(document).ready( function () {
 		var course = $('#course_id').find(":selected").text();
 		var section = $('#year_section').find(":selected").text();
@@ -92,7 +177,7 @@
 			"bInfo": false,
 			dom: 'lft<"#space">Bip',
 			buttons: [
-				// 'csvHtml5',
+				'csvHtml5',	
 				// 'excelHtml5',
 				{
 					extend: 'pdfHtml5',

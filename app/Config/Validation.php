@@ -637,13 +637,13 @@ class Validation
 					]
 			],
 
-			'username' => [
-				'label'  => 'User name',
-				'rules'  => 'required',
-				'errors' => [
-						'required' => 'Username is required.',
-				]
-			],
+			// 'username' => [
+			// 	'label'  => 'User name',
+			// 	'rules'  => 'required',
+			// 	'errors' => [
+			// 			'required' => 'Username is required.',
+			// 	]
+			// ],
 
 			'password' => [
 				'label'  => 'Password',
