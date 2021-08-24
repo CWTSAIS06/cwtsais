@@ -95,6 +95,26 @@ class EnrollModel extends \CodeIgniter\Model
       $this->like('subjects.subject', '%NSTP1%');
       return $this->first();
     }
+
+    public function checkIfCompleteNstp1($id){
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->where('enrollment.student_id', $id);
+      $this->where('enrollment.status', 'c');
+      $this->like('subjects.subject', '%NSTP1%');
+      return $this->first();
+    }
+
+    public function checkIfEnrolledNstp2($id){
+      $this->join('subjects', 'subjects.id = enrollment.subject_id');
+      $this->where('enrollment.student_id', $id);
+      $this->like('subjects.subject', '%NSTP2%');
+      return $this->first();
+    }
+
+    public function markCompleteNSTP1($id){
+      $data = ['status' => 'c'];
+      return $this->update(['id' => $id, 'subject_id' => '1'], $data);
+   }
      public function markComplete($id){
        $data = ['status' => 'c'];
        return $this->update($id, $data);
@@ -191,7 +211,7 @@ class EnrollModel extends \CodeIgniter\Model
       $this->select('enrollment.id as id , enrollment.accumulated_hrs, enrollment.required_hrs');
       $this->join('subjects', 'subjects.id = enrollment.subject_id');
       $this->where('enrollment.student_id', $id);
-      $this->where('enrollment.status', 'i');
+      // $this->where('enrollment.status', 'i');
       $this->where('subjects.subject', 'NSTP1');
       return $this->first();
     }

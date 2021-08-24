@@ -269,14 +269,45 @@ class Attendance extends BaseController
 					$attendanceModel->absent($data);
 				}
 			}
-			// else{
-			// 	if($schedule['end_time'] >= '18:30:00'){
-			// 		if($attendance[0]['time_out'] == null && $attendance[0]['status'] == 'present'){
+			else{
 
-			// 		}
+				if(date('H:i:s', time()) > date('H:i:s', strtotime($schedule['end_time'])) ){
 
-			// 	}
-			// }
+					if($attendance[0]['timeout'] == NULL && $attendance[0]['status'] == 'present'){
+
+						if ($attendanceModel->autoTimeOut($attendance[0]['id'],$schedule['end_time'])) {
+							$enrolled = $enrollModel->getEnrolledById($attendance[0]['enroll_id']);
+							
+							$current_attendance = $attendanceModel->getAttendanceById($attendance[0]['id']);
+							// $current_attendance[0]['timeout'] = date('H:i:s',strtotime('16:30:00'));
+							$total = number_format((float)(abs(strtotime($current_attendance[0]['timein']) - strtotime($current_attendance[0]['timeout'])) / 60) / 60, 2, '.', '');
+							$time_in = strtotime($current_attendance[0]['timein']);
+							$time_out = strtotime($current_attendance[0]['timeout']);
+							$diff = ($time_out - $time_in);
+							$difference_minute = $diff/60;
+							$formatted = array();
+	
+							$formatted["hours"]   = floor($difference_minute/60);
+							$formatted["minutes"] = $difference_minute - $formatted["hours"]*60;
+	
+							if($enrolled['accumulated_hrs'] == '') { $enrolled['accumulated_hrs'] = 0; }
+							$current_accumulated_hrs = explode('.',$enrolled['accumulated_hrs']);
+	
+							$accumulated_hr = $current_accumulated_hrs[0] + $formatted["hours"];
+							$accumulated_minute = $current_accumulated_hrs[1] + $formatted["minutes"];
+	
+							$total_added_time = strtotime('00:00 + '.abs(intval($accumulated_minute)).' minutes' );
+							$split_time =  explode(':',date('H:i', $total_added_time));
+							
+							$total_current_accumulated = $accumulated_hr + $split_time[0].'.'.$split_time[1];
+					
+							$enrollModel->updateAccumulatedHours(abs($total_current_accumulated), $attendance[0]['enroll_id']);
+						
+						}
+					}
+
+				}
+			}
 			
 		}
 		
@@ -291,6 +322,7 @@ class Attendance extends BaseController
 		if(!empty($enroll)){
 			if($enroll['accumulated_hrs'] >= $enroll['required_hrs']){
 				$data['nstp1_success'] = 1;
+				$enrollModel->markCompleteNSTP1($enroll['id']);
 			}
 		}
 	

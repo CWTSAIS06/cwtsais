@@ -35,6 +35,13 @@ class AttendanceModel extends \CodeIgniter\Model
   ->update();
   }
 
+  public function autoTimeOut($id,$time){
+    date_default_timezone_set('Asia/Singapore');
+    return $this->where('id', $id)
+    ->set(['timeout' => date('H:i:s',strtotime($time))])
+    ->update();
+    }
+
   public function absent($data){
     date_default_timezone_set('Asia/Singapore');
     $data['date'] = date('y-m-d');
