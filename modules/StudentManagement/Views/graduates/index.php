@@ -67,13 +67,14 @@
 					<th>Gender</th>
 					<th>Address</th>
 					<th>Contact No.</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php $cnt = 1; ?>
 				<?php foreach($graduates as $graduate): ?>
 					<tr id="<?php echo $graduate['id']; ?>">
-						<th scope="row"> </th>
+						<th scope="row"><?= ucwords($graduate['serial_num']) ?> </th>
 						<td><?= ucwords($graduate['stud_num']) ?></td>
 						<td><?= ucwords($graduate['lastname']) . ', ' . ucwords($graduate['firstname']) ?></td>
 						<td><?= ucwords($graduate['course']) ?></td>
@@ -82,6 +83,7 @@
 						<td><?= ucwords(($graduate['gender'] == 1) ? 'M':'F') ?></td>
 						<td><?= ucwords($graduate['address'])?> </td>
 						<td><?= ucwords($graduate['contact_no'])?> </td>
+						<td><a class="btn btn-success btn-sm" title="edit" href='<?= base_url('graduates/edit/'.$graduate['student_id']); ?>'><i class="far fa-edit"></i></a></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>

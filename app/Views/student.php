@@ -45,6 +45,8 @@
 							<button type="submit" class="submit_button">Log in</button>
 							<div class="sign_up">
 								<span>New on our platform? <a href="<?= base_url("Registration")?>"> Create an account</a></span>
+								<br>
+								<span> <a href="<?= base_url("forgot-password")?>"> Forgot Password?</a></span>
 							</div>
 						</div>
 					</form>

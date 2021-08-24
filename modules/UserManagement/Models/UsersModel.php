@@ -104,4 +104,9 @@ class UsersModel extends \CodeIgniter\Model
 		$this->where('role_id', 4);
 		return $this->findAll();
 	}
+
+	public function getUserByEmail($email){
+		$this->where('email', $email);
+		return $this->first();
+	}
 }

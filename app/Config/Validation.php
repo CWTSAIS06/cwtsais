@@ -711,6 +711,27 @@ class Validation
 			],
 
 		];
+
+		public $graduates = [
+			'serial_num' => [
+				'label'  => 'Serial No.',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Serial No. field is required.',
+				]
+			]
+		];
+
+		public $forgot_password = [
+			'email' => [
+				'label'  => 'Email',
+				'rules'  => 'required',
+				'errors' => [
+						'required' => 'Email field is required.',
+				]
+			]
+		];
+
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------

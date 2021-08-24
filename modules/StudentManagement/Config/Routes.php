@@ -31,6 +31,7 @@ $routes->group('graduates', ['namespace' => 'Modules\StudentManagement\Controlle
   $routes->match(['get', 'post'],'/', 'Graduates::index');
   $routes->match(['get', 'post'], 'add', 'Graduates::add');
   $routes->match(['get', 'post'], 'insert-graduates', 'Graduates::insert_graduates');
+  $routes->match(['get', 'post'], 'edit/(:num)', 'Graduates::edit_graduate/$1');  
 
 });
 // $routes->group('current', ['namespace' => 'Modules\StudentManagement\Controllers'], function($routes)

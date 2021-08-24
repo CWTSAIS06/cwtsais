@@ -17,6 +17,11 @@
 		<link rel="stylesheet" href="<?= base_url('') ?>/public/custom-css/login.css">
 		<title>CWTS-AIS PUPT</title>
 	</head>
+	<style>
+		.text_danger{
+			color:red
+		}
+	</style>
 	<body id="login_page">
 		<div id="login_container">
 			<div class="left">
@@ -25,27 +30,24 @@
 			</div>
 			<div class="right">
 				<div class="form_container">
-					<form action="<?= base_url('faculty') ?>" method="post">
+					<form action="<?= base_url('forgot-password') ?>" method="post">
 						<div class="form_header">
-							<p class="title">Welcome to <span>CWTS-AIS</span></p>
-							<p class="label">Login to manage your account</p>
+							<p class="title">Forgot Password </p>
+							<p class="label">Please Enter Your Email on your account.</p>
 						</div>
-						<?php if(isset($_SESSION['error_login'])): ?>
-							<div class="error_message"><?= $_SESSION['error_login']; ?></div>
+						<div class="form_group">
+							<p class="form_label">Email</p>
+							<input type="text" name="email" class="input_container is-invalid" placeholder="Your Email" id="email" >
+						</div>
+						<?php if (isset($errors['email'])): ?>
+							<div class="text_danger">
+								<?= $errors['email']?>
+							</div>
 						<?php endif; ?>
-						<div class="form_group">
-							<p class="form_label">Username</p>
-							<input type="text" name="username" class="input_container" placeholder="Your Username" id="username" placeholder="">
-						</div>
-						<div class="form_group">
-							<p class="form_label">Password</p>
-							<input type="password" name="password" class="input_container" placeholder="Your Password" id="password">
-						</div>
 						<div class="form_footer">
-							<button type="submit" class="submit_button">Log in</button>
+							<button type="submit" class="submit_button">Send</button>
 							<div class="sign_up">
-								<!-- <span>New on our platform? <a href="<?= base_url("Registration")?>"> Create an account</a></span> -->
-								<span> <a href="<?= base_url("forgot-password")?>"> Forgot Password?</a></span>
+								<span>New on our platform? <a href="<?= base_url("Registration")?>"> Create an account</a></span>
 							</div>
 						</div>
 					</form>
@@ -53,9 +55,15 @@
 			</div>
 		</div>
 	</body>
-	<?php if(isset($_SESSION["success_registered"])): ?>
+	<?php if(isset($_SESSION["success"])): ?>
 		<script type="text/javascript">
-			alert_success('<?= $_SESSION["success_registered"]; ?>');
+			alert_success('<?= $_SESSION["success"]; ?>');
+		</script>
+	<?php endif; ?>
+
+	<?php if(isset($_SESSION["error"])): ?>
+		<script type="text/javascript">
+			alert_error('<?= $_SESSION["error"]; ?>');
 		</script>
 	<?php endif; ?>
 	<script type="text/javascript">

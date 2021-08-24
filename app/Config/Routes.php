@@ -79,6 +79,7 @@ $routes->post('/', 'Security::index');
 $routes->get('logout', 'Security::logout');
 $routes->match(['get', 'post'], 'student-login', 'Security::student_login');
 $routes->match(['get', 'post'], 'faculty', 'Security::faculty_login');
+$routes->match(['get', 'post'], 'forgot-password', 'ForgotPassword::index');
 
 /**
  * --------------------------------------------------------------------

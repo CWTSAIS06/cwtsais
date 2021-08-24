@@ -7,7 +7,7 @@ class AnnouncementModel extends \CodeIgniter\Model
 {
      protected $table = 'announcement';
 
-     protected $allowedFields = ['event','description','announcement_date','start_time','end_time', 'status','created_at','updated_at', 'deleted_at'];
+     protected $allowedFields = ['event','description','speaker','announcement_date','start_time','end_time', 'status','created_at','updated_at', 'deleted_at'];
 
     public function getAnnouncementWithCondition($conditions = [])
 	{

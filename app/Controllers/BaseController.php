@@ -75,7 +75,7 @@ class BaseController extends Controller
 			$str = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     		if($str != base_url())
     		{
-					if($str == base_url().'student-login' || $str == base_url().'faculty' || $str == base_url().'Registration' || $str == base_url().'ForgotPassword' || $str == base_url().'ResetPassword'){
+					if($str == base_url().'student-login' || $str == base_url().'faculty' || $str == base_url().'Registration' || $str == base_url().'forgot-password' ||$str == base_url().'ForgotPassword' || $str == base_url().'ResetPassword'){
 						return redirect()->to( base_url());
 					}else{
 						header('Location: '.base_url());

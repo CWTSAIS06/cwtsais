@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?= base_url() ?>/public/custom-css/dashboard.css">
  <div class="dashboard_content">
-	<?php if($_SESSION['rid'] == '1' || $_SESSION['rid'] == '4'):?>
+	<?php if($_SESSION['rid'] == '1' || $_SESSION['rid'] == '4'):	?>
 	<div class="statistics">
 		<div class="statistic">
 			<div class="statistic_left left_blue">
@@ -60,7 +60,7 @@
 						<?php foreach($event_today as $today):?>
 							<div class="event">
 								<p class="date"><?= $today['announcement_date']?></p>
-								<p class="title"><?= $today['event']?></p>
+								<p class="title">Event: <?= $today['event']?>  <?= $today['speaker'] ? '<br> Speaker: '.$today['speaker'].'': ''?> <br> <?= $today['description'] ? 'Description: '.$today['description']: '' ?></p>
 								<p class="time"><?= date('H:i:s A', strtotime($today['start_time'])) ?> - <?= date('H:i:s A', strtotime($today['end_time'])) ?></p>
 							</div>
 						<?php endforeach;?>
@@ -80,8 +80,8 @@
 						<?php foreach($event_upcoming as $upcoming):?>
 							<div class="event">
 								<p class="date"><?= $upcoming['announcement_date']?></p>
-								<p class="title"><?= $upcoming['event']?></p>
-								<p class="time"><?= date('H:i:s A', strtotime($upcoming['start_time'])) ?> - <?= date('H:i:s A', strtotime($today['end_time'])) ?></p>
+								<p class="title">Event: <?= $upcoming['event']?>  <?= $upcoming['speaker'] ? '<br> Speaker: '.$upcoming['speaker'].'': ''?> <br> <?= $upcoming['description'] ? 'Description: '.$upcoming['description']: '' ?></p>
+								<p class="time"><?= date('H:i:s A', strtotime($upcoming['start_time'])) ?> - <?= date('H:i:s A', strtotime($upcoming['end_time'])) ?></p>
 							</div>
 						<?php endforeach;?>
 					<?php endif;?>

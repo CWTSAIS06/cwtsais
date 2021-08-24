@@ -41,6 +41,12 @@ class SubjectModel extends \CodeIgniter\Model
 	    return $this->findAll();
 	}
 
+	public function getSubjectByName($subject)
+	{
+		$this->like('code', '%'.$subject.'%');
+	    return $this->first();
+	}
+
     public function addSubject($val_array = [])
 	{
 		$val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');

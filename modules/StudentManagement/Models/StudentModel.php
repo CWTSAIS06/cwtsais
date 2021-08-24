@@ -88,6 +88,14 @@ class StudentModel extends \CodeIgniter\Model
 		return $this->update($id, $val_array);
 	}
 
+  public function editSerialNum($val_array, $id)
+	{
+    	
+		$val_array['updated_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+		$val_array['status'] = 'a';
+		return $this->update($id, $val_array);
+	}
+
   public function inactiveStudent($id)
 	{
 		$val_array['deleted_at'] = (new \DateTime())->format('Y-m-d H:i:s');
