@@ -139,7 +139,7 @@ class Graduates extends BaseController
 
 		$created = date('Y-m-d H:i:s');
 
-		$columnCount = 13;
+		$columnCount = 12;
 		foreach($csvFile as $file){
 
 			$dataFile = explode(",", $file);
@@ -162,14 +162,13 @@ class Graduates extends BaseController
 			$address = trim($dataFile[9]);
 			$contact_no = trim($dataFile[10]);
 			$school_year = trim($dataFile[11]);
-			$subject = trim($dataFile[12]);
 
 
 			if($lineCount == 0){
 
 				// check for correct header
 				if($serial_num != "Serial No" || $stud_num != "Student No" || $firstname != "First Name" || $lastname != "Last Name"  || $middlename != "Middle Name" || $course != "Course" || $birthdate != "Date of Birth"
-				|| $age != "Age" || $gender != "Gender" || $address != "Address" || $contact_no != "Contact No" || $school_year != "School Year" || $subject != "Subject"){
+				|| $age != "Age" || $gender != "Gender" || $address != "Address" || $contact_no != "Contact No" || $school_year != "School Year"){
 					$returnArr["with_error"] = 1;
 					$returnArr["line_number"] = $lineCount+1;
 					$returnArr["message"] = "invalid header";
@@ -195,9 +194,6 @@ class Graduates extends BaseController
 					$schoolyear = $schoolyearModel->getCurrentSchoolYear($school_year);
 					$sy_id = $schoolyear['id'];
 
-					$subjects = $subjectModel->getSubjectByName($subject);
-					$subject_id = $subjects['id'];
-			
 					if($gender == 'm' || $gender == 'M' || $gender == 'male' || $gender == 'Male' ){
 						$gender = 1;
 					}else if ($gender == 'f' || $gender == 'F' || $gender == 'female' || $gender == 'Female') {
@@ -209,7 +205,7 @@ class Graduates extends BaseController
 					$if_exists_student = $db->query("SELECT * FROM student WHERE stud_num = '$stud_num' ");
 				
 					if(count($if_exists_student->getResultArray()) > 0){
-						$db->query("UPDATE student SET serial_num = '$serial_num' ");
+						$db->query("UPDATE student SET serial_num = '$serial_num'");
 					}else{
 						$db->query( "INSERT INTO student (serial_num,stud_num, firstname, lastname,middlename,course_id,birthdate,age,gender,address,contact_no,status,created_at)
 						VALUES ('$serial_num','$stud_num','$firstname','$lastname','$middlename','$course_id','$birthdate','$age',$gender,'$address','$contact_no','a','$created')
@@ -220,13 +216,13 @@ class Graduates extends BaseController
 					$student = $studentModel->getStudentByStudnum($stud_num);
 					$student_id = ($student['id'] !== '') ? $student['id']:'0';
 					
-					$if_exists_enrolled = $db->query("SELECT * FROM enrollment WHERE stud_num = '$stud_num' ");
+					$if_exists_enrolled = $db->query("SELECT * FROM enrollment WHERE stud_num = '$stud_num'");
 
 					if(count($if_exists_enrolled->getResultArray()) > 0){
 						$db->query("UPDATE enrollment SET status = 'g' ");
 					}else{
-						$db->query( "INSERT IGNORE INTO enrollment (subject_id,schyear_id,student_id,stud_num,status,created_at)
-						VALUES ('$subject_id','$sy_id','$student_id','$stud_num','g','$created')
+						$db->query( "INSERT IGNORE INTO enrollment (schyear_id,student_id,stud_num,status,created_at)
+						VALUES ('$sy_id','$student_id','$stud_num','g','$created')
 						ON DUPLICATE KEY UPDATE stud_num = '$stud_num', status = 'g' ");
 					}
 
