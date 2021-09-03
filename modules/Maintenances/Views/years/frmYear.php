@@ -9,7 +9,7 @@
 							<select class="form-control <?= isset($errors['course_id']) ? 'is-invalid':' ' ?>" name="course_id" id="course_id">
 								<option disabled selected> Please Select Course </option>
 								<?php foreach($courses as $course):?>
-									<option value="<?= $course['id']?>"> <?= $course['course']?> - <?= $course['description'] ?></option>
+									<option value="<?= $course['id']?>" <?= ($course['id'] == $rec['course_id']) ? 'selected':'' ?>> <?= $course['course']?> - <?= $course['description'] ?></option>
 								<?php endforeach; ?>
 							</select>
 							<?php if (isset($errors['course_id'])): ?>
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" <?= isset($rec) ? 'hidden' : '' ?>>
 					<div class="col-md-6 offset-md-3">
 						<div class="form-group">
 							<label for="year">Year</label>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" <?= isset($rec) ? 'hidden' : '' ?>>
 					<div class="col-md-6 offset-md-3">
 						<div class="form-group">
 							<label for="how_many">How many section(s)</label>

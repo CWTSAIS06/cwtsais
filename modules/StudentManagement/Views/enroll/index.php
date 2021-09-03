@@ -29,9 +29,9 @@
 							<label for="year_section">Year & Section</label>
 							<select id="year_section" class="form-control" name="year_section" >
 								<option value="all-all">All</option>
-								<?php foreach ($sections as $section): ?>
+								<!-- <?php foreach ($sections as $section): ?>
 									<option value="<?= $section['year_id'];?>-<?= $section['id'];?>" <?= ($section['year'] == $rec['year_id'] && $section['id'] == $rec['section_id']) ? 'selected':''?>> <?=$section['year'];?> - <?= $section['section']; ?></option>
-								<?php endforeach; ?>
+								<?php endforeach; ?> -->
 							</select>
 						</div>
 					</div>
@@ -126,7 +126,24 @@
 <script type="text/javascript" src="<?= base_url();?>\public\js\papaparse.js"></script>
 
 <script>
-
+$("#course_id").on('change', function(){
+		var course_id = $("#course_id :selected").val();
+		var option = " ";
+		$.ajax({
+			url: "<?= base_url("student/getSections"); ?>",
+			type:"GET",
+			dataType: "JSON",
+			data:{ course_id:course_id},
+			success:function(response){
+				option = " ";
+				option += "<option value='all'>All</option>";
+				response.forEach(function(data){
+					option += "<option value='"+data.year_id+'-'+data.id+"'>" + data.year + '-' + data.section + '</option>';
+				});
+				$('#year_section').html(option);
+			}
+		});
+	});
 $('#file').change(function(e){
   var file = e.target.files[0];
   splitFileName = file['name'].split(".");

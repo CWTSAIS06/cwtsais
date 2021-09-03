@@ -19,10 +19,11 @@
 				<?php foreach($years as $year): ?>
 					<tr class="text-center">
 						<th scope="row"><?= $cnt++ ?></th>
-						<td><?= $year['course']?></td>
+						<td><?= $year['courses']?></td>
 						<td><?= $year['year']?> - <?= $year['section']?></td>
 						<td><?= ($year['status'] == 'a') ? 'active':'deactivated'?></td>
 						<td class="text-center">
+							<a class="btn btn-success btn-sm" title="edit" href='<?= base_url('years/edit/'.$year['id']); ?>'><i class="far fa-edit"></i></a>
 							<?php if($year['status'] == 'a'):?>
 							<a class="btn btn-danger btn-sm remove" onclick=" confirmUpdateStatus('<?= base_urL('years/delete/')?>',<?=$year['id']?>,'d')" title="deactivate"><i class="fas fa-archive"></i></a>
 							<?php else:?>

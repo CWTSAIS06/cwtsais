@@ -140,8 +140,8 @@
 <script type="text/javascript" charset="utf8" src="<?= base_url();?>\public\plugins\datatables-buttons\js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/pdfmake.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/vfs_fonts.js"></script>
+<script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/jszip.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\js\papaparse.js"></script>
-
 <script>
 
 
@@ -226,18 +226,6 @@ var uploadDataArr = [];
         }
 		
     }
-	
-
-
-
-
-
-
-
-
-
-
-
 
 
 		var conceptName = $('#schyear_id').find(":selected").text();
@@ -246,7 +234,15 @@ var uploadDataArr = [];
 			dom: 'lft<"#space">Bip',
 			buttons: [
 				// 'csvHtml5',
-				// 'excelHtml5',
+				{
+					extend: 'excel',
+					title: ' List of NSTP Graduates \n S.Y '+conceptName,
+					// message: "Any message for header inside the file. I am not able to put message in next row in excel file but you can use \n"
+					exportOptions: {
+						columns: [0,1,2,3,4,5,6,7,8]
+					}
+
+				},
 				{
 					extend: 'pdfHtml5',
 					text: 'To PDF',
@@ -255,6 +251,9 @@ var uploadDataArr = [];
 					download: 'open',
 					orientation: 'landscape',
 					title: ' List of NSTP Graduates \n S.Y '+conceptName,
+					exportOptions: {
+						columns: [0,1,2,3,4,5,6,7,8]
+					},
 					customize: function ( doc, btn, tbl ) {
 
 						doc['header']=(function() {

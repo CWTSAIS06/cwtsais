@@ -31,6 +31,7 @@ class PenaltiesModel extends \CodeIgniter\Model
         public function add_maintenance($val_array = [])
       {
         $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+        $val_array['status'] = 'a';
         return $this->save($val_array);
       }
       public function edit_maintenance($val_array = [], $id)

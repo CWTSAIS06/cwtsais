@@ -37,7 +37,8 @@ class PenaltyModel extends \CodeIgniter\Model
     public function addPenalty($val_array = [])
 	{
     $val_array['user_id'] = $_SESSION['uid'];
-		$val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+    $val_array['created_at'] = (new \DateTime())->format('Y-m-d H:i:s');
+    $val_array['status'] = 'a';
 	  return $this->save($val_array);
 	}
 

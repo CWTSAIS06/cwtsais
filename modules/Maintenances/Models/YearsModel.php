@@ -20,21 +20,20 @@ class YearsModel extends \CodeIgniter\Model
         }
 
       public function getYear(){
-        $this->select('*');
-        $this->join('course c', 'years.course_id = c.id', 'inner');
-        $this->join('sections s', 's.year_id = years.id', 'left');
-        $this->where('years.status', 'a');
+        // $this->select('c.id,c.course,years.course_id as course_id, s.id as id, years.status, s.section, years.year');
+        $this->join('sections s', 's.year_id = years.id', 'LEFT');
+        // $this->join('course c', 'c.id = years.course_id', 'LEFT');
+        // $this->where('years.status', 'a');
         return $this->findAll();
         
       }
 
       public function getYearAndSectionByCourse($id){
-        $this->select('years.*,years.id as year_id,c.id, s.*');
-        $this->join('course c', 'years.course_id = c.id', 'inner');
+        $this->select('years.*,years.id as year_id, s.*');
         $this->join('sections s', 's.year_id = years.id', 'inner');
         $this->where('years.status', 'a');
         $this->where('s.status', 'a');
-        $this->where('c.id', $id);
+        $this->where('s.course_id', $id);
 
 
         return $this->findAll();
@@ -70,11 +69,10 @@ class YearsModel extends \CodeIgniter\Model
         $year = $val_array['year'];
         $course_id = $val_array['course_id'];
 
-        $str = "SELECT p.* FROM years p WHERE p.status = 'a' AND p.year = $year AND p.course_id = $course_id";
-        $query = $db->query($str);
-      
+        $str = "SELECT p.* FROM years p WHERE p.status = 'a' AND p.year = '$year' AND p.course_id = '$course_id'";
+        $query = $db->query($str)->getResultArray();
 
-        if(!empty($query->getResultArray()))
+        if(!empty($query))
         {
           return $this->update(['course_id' => $course_id, 'year' => $year], $val_array);
         }else{

@@ -27,25 +27,36 @@ class SectionsModel extends \CodeIgniter\Model
 
         return $query->getResultArray();
         }
-
+      
         public function add_maintenance($val_array = [], $id)
       {
         $db = \Config\Database::connect();
     
         $course_id = $val_array['course_id'];
         $year_id = $id;
+        $val_array['year_id'] = $id;
         $section = $val_array['section'];
         $status = 'a';
         $created_date = "'".(new \DateTime())->format('Y-m-d H:i:s')."'";
 
-        $str = "INSERT INTO sections (course_id,year_id,section,created_date) VALUES ($course_id,$year_id,$section,$created_date) ON DUPLICATE KEY UPDATE course_id = $course_id, year_id = $year_id, section = $section  ";
-   
-        return $db->query($str);
+        $str = "SELECT s.* FROM sections s WHERE s.status = 'a' AND s.year_id = '$year_id' AND s.course_id = '$course_id' AND s.section = '$section'";
+        $query = $db->query($str);
+      
+    		// print_r($query->getResultArray());
+				// die();
+       
+        if(empty($query->getResultArray()))
+        {
+          $val_array['created_date'] = (new \DateTime())->format('Y-m-d H:i:s');
+          $val_array['status'] = 'a';
+          return $this->save($val_array);
+        }
 
 
       }
       public function edit_maintenance($val_array = [], $id)
       {
+      
         $val_array['updated_date'] = (new \DateTime())->format('Y-m-d H:i:s');
         return $this->update($id, $val_array);
       }
@@ -73,4 +84,10 @@ class SectionsModel extends \CodeIgniter\Model
 
         return $this->update(array('year_id' => $id), $val_array);
       }
+
+    public function getSectionById($id)
+    {
+        $this->where('id',$id);
+        return $this->first();
+    }
 }
