@@ -7,6 +7,7 @@ use Modules\TableManagement\Models\SchoolyearModel;
 use Modules\TableManagement\Models\CourseModel;
 use Modules\TableManagement\Models\SubjectModel;
 use App\Controllers\BaseController;
+use App\Libraries\pdf;
 
 class Graduates extends BaseController
 {
@@ -139,103 +140,105 @@ class Graduates extends BaseController
 
 		$created = date('Y-m-d H:i:s');
 
-		$columnCount = 12;
+		$columnCount = 11;
+	
 		foreach($csvFile as $file){
+		
+			$serial_num = trim($file['serial_no']);
+			$firstname = trim($file['first_name']);
+			$middlename = trim($file['middle_name']);
+			$lastname = trim($file['last_name']);
+			$course_abbrev = trim($file['course']);
+			$date_of_birth = $file['date_of_birth'];
+			$age = trim($file['age']);
+			$gender = trim($file['gender']);
+			$address = '"'.trim($file['address']).'"';
+			$contact_no = trim($file['tel_no']);
+			$school_year = trim($file['school_year']);
+		
 
-			$dataFile = explode(",", $file);
-            if (count($dataFile) !== $columnCount) {
-				$returnArr["with_error"] = 1;
-				$returnArr["line_number"] = $lineCount+1;
-				$returnArr["message"] = "invalid parameter count ( possible unwanted comma detected )";
-				break 1;
-			}
+			$db = \Config\Database::connect();
+			try {
+				$course = $courseModel->getCourseByName($course_abbrev);
 
-            $serial_num = trim($dataFile[0]);
-			$stud_num = trim($dataFile[1]);
-			$firstname = trim($dataFile[2]);
-			$lastname = trim($dataFile[3]);
-			$middlename = trim($dataFile[4]);
-			$course = trim($dataFile[5]);
-			$birthdate = trim($dataFile[6]);
-			$age = trim($dataFile[7]);
-			$gender = trim($dataFile[8]);
-			$address = trim($dataFile[9]);
-			$contact_no = trim($dataFile[10]);
-			$school_year = trim($dataFile[11]);
+				if($course){
+					$course_id = $course['id'];
+				}else{
+					$if_exists_course = $db->query("SELECT course FROM course WHERE course = '$course_abbrev' ");
+				
+					if(count($if_exists_course->getResultArray()) > 0){
+						$db->query("UPDATE course SET course = '$course_abbrev' AND description = ' '");
+					}else{
+						$db->query( "INSERT INTO course (course,description,status,created_at)
+						VALUES ('$course_abbrev','','a','$created')
+						ON DUPLICATE KEY UPDATE course = '$course_abbrev'");
+					}
 
-
-			if($lineCount == 0){
-
-				// check for correct header
-				if($serial_num != "Serial No" || $stud_num != "Student No" || $firstname != "First Name" || $lastname != "Last Name"  || $middlename != "Middle Name" || $course != "Course" || $birthdate != "Date of Birth"
-				|| $age != "Age" || $gender != "Gender" || $address != "Address" || $contact_no != "Contact No" || $school_year != "School Year"){
-					$returnArr["with_error"] = 1;
-					$returnArr["line_number"] = $lineCount+1;
-					$returnArr["message"] = "invalid header";
-					break 1;
+					$course = $courseModel->getCourseByName($course_abbrev);
+					$course_id = $course['id'];
+				
 				}
 
-			}
-			else {
+				$schoolyear = $schoolyearModel->getCurrentSchoolYear($school_year);
 				
+				if($schoolyear){
+					$sy_id = $schoolyear['id'];
+				}else{
+					$if_exists_schoolyear = $db->query("SELECT schyear FROM schyear WHERE schyear = '$school_year' ");
+			
+					if(count($if_exists_schoolyear->getResultArray()) > 0){
+						$db->query("UPDATE schyear SET schyear = '$school_year'");
+					}else{
+						$db->query( "INSERT INTO schyear (schyear,status,created_at)
+						VALUES ('$school_year','a','$created')
+						ON DUPLICATE KEY UPDATE schyear = '$school_year'   ");
+					}
 
-                // if(!ctype_alnum($code)){
-				// 	$returnArr["with_error"] = 1;
-				// 	$returnArr["line_number"] = $lineCount+1;
-				// 	$returnArr["message"] = "Invalid characters found for account classification code. Please use letters and numbers only.";
-				// 	break 1;
-				// }
-				// print_r($dataFile);
-
-				$db = \Config\Database::connect();
-                try {
-					$course = $courseModel->getCourseByName($course);
-					$course_id = $course['id'];
 					$schoolyear = $schoolyearModel->getCurrentSchoolYear($school_year);
 					$sy_id = $schoolyear['id'];
 
-					if($gender == 'm' || $gender == 'M' || $gender == 'male' || $gender == 'Male' ){
-						$gender = 1;
-					}else if ($gender == 'f' || $gender == 'F' || $gender == 'female' || $gender == 'Female') {
-						$gender = 2;
-					}
-
-					$birthdate = date('Y-m-d', strtotime($birthdate));
-					
-					$if_exists_student = $db->query("SELECT * FROM student WHERE stud_num = '$stud_num' ");
-				
-					if(count($if_exists_student->getResultArray()) > 0){
-						$db->query("UPDATE student SET serial_num = '$serial_num'");
-					}else{
-						$db->query( "INSERT INTO student (serial_num,stud_num, firstname, lastname,middlename,course_id,birthdate,age,gender,address,contact_no,status,created_at)
-						VALUES ('$serial_num','$stud_num','$firstname','$lastname','$middlename','$course_id','$birthdate','$age',$gender,'$address','$contact_no','a','$created')
-						ON DUPLICATE KEY UPDATE stud_num = '$stud_num'   ");
-
-					}
-					
-					$student = $studentModel->getStudentByStudnum($stud_num);
-					$student_id = ($student['id'] !== '') ? $student['id']:'0';
-					
-					$if_exists_enrolled = $db->query("SELECT * FROM enrollment WHERE stud_num = '$stud_num'");
-
-					if(count($if_exists_enrolled->getResultArray()) > 0){
-						$db->query("UPDATE enrollment SET status = 'g' ");
-					}else{
-						$db->query( "INSERT IGNORE INTO enrollment (schyear_id,student_id,stud_num,status,created_at)
-						VALUES ('$sy_id','$student_id','$stud_num','g','$created')
-						ON DUPLICATE KEY UPDATE stud_num = '$stud_num', status = 'g' ");
-					}
-
-				} catch (\Exception $error) {
-					$returnArr["with_error"] = 1;
-					$returnArr["line_number"] = $lineCount+1;
-					$returnArr["message"] = $error->errorInfo[2];
-					print_r($error);
-
-					break 1;
 				}
 
+				if($gender == 'm' || $gender == 'M' || $gender == 'male' || $gender == 'Male' ){
+					$gender = 1;
+				}else if ($gender == 'f' || $gender == 'F' || $gender == 'female' || $gender == 'Female') {
+					$gender = 2;
+				}
+				$birthdate = (date('Y-m-d', strtotime($date_of_birth))) ?? '';
+				
+				$if_exists_student = $db->query("SELECT stud_num FROM student WHERE stud_num = '$serial_num' ");
+				if(count($if_exists_student->getResultArray()) > 0){
+					$db->query("UPDATE student SET serial_num = '$serial_num'");
+				}else{
+					$db->query( "INSERT INTO student (serial_num,stud_num, firstname, lastname,middlename,course_id, schyear_id,birthdate,age,gender,address,contact_no,status,created_at)
+					VALUES ('$serial_num','$serial_num','$firstname','$lastname','$middlename','$course_id', '$sy_id','$birthdate','$age',$gender,$address,'$contact_no','a','$created')
+					ON DUPLICATE KEY UPDATE serial_num = '$serial_num'   ");
+
+				}
+			
+				$student = $studentModel->getStudentByStudnum($serial_num);
+				$student_id = ($student['id'] !== '') ? $student['id']:'0';
+				
+				$if_exists_enrolled = $db->query("SELECT stud_num FROM enrollment WHERE stud_num = '$serial_num'");
+
+				if(count($if_exists_enrolled->getResultArray()) > 0){
+					$db->query("UPDATE enrollment SET status = 'g' ");
+				}else{
+					$db->query( "INSERT IGNORE INTO enrollment (schyear_id,student_id,stud_num,status,created_at)
+					VALUES ('$sy_id','$student_id','$serial_num','g','$created')
+					ON DUPLICATE KEY UPDATE stud_num = '$serial_num', status = 'g' ");
+				}
+
+			} catch (\Exception $error) {
+				$returnArr["with_error"] = 1;
+				$returnArr["line_number"] = $lineCount+1;
+				$returnArr["message"] = $error->errorInfo[2];
+				print_r($error);
+
+				break 1;
 			}
+
+			
 
 			$lineCount++;
 		}

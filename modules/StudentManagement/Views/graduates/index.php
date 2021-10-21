@@ -59,7 +59,7 @@
 			<thead class="thead-dark">
 				<tr class="text-center">
 					<th>Serial No.</th>
-					<th>Student No.</th>
+					<!-- <th>Student No.</th> -->
 					<th>Full Name</th>
 					<th>Course</th>
 					<th>Date of Birth</th>
@@ -75,7 +75,7 @@
 				<?php foreach($graduates as $graduate): ?>
 					<tr id="<?php echo $graduate['id']; ?>">
 						<th scope="row"><?= ucwords($graduate['serial_num']) ?> </th>
-						<td><?= ucwords($graduate['stud_num']) ?></td>
+						<!-- <td><?= ucwords($graduate['stud_num']) ?></td> -->
 						<td><?= ucwords($graduate['lastname']) . ', ' . ucwords($graduate['firstname']) ?></td>
 						<td><?= ucwords($graduate['course']) ?></td>
 						<td><?= ucwords($graduate['birthdate']) ?></td>
@@ -93,7 +93,14 @@
 
 <div class="list_tables">
 	<div class="row">
+
 		<div class="col-md-12">
+				<!-- Progress Bar -->
+				<div id="progress-bar" class="progress active">
+					<div id="current-progress" class="progress-bar progress-bar-success progress-bar-striped" style="width: 0%;">
+						<div id="percentage">0%</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
@@ -101,6 +108,7 @@
 							<input class="file-to-upload form-control" type="file" name="file" id="file" size="150">
 							<p class="help-block">Only Excel/CSV File Import.</p>
 						</div>
+						
 					</div>
 				
 				</div>
@@ -119,7 +127,7 @@
 			<thead class="thead-dark">
 				<tr class="text-center">
 					<th>Serial No.</th>
-					<th>Student No.</th>
+					<!-- <th>Student No.</th> -->
 					<th>Full Name</th>
 					<th>Course</th>
 					<th>Date of Birth</th>
@@ -130,7 +138,6 @@
 				</tr>
 			</thead>
 			<tbody>
-		
 			</tbody>
 		</table>
 	</div>
@@ -142,16 +149,19 @@
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/vfs_fonts.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\plugins\datatables-buttons\js/jszip.min.js"></script>
 <script type="text/javascript" src="<?= base_url();?>\public\js\papaparse.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.min.js"></script>
+
 <script>
-
-
 
 var uploadLimit = 999;
 var uploadDataArr = [];
+var graduates = [];
+var progressPercent = 0;
 
 	$(document).ready( function () {
 		$('.upload-accounts').click(function(){
 			var files = $(".file-to-upload")[0].files;
+			
 			
 			// check if has selected file
 			if(files.length == 0){
@@ -164,68 +174,132 @@ var uploadDataArr = [];
 
 			var csvFile = $(".file-to-upload")[0].files[0];
 			var reader = new FileReader();
-			
-			reader.readAsText(csvFile);
+
 			$(reader).on('load', processFile);
 
+			reader.onerror = function(event) {
+				console.error("File could not be read! Code " + event.target.error.code);
+			};
+
+			reader.readAsBinaryString(csvFile);
 			return false;
+
 			
 		});
-
+	
 		function processFile(e) {
 			var file = e.target.result, results;
+			// console.log( e.target)
 			
 			if (file && file.length) {
-				results = file.trim().split("\r\n");
-				//results = file.trim().split(/\r|\n|\r\n/);
-				
-				var dataArr = [];
-				for(var i=0; i<results.length; i++){
-					
-					dataArr.push(results[i]);
-					if(i == uploadLimit || i == (results.length-1)){
+				var XL_row_object;
+				var data = event.target.result;
+				var workbook = XLSX.read(data, {
+					type: 'binary'
+				});
+				var json_array = {};
+
+				workbook.SheetNames.forEach(function(sheetName) {
+
+					XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName], {
+					header: 1,
+					blankrows: false,
+					raw: false
+					});
+
+				});
+				var jsonData = {};
+				var dropdown = {};
+				var attrTypes = XL_row_object;
+
+				for (var i = 2; i < XL_row_object.length; i++) {
+					var obj = XL_row_object[i];
+					title = ""+XL_row_object[0]+"".split('\n');
+					academic_year = title.split('\n');
+
+					if(obj[1]){
+						full_name = obj[1].split(',');
+
+						first_name_temp = ""+full_name[1]+"";
+						var lastIndex = first_name_temp.lastIndexOf(" ");
+						first_name = first_name_temp.substring(0, lastIndex).replace(/Ãƒâ€˜/g, 'Ñ');
 						
-						uploadDataArr.push(dataArr);
-						dataArr = [];
+						middle_name = first_name_temp.split(" ").pop().replace(/(\r\n|\n|\r)/gm, ' ').replace(/Ãƒâ€˜/g, 'Ñ');
 						
+						last_name = full_name[0];
 					}
-					
+					address = ""+obj[6]+"";
+					var d = obj[3].split('/');
+					var date = new Date(d[1]+"-"+d[0]+"-"+d[2]);
+					var newdate= date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+					uploadDataArr.push({
+						"serial_no": obj[0].replace(/(\r\n|\n|\r)/gm, '').split(" ").join(""),
+						"first_name": first_name,
+						"middle_name": middle_name,
+						"last_name": last_name.replace(/Ãƒâ€˜/g, 'Ñ'),
+						"course": obj[2].replace(/(\r\n|\n|\r)/gm, '').split(" ").join(""),
+						"date_of_birth": newdate,
+						"age": obj[4],
+						"gender": obj[5],
+						"address": address.replace(/Ãƒâ€˜/g, 'Ñ'),
+						"tel_no": obj[7],
+						"school_year": academic_year[1]
+					});
 				}
-				console.log(uploadDataArr)
-				senddata(0);
+				// console.log(uploadDataArr)
+				// $('#progress-bar').();
+				progressPercent = Math.ceil(uploadDataArr.length / 60)
+				senddata();
 				
 			}
+
+			
 		}
 	
 	
-	function senddata(index){
-        
-		if(index < uploadDataArr.length){
+		function senddata(count = 0, begin = 0, end = 30, flag = true){
+			var params = {
+				file: uploadDataArr.slice(begin, end)
+			};
+
 			$.ajax({
 				type: "POST",
 				url: "<?= base_url('graduates/insert-graduates')?>",
-				data: {file: uploadDataArr[index]},
-				async: true,
-				success: function(data){
-                    console.log(data);
-                    var jsonData = $.parseJSON(data);
-                    if(jsonData['with_error'] == 1){
-                        alert(jsonData['message'] + " line number: " + jsonData['line_number']);
-                    }
-                    else {
-    					senddata(index+1);
-                    }
+				data: params,
+				// dataType: 'text',
+				success: function(result){
+					console.log(result);
 				},
-				complete: function(){
-					// alert('success');
+				error: function(jqXHR, textStatus, errorThrown){
+					console.log(textStatus, errorThrown);
+				}
+			}).done(function(){
+				count++;
+				$('#current-progress').css('width', (progressPercent * count) + '%');
+				$('#percentage').html((progressPercent * count) + '%');
+
+			
+				if(flag){
+					begin = end;
+					end += 30;
+					if(end > uploadDataArr.length){
+						flag = false;
+					}
+
+					senddata(count, begin, end, flag);
+				}else{
+					// $('#progress-bar').hide();
+					$('#current-progress').css('width', '0%');
+					$('#percentage').html('0%');
+					alert('Your file successfully uploaded.');
+
+					location.href = "<?= base_url('graduates')?>";
+
 				}
 			});
-        }
-        else {
-            location.href = "<?= base_url('graduates')?>";
-        }
 		
-    }
+			
+		}
 
 
 		var conceptName = $('#schyear_id').find(":selected").text();
