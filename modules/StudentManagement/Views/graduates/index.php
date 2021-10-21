@@ -241,7 +241,7 @@ var progressPercent = 0;
 						"date_of_birth": newdate,
 						"age": obj[4],
 						"gender": obj[5],
-						"address": address.replace(/Ãƒâ€˜/g, 'Ñ'),
+						"address": (address.replace(/Ãƒâ€˜/g, 'Ñ') !== 'undefined') ? address.replace(/Ãƒâ€˜/g, 'Ñ'): '' ,
 						"tel_no": obj[7],
 						"school_year": academic_year[1]
 					});
