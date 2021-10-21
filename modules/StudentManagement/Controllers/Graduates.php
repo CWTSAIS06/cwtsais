@@ -152,7 +152,7 @@ class Graduates extends BaseController
 			$date_of_birth = $file['date_of_birth'];
 			$age = trim($file['age']);
 			$gender = trim($file['gender']);
-			$address = '"'.trim($file['address']).'"';
+			$address = ('"'.trim($file['address']).'"') ?? '';
 			$contact_no = trim($file['tel_no']);
 			$school_year = trim($file['school_year']);
 		
