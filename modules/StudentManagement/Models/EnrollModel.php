@@ -26,7 +26,7 @@ class EnrollModel extends \CodeIgniter\Model
      }
 
      public function getStudentsByCourseYS($course_id, $year, $section, $gender){
-      $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs');
+      $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs, enrollment.start_time, enrollment.end_time, enrollment.status,enrollment.day');
       $this->join('student', 'student.id = enrollment.student_id');
       $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
       $this->join('course', 'student.course_id = course.id');
@@ -236,7 +236,7 @@ class EnrollModel extends \CodeIgniter\Model
     }
 
     public function getEnrolledByProfessorByCourseYS($id,$course_id, $year,$section,$gender){
-      $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject, enrollment.required_hrs,enrollment.accumulated_hrs');
+      $this->select('enrollment.id, student.firstname, student.lastname, student.middlename, student.stud_num, course.course, subjects.subject,  enrollment.start_time, enrollment.end_time, enrollment.status,enrollment.day,enrollment.required_hrs,enrollment.accumulated_hrs');
       $this->join('student', 'student.id = enrollment.student_id');
       $this->join('subjects  ', 'subjects.id = enrollment.subject_id');
       $this->join('course', 'student.course_id = course.id');

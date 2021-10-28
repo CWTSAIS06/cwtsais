@@ -56,8 +56,11 @@
 					<th>Full Name</th>
 					<th>Course</th>
 					<th>Subject</th>
+					<th>Schedule</th>
+					<th>Day of Duty</th>
 					<th>Required Hours</th>
 					<th>Accumulated Hours</th>
+					<th>Remarks</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -69,8 +72,20 @@
 						<td><?= ucwords($student['lastname']) . ', ' . ucwords($student['firstname']) ?></td>
 						<td><?= ucwords($student['course']) ?></td>
 						<td><?= ucwords($student['subject']) ?></td>
+						<td><?= date('h:i:s',strtotime($student['start_time'])) ?> - <?= date('h:i:s',strtotime($student['end_time'])) ?></td>
+						<td><?= ucwords($student['day'])?> </td>
 						<td><?= ucwords($student['required_hrs'])?> </td>
 						<td><?= ucwords($student['accumulated_hrs'])?> </td>
+						<td><?php if($student['status'] == 'i'){
+										echo 'Incomplete';
+								   }else if ($student['status'] == 'c'){
+										echo 'Completed';
+								   }else if ($student['status'] == 'g'){
+										echo 'Graduated';
+								   }
+							?>
+						
+						 </td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
